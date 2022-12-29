@@ -1,23 +1,27 @@
 package com.example.houseopscaretakers.core.presentation.utils
 
+import android.content.pm.LauncherActivityInfo
 import android.net.Uri
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 
 @Composable
-fun getSingleImageFromGallery(): Uri? {
-
-    var imageUri: Uri? = null
+fun getSingleImageFromGallery(
+    onResult: (uri: Uri) -> Unit
+): ManagedActivityResultLauncher<String, Uri?> {
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
-            imageUri = uri
+            uri?.let {
+                onResult(it)
+            }
         }
     )
 
-    return imageUri
+    return launcher
 }
 
 @Composable

@@ -70,6 +70,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    //  coil
+    implementation "io.coil-kt:coil-compose:2.2.2"
+
     //  Lottie animation
     implementation ("com.airbnb.android:lottie-compose:1.0.0-beta07-1")
     implementation("com.airbnb.android:lottie:5.2.0")

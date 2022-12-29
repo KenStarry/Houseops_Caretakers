@@ -27,7 +27,10 @@ fun BackPressTopBar(
                     )
                 }
             }
-        }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        )
     )
 }
 

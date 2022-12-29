@@ -20,7 +20,20 @@ fun getSingleImageFromGallery(): Uri? {
     return imageUri
 }
 
+@Composable
+fun getMultipleImagesFromGallery(): List<Uri>? {
 
+    var imageUriList: List<Uri>? = null
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetMultipleContents(),
+        onResult = { uris: List<Uri> ->
+            imageUriList = uris
+        }
+    )
+
+    return imageUriList
+}
 
 
 

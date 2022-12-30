@@ -1,6 +1,5 @@
-package com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components
+package com.example.houseopscaretakers.core.presentation.components
 
-import android.text.InputType
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -19,7 +17,7 @@ import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpTextField(
+fun FormTextField(
     modifier: Modifier = Modifier,
     placeholder: String? = "",
     leadingIcon: ImageVector? = null,

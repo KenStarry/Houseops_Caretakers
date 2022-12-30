@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ import com.example.houseopscaretakers.core.presentation.components.LottieLoader
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.TextFieldContent
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.CoilImage
+import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpSVG
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpTextField
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
@@ -58,6 +60,7 @@ fun SignUpScreen(
 
     var usernameInput by remember { mutableStateOf("") }
     var emailInput by remember { mutableStateOf("") }
+    var apartmentInput by remember { mutableStateOf("") }
     var idInput by remember { mutableStateOf("") }
     var newPassInput by remember { mutableStateOf("") }
     var confirmPassInput by remember { mutableStateOf("") }
@@ -66,7 +69,7 @@ fun SignUpScreen(
         topBar = {
             BackPressTopBar(
                 startIcon = Icons.Sharp.ArrowBack,
-                title = "Sign Up",
+                title = "",
                 onBackPressed = {
                     //  navigate back to login page
                 }
@@ -89,13 +92,27 @@ fun SignUpScreen(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
+                SignUpSVG(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Create Account",
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontWeight = FontWeight.ExtraBold
+                )
+
                 Spacer(modifier = Modifier.height(8.dp))
 
                 //  Caretaker Image
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(80.dp)
+                        .size(100.dp)
                         .background(BlueAccentTransparent)
                         .align(Alignment.CenterHorizontally)
                         .clickable {
@@ -156,6 +173,19 @@ fun SignUpScreen(
                         .fillMaxWidth()
                 )
 
+                //  Apartment name
+                SignUpTextField(
+                    onValueChange = {
+                        apartmentInput = it
+                    },
+                    placeholder = textFieldsList[5].placeholder,
+                    leadingIcon = textFieldsList[5].icon,
+                    inputType = textFieldsList[5].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
+
                 //  ID number
                 SignUpTextField(
                     onValueChange = {
@@ -202,6 +232,7 @@ fun SignUpScreen(
                         val verificationResponse = viewModel.verifyCaretakerDetails(
                             userName = usernameInput,
                             id = idInput,
+                            apartment = apartmentInput,
                             email = emailInput,
                             newPassword = newPassInput,
                             confirmPassword = confirmPassInput
@@ -273,8 +304,9 @@ fun SignUpScreen(
                     },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 16.dp, vertical = 24.dp)
                 ) {
-                    Text(text = "Sign Up")
+                    Text(text = "Create Account")
                 }
 
             }

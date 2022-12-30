@@ -29,6 +29,7 @@ class SignUpViewModel @Inject constructor(
     fun verifyCaretakerDetails(
         userName: String,
         email: String,
+        apartment: String,
         id: String,
         newPassword: String,
         confirmPassword: String
@@ -41,6 +42,9 @@ class SignUpViewModel @Inject constructor(
 
             } else if (email.isBlank() && !email.contains("@", ignoreCase = true)) {
                 Constants.EMAIL_ERROR
+
+            } else if (apartment.isBlank()) {
+                Constants.APARTMENT_ERROR
 
             } else if (id.length < 8) {
                 Constants.ID_ERROR

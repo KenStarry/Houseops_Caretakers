@@ -6,12 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.SignUpScreen
-import com.example.houseopscaretakers.feature_splash_screen.SplashScreen
 import com.example.houseopscaretakers.ui.theme.HouseopsCaretakersTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //  initialize our Splash screen
+        installSplashScreen().apply {
+            //  check if the user is already logged in
+
+        }
+
         setContent {
             HouseopsCaretakersTheme {
                 // A surface container using the 'background' color from the theme

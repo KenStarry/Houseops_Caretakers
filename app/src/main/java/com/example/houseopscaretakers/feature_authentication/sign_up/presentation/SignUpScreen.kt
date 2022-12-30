@@ -2,8 +2,12 @@ package com.example.houseopscaretakers.feature_authentication.sign_up.presentati
 
 import android.net.Uri
 import android.view.RoundedCorner
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,8 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.houseopscaretakers.R
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
+import com.example.houseopscaretakers.core.presentation.components.LottieLoader
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.TextFieldContent
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.CoilImage
@@ -39,6 +45,8 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
 
+    var context = LocalContext.current
+
     var caretakerImageUri by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -46,6 +54,12 @@ fun SignUpScreen(
     val launcher = getSingleImageFromGallery(onResult = {
         caretakerImageUri = it
     })
+
+    var usernameInput by remember { mutableStateOf("") }
+    var emailInput by remember { mutableStateOf("") }
+    var idInput by remember { mutableStateOf("") }
+    var newPassInput by remember { mutableStateOf("") }
+    var confirmPassInput by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -73,6 +87,8 @@ fun SignUpScreen(
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 //  Caretaker Image
                 Box(
@@ -111,22 +127,112 @@ fun SignUpScreen(
 
                 }
 
-                //  textfields
-                textFieldsList.forEach { item ->
-                    SignUpTextField(
-                        onValueChange = {},
-                        placeholder = item.placeholder,
-                        leadingIcon = item.icon,
-                        inputType = item.inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-                }
+                Spacer(modifier = Modifier.height(8.dp))
+
+                //  User name
+                SignUpTextField(
+                    onValueChange = {
+                        usernameInput = it
+                    },
+                    placeholder = textFieldsList[0].placeholder,
+                    leadingIcon = textFieldsList[0].icon,
+                    inputType = textFieldsList[0].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
+
+                //  Email Address
+                SignUpTextField(
+                    onValueChange = {
+                        emailInput = it
+                    },
+                    placeholder = textFieldsList[1].placeholder,
+                    leadingIcon = textFieldsList[1].icon,
+                    inputType = textFieldsList[1].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
+
+                //  ID number
+                SignUpTextField(
+                    onValueChange = {
+                        idInput = it
+                    },
+                    placeholder = textFieldsList[2].placeholder,
+                    leadingIcon = textFieldsList[2].icon,
+                    inputType = textFieldsList[2].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
+
+                //  New Password
+                SignUpTextField(
+                    onValueChange = {
+                        newPassInput = it
+                    },
+                    placeholder = textFieldsList[3].placeholder,
+                    leadingIcon = textFieldsList[3].icon,
+                    inputType = textFieldsList[3].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
+
+                //  confirm Pass
+                SignUpTextField(
+                    onValueChange = {
+                        confirmPassInput = it
+                    },
+                    placeholder = textFieldsList[4].placeholder,
+                    leadingIcon = textFieldsList[4].icon,
+                    inputType = textFieldsList[4].inputType,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .fillMaxWidth()
+                )
 
                 //  Signup Button
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+
+                        val verificationResponse = viewModel.verifyCaretakerDetails(
+                            userName = usernameInput,
+                            id = idInput,
+                            email = emailInput,
+                            newPassword = newPassInput,
+                            confirmPassword = confirmPassInput
+                        )
+                        //  verify user details and create user
+                        if (verificationResponse == Constants.AUTH_SUCCESSFUL) {
+
+                            //  create user account
+                            viewModel.createCaretakerWithEmailAndPassword(
+                                email = emailInput,
+                                password = newPassInput,
+                                onSuccess = {
+                                    Toast.makeText(
+                                        context,
+                                        "User created successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                },
+                                onFailure = {
+                                    Toast.makeText(
+                                        context,
+                                        "Something went wrong",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            )
+
+                        } else {
+                            Toast.makeText(context, verificationResponse, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 ) {

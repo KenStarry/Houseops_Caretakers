@@ -12,4 +12,7 @@ interface SignupRepository {
 
     //  create user collection
     suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse
+
+    //  add caretaker image to firebase storage
+    suspend fun
 }

@@ -24,4 +24,10 @@ object Constants {
         TextFieldContent("New Password", Icons.Sharp.Key, KeyboardType.Password),
         TextFieldContent("Confirm Password", Icons.Sharp.Key, KeyboardType.Password),
     )
+
+    const val USERNAME_ERROR = "Check Username"
+    const val EMAIL_ERROR = "Check Email Address"
+    const val ID_ERROR = "Check User ID"
+    const val PASSWORD_ERROR = "Passwords don't match"
+    const val AUTH_SUCCESSFUL = "Account Created Successfully"
 }

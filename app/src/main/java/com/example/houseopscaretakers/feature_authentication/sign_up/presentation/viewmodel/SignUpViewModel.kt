@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel
 
+import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -93,6 +94,26 @@ class SignUpViewModel @Inject constructor(
                 is Response.Success -> onSuccess()
                 is Response.Failure -> onFailure()
                 is Response.Loading -> {}
+            }
+        }
+    }
+
+    //  upload caretaker image to firestore
+    fun uploadImageToStorage(
+        caretaker: Caretaker,
+        context: Context,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        viewModelScope.launch {
+
+            val response = signUpUseCases.uploadCaretakerImage(
+                caretaker, context
+            )
+
+            when (response) {
+                is Response.Success -> onSuccess()
+                else -> onFailure()
             }
         }
     }

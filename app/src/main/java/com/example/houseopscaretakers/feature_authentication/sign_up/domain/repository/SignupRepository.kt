@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.Response
 
@@ -14,5 +16,8 @@ interface SignupRepository {
     suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse
 
     //  add caretaker image to firebase storage
-    suspend fun
+    suspend fun uploadCaretakerImageToCloudStorage(
+        caretaker: Caretaker,
+        context: Context
+    ): CreateUserResponse
 }

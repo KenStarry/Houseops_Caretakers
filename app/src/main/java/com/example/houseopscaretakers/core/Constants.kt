@@ -16,6 +16,9 @@ object Constants {
     //  Firestore
     const val CARETAKER_COLLECTION = "caretakers"
 
+    //  Firebase storage
+    const val CARETAKER_IMAGES = "caretaker_images"
+
     //  Sign Up
     val textFieldsList = listOf(
         TextFieldContent("Username", Icons.Sharp.Person, KeyboardType.Text),

@@ -2,5 +2,6 @@ package com.example.houseopscaretakers.feature_authentication.sign_up.domain.use
 
 data class SignUpUseCases(
     val createCaretakerInFirebase: CreateCaretakerInFirebase,
-    val createCaretakerCollection: CreateCaretakerCollection
+    val createCaretakerCollection: CreateCaretakerCollection,
+    val uploadCaretakerImage: UploadCaretakerImage
 )

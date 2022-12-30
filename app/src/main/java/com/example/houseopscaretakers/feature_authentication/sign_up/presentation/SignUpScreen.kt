@@ -30,6 +30,7 @@ import coil.compose.AsyncImage
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.Constants.textFieldsList
+import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.LottieLoader
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
@@ -205,6 +206,15 @@ fun SignUpScreen(
                             newPassword = newPassInput,
                             confirmPassword = confirmPassInput
                         )
+                        val caretaker = Caretaker(
+                            caretakerEmail = emailInput,
+                            caretakerName = usernameInput,
+                            caretakerImage = caretakerImageUri,
+                            caretakerApartment = "Blessed",
+                            caretakerId = idInput,
+                            caretakerPassword = newPassInput
+                        )
+
                         //  verify user details and create user
                         if (verificationResponse == Constants.AUTH_SUCCESSFUL) {
 
@@ -213,11 +223,39 @@ fun SignUpScreen(
                                 email = emailInput,
                                 password = newPassInput,
                                 onSuccess = {
-                                    Toast.makeText(
-                                        context,
-                                        "User created successfully",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+
+                                    //  create caretaker collection
+                                    viewModel.createCaretakerCollection(
+                                        caretaker = caretaker,
+                                        onSuccess = {
+                                            //  store the url in firestore
+                                            viewModel.uploadImageToStorage(
+                                                caretaker = caretaker,
+                                                context = context,
+                                                onSuccess = {
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Image stored properly",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                },
+                                                onFailure = {
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Image Couldn't be stored to firebase",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
+                                            )
+                                        },
+                                        onFailure = {
+                                            Toast.makeText(
+                                                context,
+                                                "Couldn't create collection",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    )
                                 },
                                 onFailure = {
                                     Toast.makeText(

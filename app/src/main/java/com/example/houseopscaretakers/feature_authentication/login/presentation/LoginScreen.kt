@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
@@ -18,7 +19,8 @@ import com.example.houseopscaretakers.feature_authentication.login.presentation.
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
+    navHostController: NavHostController
 ) {
 
     var emailInput by remember { mutableStateOf("") }

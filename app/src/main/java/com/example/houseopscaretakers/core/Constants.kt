@@ -7,6 +7,11 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.domain.mode
 
 object Constants {
 
+    //  Routes
+    const val AUTHENTICATION_ROUTE = "authentication"
+    const val HOME_ROUTE = "home"
+    const val ROOT_ROUTE = "root"
+
     //  Splash Title
     const val SPLASH_TITLE = "For Caretakers"
 

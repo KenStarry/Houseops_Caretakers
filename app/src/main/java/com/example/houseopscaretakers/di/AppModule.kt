@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.di
 
+import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
+import com.example.houseopscaretakers.core.domain.repository.CoreRepository
 import com.example.houseopscaretakers.feature_authentication.login.data.repository.LoginRepositoryImpl
 import com.example.houseopscaretakers.feature_authentication.login.domain.repository.LoginRepository
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.LoginUseCases
@@ -41,6 +43,14 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseStorage() = Firebase.storage
+
+    //  -----------------CORE REPOSITORY-------------------
+    @Provides
+    @Singleton
+    fun provideCoreRepository(
+        db: FirebaseFirestore,
+        auth: FirebaseAuth
+    ) : CoreRepository = CorerepositoryImpl(db, auth)
 
     //  -----------------LOGIN REPOSITORY-------------------
     //  Login repository

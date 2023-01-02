@@ -9,6 +9,6 @@ sealed class Response<out T> {
     data class Success<out T>(val data: T) : Response<T>()
 
     //  failure status
-    data class Failure(val e: Exception) : Response<Nothing>()
+    data class Failure(val e: Exception?) : Response<Nothing>()
 
 }

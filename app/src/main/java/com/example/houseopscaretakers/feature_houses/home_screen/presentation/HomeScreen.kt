@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -39,11 +40,17 @@ fun HomeScreen(
         mutableStateOf<Caretaker?>(null)
     }
 
+    Log.d("HOME", viewModel.currentUser()?.email ?: "No email bana!!!!!!!!!!!!!!!1")
+
     //  get details of caretaker if logged in
-    LaunchedEffect(key1 = viewModel.isUserLoggedIn()) {
+    LaunchedEffect(key1 = true) {
 
         //  get caretaker model
-        caretaker = viewModel.getCaretakerDetails()
+        caretaker = viewModel.getCaretakerDetails(
+            email = viewModel.currentUser()?.email ?: "starrycodes@gmail.com"
+        )
+
+        Toast.makeText(context, caretaker?.caretakerName ?: "No caretaker found", Toast.LENGTH_SHORT).show()
     }
 
     Scaffold(
@@ -81,7 +88,7 @@ fun HomeScreen(
 
                 //  Apartment Name
                 HomeApartmentTitle(
-                    apartmentName = caretaker?.caretakerName ?: "Apartments",
+                    apartmentName = caretaker?.caretakerApartment ?: "Apartments",
                     onFilter = {},
                     modifier = Modifier
                         .fillMaxWidth()

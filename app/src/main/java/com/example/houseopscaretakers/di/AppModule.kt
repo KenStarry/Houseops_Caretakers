@@ -3,6 +3,7 @@ package com.example.houseopscaretakers.di
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
 import com.example.houseopscaretakers.core.domain.repository.CoreRepository
 import com.example.houseopscaretakers.core.domain.use_cases.CoreUseCases
+import com.example.houseopscaretakers.core.domain.use_cases.CurrentUser
 import com.example.houseopscaretakers.core.domain.use_cases.GetCaretaker
 import com.example.houseopscaretakers.core.domain.use_cases.IsCaretakerLoggedIn
 import com.example.houseopscaretakers.feature_authentication.login.data.repository.LoginRepositoryImpl
@@ -60,6 +61,7 @@ object AppModule {
     fun provideCoreUseCases(
         repository: CoreRepository
     ) = CoreUseCases(
+        currentUser = CurrentUser(repository),
         getCaretaker = GetCaretaker(repository),
         isCaretakerLoggedIn = IsCaretakerLoggedIn(repository)
     )

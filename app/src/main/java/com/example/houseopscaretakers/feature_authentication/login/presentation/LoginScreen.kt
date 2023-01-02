@@ -88,7 +88,8 @@ fun LoginScreen(
                         emailInput,
                         passwordInput,
                         onSuccess = {
-                            Toast.makeText(context, "Welcome Back User!", Toast.LENGTH_SHORT).show()
+                            //  navigate and pop
+                            direction.navigateAndPopRoute(Constants.HOME_ROUTE, Constants.AUTHENTICATION_ROUTE)
                         },
                         onFailure = {
                             Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)

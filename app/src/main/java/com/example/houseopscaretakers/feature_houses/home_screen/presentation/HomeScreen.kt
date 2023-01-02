@@ -25,6 +25,7 @@ import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,24 +35,13 @@ fun HomeScreen(
 ) {
 
     val viewModel: CoreViewModel = hiltViewModel()
+    val homeViewModel = HomeViewModel()
+
     val context = LocalContext.current
 
-    var caretaker by remember {
-        mutableStateOf<Caretaker?>(null)
-    }
-
-    Log.d("HOME", viewModel.currentUser()?.email ?: "No email bana!!!!!!!!!!!!!!!1")
-
-    //  get details of caretaker if logged in
-    LaunchedEffect(key1 = true) {
-
-        //  get caretaker model
-        caretaker = viewModel.getCaretakerDetails(
-            email = viewModel.currentUser()?.email ?: "starrycodes@gmail.com"
-        )
-
-        Toast.makeText(context, caretaker?.caretakerName ?: "No caretaker found", Toast.LENGTH_SHORT).show()
-    }
+    val caretaker  = viewModel.getCaretakerDetails(
+        email = viewModel.currentUser()?.email ?: "starrycodes@gmail.com"
+    )
 
     Scaffold(
         topBar = {
@@ -88,7 +78,12 @@ fun HomeScreen(
 
                 //  Apartment Name
                 HomeApartmentTitle(
-                    apartmentName = caretaker?.caretakerApartment ?: "Apartments",
+                    apartmentName = caretaker?.caretakerApartment?.let {
+                        homeViewModel.addApartmentSuffix(
+                            it
+                        )
+                    }
+                        ?: "Apartments",
                     onFilter = {},
                     modifier = Modifier
                         .fillMaxWidth()

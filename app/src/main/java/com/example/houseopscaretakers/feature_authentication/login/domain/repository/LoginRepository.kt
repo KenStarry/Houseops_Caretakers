@@ -6,5 +6,9 @@ import com.example.houseopscaretakers.core.domain.model.StateResponse
 interface LoginRepository {
 
     //  login user with email and password
-    suspend fun loginUser(email: String, password: String): StateResponse?
+    suspend fun loginUser(
+        email: String,
+        password: String,
+        onSuccess: (res: StateResponse?) -> Unit
+    )
 }

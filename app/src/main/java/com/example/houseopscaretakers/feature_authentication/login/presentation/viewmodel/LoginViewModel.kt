@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_authentication.login.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -50,19 +51,32 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            //  login user and check the state
-            when (useCase.loginUser(email, password)) {
-                is StateResponse.Loading -> {
-                    onLoading()
-                }
-                is StateResponse.Success -> {
+            useCase.loginUser(
+                email,
+                password,
+                onSuccess = {
+                    Log.d("LOGIN_MODEL", it.toString())
                     onSuccess()
+//                    when (it) {
+//                        is StateResponse.Loading -> {
+//                            onLoading()
+//                        }
+//                        is StateResponse.Success -> {
+//                            onSuccess()
+//                        }
+//                        is StateResponse.Failure -> {
+//                            onFailure()
+//                        }
+//                        else -> {
+//                            onFailure()
+//                        }
+//                    }
                 }
-                is StateResponse.Failure -> {
-                    onFailure()
-                }
-                else -> {}
-            }
+            )
+
+            //  login user and check the state
+
+            Log.d("LOGIN", useCase.loginUser(email, password, onSuccess = {}).toString())
         }
 
     }

@@ -22,6 +22,8 @@ fun HomeApartmentTitle(
     onFilter: () -> Unit
 ) {
 
+    //  validate apartment name if it has the name apartment after it
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp),

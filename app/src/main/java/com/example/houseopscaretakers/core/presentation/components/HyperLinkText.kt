@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.core.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -10,18 +11,23 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.navigation.Screen
 
 @Composable
 fun HyperLinkText(
     modifier: Modifier = Modifier,
+    navHostController: NavController,
     fullText: String,
+    fullTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
     linkText: List<String>,
     linkTextColor: Color = MaterialTheme.colorScheme.primary,
     linkTextFontWeight: FontWeight = FontWeight.Medium,
     linkTextDecoration: TextDecoration = TextDecoration.None,
     hyperlinks: List<String>,
-    fontSize: TextUnit = MaterialTheme.typography.bodySmall.fontSize
+    fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize
 ) {
 
     val annotatedString = buildAnnotatedString {
@@ -71,8 +77,16 @@ fun HyperLinkText(
         onClick = {
             annotatedString
                 .getStringAnnotations(Constants.ROUTE, it, it)
-                .firstOrNull()?.let { route ->
+                .firstOrNull()?.let { stringAnnotation ->
+
+                    Log.d(Constants.ROUTE, stringAnnotation.item)
+
                     //  navigate to page with that route
+                    when (stringAnnotation.item) {
+                        Constants.SIGN_UP_SCREEN_ROUTE -> {
+
+                        }
+                    }
 
                 }
         }

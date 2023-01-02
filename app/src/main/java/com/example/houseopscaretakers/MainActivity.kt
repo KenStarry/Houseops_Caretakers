@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.presentation.LoginScreen
@@ -21,6 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //  initialize our Splash screen
@@ -31,15 +35,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             HouseopsCaretakersTheme {
 
-                val navHostController = rememberNavController()
-                RootNavGraph(navHostController = navHostController)
+                navController = rememberNavController()
 
                 val coreViewModel: CoreViewModel = hiltViewModel()
 
                 if (coreViewModel.isUserLoggedIn())
-                    HomeScreen(navHostController)
+                    HomeScreen(navController)
                 else
-                    LoginScreen(navHostController = rememberNavController())
+                    LoginScreen(navHostController = navController)
             }
         }
     }

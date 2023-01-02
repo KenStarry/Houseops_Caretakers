@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_authentication.login.presentation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,23 +10,30 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
 import com.example.houseopscaretakers.feature_authentication.login.presentation.viewmodel.LoginViewModel
+import com.example.houseopscaretakers.navigation.Screen
+import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
+
+    RootNavGraph(navHostController = navHostController)
 
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
@@ -83,28 +91,33 @@ fun LoginScreen(
                             Toast.makeText(context, "Welcome Back User!", Toast.LENGTH_SHORT).show()
                         },
                         onFailure = {
-                            Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
+                                .show()
                         },
                         onLoading = {
                             Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                         }
                     )
+                } else {
+                    Toast.makeText(context, "Please fill in all details", Toast.LENGTH_SHORT).show()
                 }
             },
-            onLoginWithGoogle = {},
+            onLoginWithGoogle = {
+                         navHostController.navigate(route = Constants.HOME_ROUTE){}
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
         )
 
-        //  Create account text
-         Text(
-            text = "Forgot password?",
-            fontSize = MaterialTheme.typography.bodySmall.fontSize,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.primary,
+        //  Our hyperlink text
+        HyperLinkText(
+            navHostController = navHostController,
+            fullText = "Don't have an account? create one",
+            linkText = listOf("create one"),
+            hyperlinks = listOf(Constants.SIGN_UP_SCREEN_ROUTE),
             modifier = Modifier
-                .clickable {  }
+                .align(Alignment.CenterHorizontally)
         )
 
     }

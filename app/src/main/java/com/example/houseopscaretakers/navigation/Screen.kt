@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.navigation
 
+import com.example.houseopscaretakers.core.Constants
+
 sealed class Screen(
     val route: String
 ) {

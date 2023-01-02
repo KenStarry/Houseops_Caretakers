@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.rounded.Filter
 import androidx.compose.material.icons.rounded.Filter1
 import androidx.compose.material3.*
@@ -14,15 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable
 fun HomeApartmentTitle(
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel,
     apartmentName: String,
     onFilter: () -> Unit
 ) {
-
-    //  validate apartment name if it has the name apartment after it
 
     Row(
         modifier = modifier,
@@ -32,7 +33,7 @@ fun HomeApartmentTitle(
 
         //  apartment name
         Text(
-            text = apartmentName,
+            text = viewModel.addApartmentSuffix(apartmentName),
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.ExtraBold,
             softWrap = true,
@@ -52,7 +53,10 @@ fun HomeApartmentTitle(
                     containerColor = MaterialTheme.colorScheme.onSecondary
                 )
             ) {
-                Icon(imageVector = Icons.Rounded.Filter, contentDescription = "Filter icon")
+                Icon(
+                    imageVector = Icons.Outlined.FilterList,
+                    contentDescription = "Expand Icon"
+                )
             }
         }
 

@@ -35,7 +35,7 @@ fun HomeTopAppBar(
             //  Filter icon
             IconButton(onClick = { onClickFilter() }) {
                 Icon(
-                    imageVector = Icons.Outlined.FilterList,
+                    imageVector = Icons.Outlined.Notifications,
                     contentDescription = "Expand Icon"
                 )
             }

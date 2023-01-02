@@ -35,11 +35,10 @@ fun HomeScreen(
 ) {
 
     val viewModel: CoreViewModel = hiltViewModel()
-    val homeViewModel = HomeViewModel()
 
     val context = LocalContext.current
 
-    val caretaker  = viewModel.getCaretakerDetails(
+    val caretaker = viewModel.getCaretakerDetails(
         email = viewModel.currentUser()?.email ?: "starrycodes@gmail.com"
     )
 
@@ -78,12 +77,8 @@ fun HomeScreen(
 
                 //  Apartment Name
                 HomeApartmentTitle(
-                    apartmentName = caretaker?.caretakerApartment?.let {
-                        homeViewModel.addApartmentSuffix(
-                            it
-                        )
-                    }
-                        ?: "Apartments",
+                    viewModel = HomeViewModel(),
+                    apartmentName = caretaker?.caretakerApartment ?: "Apartments",
                     onFilter = {},
                     modifier = Modifier
                         .fillMaxWidth()

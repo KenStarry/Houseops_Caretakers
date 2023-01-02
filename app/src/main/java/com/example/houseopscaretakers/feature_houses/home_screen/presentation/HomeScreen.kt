@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
@@ -42,6 +43,7 @@ fun HomeScreen(
                 icon = Icons.Rounded.Add,
                 onClick = {
                     Toast.makeText(context, "FAB Clicked", Toast.LENGTH_SHORT).show()
+                    navHostController.navigate(Constants.AUTHENTICATION_ROUTE)
                 }
             )
         }

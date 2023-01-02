@@ -12,6 +12,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.presentation.LoginScreen
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.SignUpScreen
@@ -35,15 +36,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             HouseopsCaretakersTheme {
 
-                navController = rememberNavController()
-                RootNavGraph(navHostController = navController)
-
                 val coreViewModel: CoreViewModel = hiltViewModel()
+                navController = rememberNavController()
 
-                if (coreViewModel.isUserLoggedIn())
-                    HomeScreen(navController)
-                else
-                    LoginScreen(navHostController = navController)
+                if (coreViewModel.isUserLoggedIn()) {
+                    RootNavGraph(
+                        navHostController = navController,
+                        startDestinationRoute = Constants.HOME_ROUTE
+                    )
+                } else {
+                    RootNavGraph(
+                        navHostController = navController,
+                        startDestinationRoute = Constants.AUTHENTICATION_ROUTE
+                    )
+                }
+
+//                val coreViewModel: CoreViewModel = hiltViewModel()
+//
+//                if (coreViewModel.isUserLoggedIn())
+//                    HomeScreen(navController)
+//                else
+//                    LoginScreen(navHostController = navController)
             }
         }
     }

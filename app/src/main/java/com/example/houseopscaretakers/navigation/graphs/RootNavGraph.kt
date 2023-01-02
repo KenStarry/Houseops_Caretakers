@@ -15,12 +15,13 @@ import com.example.houseopscaretakers.navigation.Screen
 
 @Composable
 fun RootNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    startDestinationRoute: String
 ) {
 
     NavHost(
         navController = navHostController,
-        startDestination = Constants.HOME_ROUTE,
+        startDestination = startDestinationRoute,
         route = Constants.ROOT_ROUTE
     ) {
 

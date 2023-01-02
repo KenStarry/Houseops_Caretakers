@@ -65,20 +65,20 @@ class SignUpRepositoryImpl @Inject constructor(
     //  upload caretaker image to firebase storage
     override suspend fun uploadCaretakerImageToCloudStorage(
         caretaker: Caretaker,
+        imageUri: Uri?,
         context: Context
     ): CreateUserResponse {
 
         val storageRef = FirebaseStorage.getInstance().getReference(Constants.CARETAKER_IMAGES)
         var response = Response.Success(false)
 
-        caretaker.caretakerImage?.let {
-
+        imageUri?.let {
             val fileRef = storageRef.child(
-                "${System.currentTimeMillis()}.${getFileExtension(it, context)}"
+                "${System.currentTimeMillis()}.${getFileExtension(imageUri, context)}"
             )
 
             try {
-                fileRef.putFile(it)
+                fileRef.putFile(imageUri)
                     .addOnSuccessListener {
 
                         //  Grab the download url

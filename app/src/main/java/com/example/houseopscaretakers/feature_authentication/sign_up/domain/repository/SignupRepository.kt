@@ -18,6 +18,7 @@ interface SignupRepository {
     //  add caretaker image to firebase storage
     suspend fun uploadCaretakerImageToCloudStorage(
         caretaker: Caretaker,
+        imageUri: Uri?,
         context: Context
     ): CreateUserResponse
 }

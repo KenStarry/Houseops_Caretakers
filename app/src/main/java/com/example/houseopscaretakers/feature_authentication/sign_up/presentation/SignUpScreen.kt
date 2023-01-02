@@ -240,7 +240,7 @@ fun SignUpScreen(
                             val caretaker = Caretaker(
                                 caretakerEmail = emailInput,
                                 caretakerName = usernameInput,
-                                caretakerImage = caretakerImageUri,
+                                caretakerImage = caretakerImageUri.toString(),
                                 caretakerApartment = "Blessed",
                                 caretakerId = idInput,
                                 caretakerPassword = newPassInput
@@ -271,6 +271,7 @@ fun SignUpScreen(
                                         //  store the url in firestore
                                         viewModel.uploadImageToStorage(
                                             caretaker = caretaker,
+                                            imageUri = caretakerImageUri,
                                             context = context,
                                             onSuccess = {
                                                 Toast.makeText(

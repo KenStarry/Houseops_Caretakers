@@ -9,14 +9,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseopscaretakers.SetupNavGraph
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
@@ -28,7 +32,19 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
 
+    val viewModel: CoreViewModel = hiltViewModel()
     val context = LocalContext.current
+
+    var caretaker by remember {
+        mutableStateOf<Caretaker?>(null)
+    }
+
+    //  get details of caretaker if logged in
+    LaunchedEffect(key1 = viewModel.isUserLoggedIn()) {
+
+        //  get caretaker model
+        caretaker = viewModel.getCaretakerDetails()
+    }
 
     Scaffold(
         topBar = {
@@ -42,7 +58,6 @@ fun HomeScreen(
             HomeFab(
                 icon = Icons.Rounded.Add,
                 onClick = {
-                    Toast.makeText(context, "FAB Clicked", Toast.LENGTH_SHORT).show()
                     navHostController.navigate(Constants.AUTHENTICATION_ROUTE)
                 }
             )
@@ -66,7 +81,7 @@ fun HomeScreen(
 
                 //  Apartment Name
                 HomeApartmentTitle(
-                    apartmentName = "Blessed Apartments",
+                    apartmentName = caretaker?.caretakerName ?: "Apartments",
                     onFilter = {},
                     modifier = Modifier
                         .fillMaxWidth()

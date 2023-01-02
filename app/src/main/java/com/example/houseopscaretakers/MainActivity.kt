@@ -13,6 +13,8 @@ import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.presentation.LoginScreen
+import com.example.houseopscaretakers.feature_houses.MainScreen
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.HomeScreen
 import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 import com.example.houseopscaretakers.ui.theme.HouseopsCaretakersTheme
 import dagger.hilt.android.AndroidEntryPoint

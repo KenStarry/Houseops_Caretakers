@@ -1,19 +1,31 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
 
 @Composable
 fun HomeTopAppBar(
+    context: Context,
     title: String,
+    userImageUri: Uri?,
+    placeholderImage: Int,
     onClickMore: () -> Unit,
     onClickFilter: () -> Unit
 ) {
@@ -25,6 +37,17 @@ fun HomeTopAppBar(
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+        },
+        navigationIcon = {
+            Spacer(modifier = Modifier.width(10.dp))
+            CoilImage(
+                context = context,
+                imageUriString = userImageUri,
+                placeholder = placeholderImage,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(40.dp)
             )
         },
         backgroundColor = MaterialTheme.colorScheme.onPrimary,

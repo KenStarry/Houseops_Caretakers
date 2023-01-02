@@ -14,10 +14,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.SetupNavGraph
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.Caretaker
@@ -45,7 +47,10 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             HomeTopAppBar(
+                context = context,
                 title = "Home",
+                userImageUri = caretaker?.caretakerImage?.toUri(),
+                placeholderImage = R.drawable.houseops_light_final,
                 onClickMore = {},
                 onClickFilter = {}
             )

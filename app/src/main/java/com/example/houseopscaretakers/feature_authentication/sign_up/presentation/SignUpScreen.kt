@@ -27,7 +27,7 @@ import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
-import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpSVG
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
@@ -241,7 +241,7 @@ fun SignUpScreen(
                                 caretakerEmail = emailInput,
                                 caretakerName = usernameInput,
                                 caretakerImage = caretakerImageUri.toString(),
-                                caretakerApartment = "Blessed",
+                                caretakerApartment = apartmentInput,
                                 caretakerId = idInput,
                                 caretakerPassword = newPassInput
                             )

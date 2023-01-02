@@ -24,6 +24,7 @@ import com.example.houseopscaretakers.feature_authentication.login.presentation.
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
 import com.example.houseopscaretakers.feature_authentication.login.presentation.viewmodel.LoginViewModel
+import com.example.houseopscaretakers.navigation.Direction
 import com.example.houseopscaretakers.navigation.Screen
 import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 
@@ -36,6 +37,7 @@ fun LoginScreen(
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val direction = Direction(navHostController)
 
     Column(
         modifier = Modifier
@@ -101,7 +103,7 @@ fun LoginScreen(
                 }
             },
             onLoginWithGoogle = {
-                         navHostController.navigate(route = Screen.Home.route)
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,7 +112,7 @@ fun LoginScreen(
 
         //  Our hyperlink text
         HyperLinkText(
-            navHostController = navHostController,
+            direction = direction,
             fullText = "Don't have an account? create one",
             linkText = listOf("create one"),
             hyperlinks = listOf(Constants.SIGN_UP_SCREEN_ROUTE),

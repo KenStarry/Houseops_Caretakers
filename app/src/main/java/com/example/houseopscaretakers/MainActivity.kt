@@ -50,13 +50,6 @@ class MainActivity : ComponentActivity() {
                         startDestinationRoute = Constants.AUTHENTICATION_ROUTE
                     )
                 }
-
-//                val coreViewModel: CoreViewModel = hiltViewModel()
-//
-//                if (coreViewModel.isUserLoggedIn())
-//                    HomeScreen(navController)
-//                else
-//                    LoginScreen(navHostController = navController)
             }
         }
     }

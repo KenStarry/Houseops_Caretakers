@@ -14,12 +14,13 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.navigation.Direction
 import com.example.houseopscaretakers.navigation.Screen
 
 @Composable
 fun HyperLinkText(
     modifier: Modifier = Modifier,
-    navHostController: NavController,
+    direction: Direction,
     fullText: String,
     fullTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
     linkText: List<String>,
@@ -79,15 +80,8 @@ fun HyperLinkText(
                 .getStringAnnotations(Constants.ROUTE, it, it)
                 .firstOrNull()?.let { stringAnnotation ->
 
-                    Log.d(Constants.ROUTE, stringAnnotation.item)
-
-                    //  navigate to page with that route
-                    when (stringAnnotation.item) {
-                        Constants.SIGN_UP_SCREEN_ROUTE -> {
-
-                        }
-                    }
-
+                    //  navigate to the current route
+                    direction.navigateToRoute(stringAnnotation.item)
                 }
         }
     )

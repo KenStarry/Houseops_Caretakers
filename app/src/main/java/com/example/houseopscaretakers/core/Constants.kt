@@ -11,6 +11,7 @@ object Constants {
     const val AUTHENTICATION_ROUTE = "authentication"
     const val HOME_ROUTE = "home"
     const val ROOT_ROUTE = "root"
+    const val ROUTE = "route"
 
     //  ------------------  LOGIN SCREEN    ----------------
     const val LOGIN_TITLE = "Login"

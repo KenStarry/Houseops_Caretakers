@@ -12,6 +12,9 @@ object Constants {
     const val HOME_ROUTE = "home"
     const val ROOT_ROUTE = "root"
 
+    //  ------------------  LOGIN SCREEN    ----------------
+    const val LOGIN_TITLE = "Login"
+
     //  Splash Title
     const val SPLASH_TITLE = "For Caretakers"
 

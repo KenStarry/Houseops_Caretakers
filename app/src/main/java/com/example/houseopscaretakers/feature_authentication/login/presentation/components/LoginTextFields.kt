@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 
 @Composable
-fun ColumnScope.LoginTextFields(
+fun LoginTextFields(
     modifier: Modifier = Modifier,
     onEmailInput: (input: String) -> Unit,
     onPasswordInput: (input: String) -> Unit,
@@ -25,7 +25,7 @@ fun ColumnScope.LoginTextFields(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
 
         //  email address

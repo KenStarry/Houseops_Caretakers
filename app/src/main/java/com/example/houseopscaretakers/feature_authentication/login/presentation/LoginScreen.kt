@@ -2,7 +2,10 @@ package com.example.houseopscaretakers.feature_authentication.login.presentation
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -12,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
@@ -31,7 +35,8 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(16.dp),
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
@@ -39,17 +44,18 @@ fun LoginScreen(
         LoginSVG(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2f)
+                .height(200.dp)
         )
 
         //  Sign in text
         Text(
-            text = "Sign In",
+            text = Constants.LOGIN_TITLE,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .wrapContentHeight()
+                .padding(vertical = 16.dp),
             color = MaterialTheme.colorScheme.onSecondaryContainer
         )
 
@@ -60,7 +66,7 @@ fun LoginScreen(
             onForgotPassword = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2f)
+                .wrapContentHeight()
         )
 
         //  Login buttons
@@ -88,7 +94,17 @@ fun LoginScreen(
             onLoginWithGoogle = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2f)
+                .wrapContentHeight()
+        )
+
+        //  Create account text
+         Text(
+            text = "Forgot password?",
+            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .clickable {  }
         )
 
     }

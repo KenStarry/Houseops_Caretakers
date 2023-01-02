@@ -2,6 +2,9 @@ package com.example.houseopscaretakers.di
 
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
 import com.example.houseopscaretakers.core.domain.repository.CoreRepository
+import com.example.houseopscaretakers.core.domain.use_cases.CoreUseCases
+import com.example.houseopscaretakers.core.domain.use_cases.GetCaretaker
+import com.example.houseopscaretakers.core.domain.use_cases.IsCaretakerLoggedIn
 import com.example.houseopscaretakers.feature_authentication.login.data.repository.LoginRepositoryImpl
 import com.example.houseopscaretakers.feature_authentication.login.domain.repository.LoginRepository
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.LoginUseCases
@@ -51,6 +54,15 @@ object AppModule {
         db: FirebaseFirestore,
         auth: FirebaseAuth
     ) : CoreRepository = CorerepositoryImpl(db, auth)
+
+    @Provides
+    @Singleton
+    fun provideCoreUseCases(
+        repository: CoreRepository
+    ) = CoreUseCases(
+        getCaretaker = GetCaretaker(repository),
+        isCaretakerLoggedIn = IsCaretakerLoggedIn(repository)
+    )
 
     //  -----------------LOGIN REPOSITORY-------------------
     //  Login repository

@@ -117,6 +117,7 @@ fun LoginScreen(
             linkText = listOf("create one"),
             hyperlinks = listOf(Constants.SIGN_UP_SCREEN_ROUTE),
             modifier = Modifier
+                .wrapContentSize()
                 .align(Alignment.CenterHorizontally)
         )
 

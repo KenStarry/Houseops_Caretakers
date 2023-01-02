@@ -3,5 +3,6 @@
 
     <style name="Theme.HouseopsCaretakers" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="android:windowBackground">@color/lightBack</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 </resources>

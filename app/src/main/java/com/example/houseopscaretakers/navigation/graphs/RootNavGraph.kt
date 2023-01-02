@@ -16,12 +16,12 @@ import com.example.houseopscaretakers.navigation.Screen
 @Composable
 fun RootNavGraph(
     navHostController: NavHostController,
-    startDestinationRoute: String
+    isLoggedIn: Boolean
 ) {
 
     NavHost(
         navController = navHostController,
-        startDestination = startDestinationRoute,
+        startDestination = if (isLoggedIn) Constants.HOME_ROUTE else Constants.AUTHENTICATION_ROUTE,
         route = Constants.ROOT_ROUTE
     ) {
 

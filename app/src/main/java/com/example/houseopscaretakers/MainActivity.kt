@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
             HouseopsCaretakersTheme {
 
                 navController = rememberNavController()
+                RootNavGraph(navHostController = navController)
 
                 val coreViewModel: CoreViewModel = hiltViewModel()
 

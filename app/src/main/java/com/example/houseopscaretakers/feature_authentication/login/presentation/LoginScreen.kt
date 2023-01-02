@@ -33,8 +33,6 @@ fun LoginScreen(
     navHostController: NavHostController
 ) {
 
-    RootNavGraph(navHostController = navHostController)
-
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -103,7 +101,7 @@ fun LoginScreen(
                 }
             },
             onLoginWithGoogle = {
-                         navHostController.navigate(route = Constants.HOME_ROUTE){}
+                         navHostController.navigate(route = Screen.Home.route)
             },
             modifier = Modifier
                 .fillMaxWidth()

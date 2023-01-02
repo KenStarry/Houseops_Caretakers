@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val useCase: LoginUseCases
+    val useCase: LoginUseCases,
 ) : ViewModel() {
 
     private var response by mutableStateOf(false)

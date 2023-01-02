@@ -5,7 +5,7 @@ import com.example.houseopscaretakers.core.Constants
 sealed class Screen(
     val route: String
 ) {
-    object Home : Screen("home_screen")
-    object Login : Screen("login_screen")
-    object SignUp : Screen("sign_up_screen")
+    object Home : Screen(Constants.HOME_SCREEN_ROUTE)
+    object Login : Screen(Constants.LOGIN_SCREEN_ROUTE)
+    object SignUp : Screen(Constants.SIGN_UP_SCREEN_ROUTE)
 }

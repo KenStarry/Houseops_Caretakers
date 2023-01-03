@@ -59,7 +59,9 @@ fun HomeScreen(
             HomeFab(
                 icon = Icons.Rounded.Add,
                 onClick = {
-                    navHostController.navigate(Constants.AUTHENTICATION_ROUTE)
+
+                    //  open bottom sheet to add a house
+
                 }
             )
         }
@@ -89,6 +91,8 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .wrapContentHeight()
                 )
+
+                //  Lazy column to display house categories
 
             }
 

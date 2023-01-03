@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
         //  initialize our Splash screen
         installSplashScreen().apply {
-            this.setKeepOnScreenCondition { vm.hideSplash() }
+//            this.setKeepOnScreenCondition { vm.hideSplash() }
         }
 
         super.onCreate(savedInstanceState)

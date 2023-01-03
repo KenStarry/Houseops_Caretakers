@@ -1,8 +1,13 @@
 package com.example.houseopscaretakers.core
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.LocalCafe
+import androidx.compose.material.icons.outlined.LocalHotel
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.ui.text.input.KeyboardType
+import com.example.houseopscaretakers.core.domain.model.PillBtnModel
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.TextFieldContent
 
 object Constants {
@@ -45,4 +50,27 @@ object Constants {
     const val ID_ERROR = "Check User ID"
     const val PASSWORD_ERROR = "Passwords don't match"
     const val AUTH_SUCCESSFUL = "Account Created Successfully"
+
+
+
+    //  ------------------  HOME SCREEN    ----------------
+    val houseCategories = listOf(
+        PillBtnModel("One Bedroom", Icons.Outlined.Apartment),
+        PillBtnModel("Two Bedroom", Icons.Outlined.Hotel),
+        PillBtnModel("Bedsitter", Icons.Outlined.LocalCafe),
+        PillBtnModel("Single", Icons.Outlined.LocalHotel),
+    )
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

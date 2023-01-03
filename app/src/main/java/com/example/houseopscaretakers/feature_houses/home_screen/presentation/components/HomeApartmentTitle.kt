@@ -38,7 +38,8 @@ fun HomeApartmentTitle(
             fontWeight = FontWeight.ExtraBold,
             softWrap = true,
             modifier = Modifier
-                .weight(4f)
+                .weight(4f),
+            color = MaterialTheme.colorScheme.onSecondaryContainer
         )
 
         //  Filter Icon

@@ -1,8 +1,12 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
@@ -12,17 +16,16 @@ import androidx.compose.material.icons.outlined.Minimize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 
 @Composable
 fun AddHouseBottomSheet(
@@ -31,7 +34,7 @@ fun AddHouseBottomSheet(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
         //  Bottom sheet Icon
@@ -56,6 +59,8 @@ fun AddHouseBottomSheet(
         //  house category
         HouseCategory()
 
+        //  pick house images
+
     }
 }
 
@@ -66,10 +71,14 @@ fun ColumnScope.HouseCategory() {
     val houseCategory by remember {
         mutableStateOf("House Category")
     }
+    var toggleCategories by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         modifier = Modifier
-            .wrapContentSize()
+            .wrapContentSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         //  toggle row
@@ -83,7 +92,8 @@ fun ColumnScope.HouseCategory() {
 
             Icon(
                 imageVector = Icons.Outlined.Apartment,
-                contentDescription = "Houe category icon"
+                contentDescription = "Houe category icon",
+                tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
             )
 
             //  drop down bar
@@ -93,7 +103,10 @@ fun ColumnScope.HouseCategory() {
                     .fillMaxWidth()
                     .size(50.dp)
                     .background(MaterialTheme.colorScheme.onSecondary)
-                    .clickable { }
+                    .clickable {
+                        //  toggle house categories menu
+                        toggleCategories = !toggleCategories
+                    }
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -103,18 +116,47 @@ fun ColumnScope.HouseCategory() {
                     text = houseCategory,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
                     modifier = Modifier
                         .weight(2f)
                 )
 
                 Icon(
                     imageVector = Icons.Outlined.ArrowDropDown,
-                    contentDescription = "Dropdown arrow"
+                    contentDescription = "Dropdown arrow",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
                 )
 
             }
 
+        }
+
+        //  categories menu
+        AnimatedVisibility(
+            visible = toggleCategories,
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
+            LazyRow(
+                contentPadding = PaddingValues(8.dp),
+                state = rememberLazyListState(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
+                content = {
+                    items(
+                        items = Constants.houseCategories
+                    ) {
+
+                        // create a pill button
+                        PillButton(
+                            value = it.pillText,
+                            icon = it.pillIcon
+                        )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                }
+            )
         }
 
     }

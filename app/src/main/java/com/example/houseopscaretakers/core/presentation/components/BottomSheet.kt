@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.core.presentation.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ fun BottomSheet(
     sheetBackgroundColor: Color,
     sheetContent: @Composable (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
     sheetScope: @Composable (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
+    closeBottomSheet: (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
 ) {
 
     //  initial bottom sheet state
@@ -33,6 +35,12 @@ fun BottomSheet(
         //  what will be enclosed by our bottom sheet
         sheetScope(modalBottomSheetState, scope)
     }
+
+    //  on back pressed
+    BackHandler(onBack = {
+        //  close bottomsheet
+        closeBottomSheet(modalBottomSheetState, scope)
+    })
 
 }
 

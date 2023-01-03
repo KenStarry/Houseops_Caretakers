@@ -1,7 +1,5 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
@@ -10,29 +8,22 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.SetupNavGraph
-import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
-import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -61,11 +52,12 @@ fun HomeScreen(
                         start = 16.dp,
                         end = 16.dp,
                         bottom = 16.dp
-                    )
+                    ),
+                viewModel = homeviewModel
             )
         },
         closeBottomSheet = { state, scope ->
-            homeviewModel.closeBottomSheet(state, scope)
+            homeviewModel.onEvent(HomeEvents.CloseBottomSheet(state, scope))
         },
         sheetScope = { state, scope ->
 
@@ -86,7 +78,7 @@ fun HomeScreen(
                         icon = Icons.Rounded.Add,
                         onClick = {
                             //  open bottom sheet
-                            homeviewModel.onEvent(HouseEvents.OpenBottomSheet(state, scope))
+                            homeviewModel.onEvent(HomeEvents.OpenBottomSheet(state, scope))
                         }
                     )
                 }

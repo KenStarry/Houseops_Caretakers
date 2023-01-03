@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ArrowDropDown
-import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Minimize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,15 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.components.PillButton
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable
 fun AddHouseBottomSheet(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel
 ) {
 
     Column(
@@ -57,7 +57,7 @@ fun AddHouseBottomSheet(
         )
 
         //  house category
-        HouseCategory()
+        HouseCategory(viewModel)
 
         //  pick house images
 
@@ -66,7 +66,9 @@ fun AddHouseBottomSheet(
 
 //  House Category
 @Composable
-fun ColumnScope.HouseCategory() {
+fun ColumnScope.HouseCategory(
+    viewModel: HomeViewModel
+) {
 
     val houseCategory by remember {
         mutableStateOf("House Category")
@@ -113,7 +115,7 @@ fun ColumnScope.HouseCategory() {
 
                 //  choose house category
                 Text(
-                    text = houseCategory,
+                    text = viewModel.pillName.value,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
@@ -147,12 +149,21 @@ fun ColumnScope.HouseCategory() {
                         items = Constants.houseCategories
                     ) {
 
+                        val pillCategory = it.pillText
+
                         // create a pill button
                         PillButton(
                             value = it.pillText,
                             icon = it.pillIcon,
+
+                            backgroundColor = if (pillCategory == viewModel.pillName.value)
+                                MaterialTheme.colorScheme.primary
+                            else
+                                MaterialTheme.colorScheme.onSecondary,
+
                             onClick = {
                                 //  toggle a blue color on the pill button
+                                viewModel.onEvent(HomeEvents.TogglePillCategory(pillCategory))
                             }
                         )
 

@@ -7,14 +7,13 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class HomeViewModel () : ViewModel() {
 
-    private val _pillName = mutableStateOf(Constants.houseCategories[0].pillText)
+    private val _pillName = mutableStateOf("House Category")
     val pillName: State<String> = _pillName
 
     //  validate if the apartment name has 'apartments' ahead of it
@@ -37,42 +36,12 @@ class HomeViewModel () : ViewModel() {
 
     }
 
-    //  open bottom sheet
     @OptIn(ExperimentalMaterialApi::class)
-    fun openBottomSheet(state: ModalBottomSheetState, scope: CoroutineScope) {
+    fun onEvent(event: HomeEvents) {
 
-        scope.launch {
-            //  open bottomsheet
-            state.animateTo(
-                ModalBottomSheetValue.Expanded,
-                tween(
-                    durationMillis = 300,
-                    easing = Ease
-                )
-            )
-        }
-    }
-
-    //  close bottom sheet
-    @OptIn(ExperimentalMaterialApi::class)
-    fun closeBottomSheet(state: ModalBottomSheetState, scope: CoroutineScope) {
-        scope.launch {
-
-            state.animateTo(
-                ModalBottomSheetValue.Hidden,
-                tween(
-                    durationMillis = 300,
-                    easing = Ease
-                )
-            )
-        }
-    }
-
-    @OptIn(ExperimentalMaterialApi::class)
-    fun onEvent(event: HouseEvents) {
         when (event) {
 
-            is HouseEvents.OpenBottomSheet -> {
+            is HomeEvents.OpenBottomSheet -> {
                 //  open bottom sheet
                 event.scope.launch {
                     event.state.animateTo(
@@ -85,7 +54,7 @@ class HomeViewModel () : ViewModel() {
                 }
             }
 
-            is HouseEvents.CloseBottomSheet -> {
+            is HomeEvents.CloseBottomSheet -> {
                 //  close bottom sheet
                 event.scope.launch {
                     event.state.animateTo(
@@ -98,8 +67,8 @@ class HomeViewModel () : ViewModel() {
                 }
             }
 
-            is HouseEvents.TogglePillCategory -> {
-
+            is HomeEvents.TogglePillCategory -> {
+                _pillName.value = event.category
             }
         }
     }

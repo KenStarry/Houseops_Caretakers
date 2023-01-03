@@ -16,4 +16,6 @@ sealed class HomeEvents {
 
     //  change pill category
     data class TogglePillCategory(val category: String) : HomeEvents()
+
+    //  pick images
 }

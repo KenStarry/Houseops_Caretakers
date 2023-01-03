@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet
 
+import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.Minimize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,10 +22,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.utils.getMultipleImagesFromGallery
+import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentLight
@@ -62,7 +69,7 @@ fun AddHouseBottomSheet(
         HouseCategory(viewModel)
 
         //  pick house images
-
+        PickHouseImages(viewModel)
     }
 }
 
@@ -181,6 +188,97 @@ fun ColumnScope.HouseCategory(
         }
 
     }
+}
+
+//  pick house images
+@Composable
+fun PickHouseImages(
+    viewModel: HomeViewModel
+) {
+
+    var imageUriList by remember {
+        mutableStateOf<List<Uri>?>(null)
+    }
+
+    val launcher = getMultipleImagesFromGallery(onResult = {
+        imageUriList = it
+    })
+
+    var isImagesSectionVisible by remember {
+        mutableStateOf(imageUriList.isNullOrEmpty())
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+
+        //  title
+        Text(
+            text = "Pick Images",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+
+        //  images section
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+
+            AnimatedVisibility(visible = isImagesSectionVisible) {
+                imageUriList?.let {
+                    LazyRow(
+                        content = {
+                            items(
+                                items = it
+                            ) {
+
+                                //  display the images in an image container
+                                ImageContainer(imageUri = it)
+                            }
+                        },
+                        state = rememberLazyListState(),
+                        contentPadding = PaddingValues(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    )
+                }
+            }
+
+            //  pick image from gallery button
+            Button(onClick = {
+                launcher.launch("image/*")
+            }) {
+                Text(text = "Pick Image")
+            }
+
+        }
+
+    }
+
+}
+
+@Composable
+fun ImageContainer(
+    imageUri: Uri
+) {
+
+    val context = LocalContext.current
+
+    CoilImage(
+        context = context,
+        imageUriString = imageUri,
+        placeholder = R.drawable.houseops_dark_final,
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .size(150.dp)
+    )
+
 }
 
 

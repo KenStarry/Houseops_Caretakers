@@ -4,14 +4,18 @@ import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
+import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel () : ViewModel() {
+
+    private val _pillName = mutableStateOf(Constants.houseCategories[0].pillText)
+    val pillName: State<String> = _pillName
 
     //  validate if the apartment name has 'apartments' ahead of it
     fun addApartmentSuffix(
@@ -61,6 +65,42 @@ class HomeViewModel() : ViewModel() {
                     easing = Ease
                 )
             )
+        }
+    }
+
+    @OptIn(ExperimentalMaterialApi::class)
+    fun onEvent(event: HouseEvents) {
+        when (event) {
+
+            is HouseEvents.OpenBottomSheet -> {
+                //  open bottom sheet
+                event.scope.launch {
+                    event.state.animateTo(
+                        ModalBottomSheetValue.Expanded,
+                        tween(
+                            durationMillis = 300,
+                            easing = Ease
+                        )
+                    )
+                }
+            }
+
+            is HouseEvents.CloseBottomSheet -> {
+                //  close bottom sheet
+                event.scope.launch {
+                    event.state.animateTo(
+                        ModalBottomSheetValue.Hidden,
+                        tween(
+                            durationMillis = 300,
+                            easing = Ease
+                        )
+                    )
+                }
+            }
+
+            is HouseEvents.TogglePillCategory -> {
+
+            }
         }
     }
 }

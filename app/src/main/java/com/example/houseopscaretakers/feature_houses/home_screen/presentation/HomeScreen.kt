@@ -26,6 +26,7 @@ import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
@@ -85,7 +86,7 @@ fun HomeScreen(
                         icon = Icons.Rounded.Add,
                         onClick = {
                             //  open bottom sheet
-                            homeviewModel.openBottomSheet(state, scope)
+                            homeviewModel.onEvent(HouseEvents.OpenBottomSheet(state, scope))
                         }
                     )
                 }

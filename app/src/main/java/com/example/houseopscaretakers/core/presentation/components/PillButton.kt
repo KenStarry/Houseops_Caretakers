@@ -19,14 +19,15 @@ import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 @Composable
 fun PillButton(
     value: String,
-    icon: ImageVector? = null
+    icon: ImageVector? = null,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(24.dp))
             .wrapContentSize()
             .background(MaterialTheme.colorScheme.onSecondary)
-            .clickable {  }
+            .clickable { onClick() }
             .padding(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically

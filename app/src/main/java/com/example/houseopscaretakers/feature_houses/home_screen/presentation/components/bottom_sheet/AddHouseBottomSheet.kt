@@ -150,7 +150,10 @@ fun ColumnScope.HouseCategory() {
                         // create a pill button
                         PillButton(
                             value = it.pillText,
-                            icon = it.pillIcon
+                            icon = it.pillIcon,
+                            onClick = {
+                                //  toggle a blue color on the pill button
+                            }
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))

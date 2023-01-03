@@ -72,9 +72,6 @@ fun ColumnScope.HouseCategory(
     viewModel: HomeViewModel
 ) {
 
-    val houseCategory by remember {
-        mutableStateOf("House Category")
-    }
     var toggleCategories by remember {
         mutableStateOf(false)
     }
@@ -171,6 +168,9 @@ fun ColumnScope.HouseCategory(
                             onClick = {
                                 //  toggle a blue color on the pill button
                                 viewModel.onEvent(HomeEvents.TogglePillCategory(pillCategory))
+
+                                //  toggle visibility
+                                toggleCategories = false
                             }
                         )
 

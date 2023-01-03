@@ -22,6 +22,7 @@ fun PillButton(
     value: String,
     icon: ImageVector? = null,
     backgroundColor: Color,
+    iconColor: Color,
     onClick: () -> Unit
 ) {
     Row(
@@ -39,7 +40,7 @@ fun PillButton(
             Icon(
                 imageVector = it,
                 contentDescription = "Pill Icon",
-                tint = BlueAccentLight,
+                tint = iconColor,
                 modifier = Modifier
                     .size(16.dp)
             )

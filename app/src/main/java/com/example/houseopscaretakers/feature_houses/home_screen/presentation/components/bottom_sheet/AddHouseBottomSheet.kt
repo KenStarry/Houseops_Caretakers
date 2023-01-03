@@ -19,12 +19,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
+import com.example.houseopscaretakers.ui.theme.BlueAccentLight
 
 @Composable
 fun AddHouseBottomSheet(
@@ -160,6 +162,11 @@ fun ColumnScope.HouseCategory(
                                 MaterialTheme.colorScheme.primary
                             else
                                 MaterialTheme.colorScheme.onSecondary,
+
+                            iconColor = if (pillCategory == viewModel.pillName.value)
+                                Color.Black
+                            else
+                                BlueAccentLight,
 
                             onClick = {
                                 //  toggle a blue color on the pill button

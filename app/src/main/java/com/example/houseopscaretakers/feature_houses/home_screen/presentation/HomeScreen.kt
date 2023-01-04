@@ -2,6 +2,8 @@ package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -46,13 +48,14 @@ fun HomeScreen(
         sheetContent = {state, scope ->
             AddHouseBottomSheet(
                 modifier = Modifier
-                    .wrapContentSize()
+                    .height(500.dp)
                     .padding(
                         top = 4.dp,
                         start = 16.dp,
                         end = 16.dp,
                         bottom = 16.dp
-                    ),
+                    )
+                    .verticalScroll(rememberScrollState()),
                 viewModel = homeviewModel
             )
         },

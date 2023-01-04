@@ -8,12 +8,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun IconBtn(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     shape: Shape? = CircleShape,
     containerColor: Color? = MaterialTheme.colorScheme.onSecondary,
@@ -28,7 +30,8 @@ fun IconBtn(
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = containerColor ?: MaterialTheme.colorScheme.onSecondary,
             contentColor = contentColor ?: MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
-        )
+        ),
+        modifier = modifier
     ) {
         Icon(
             imageVector = icon,

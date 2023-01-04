@@ -20,6 +20,12 @@ sealed class BottomSheetEvents {
 
     //  pick images from gallery
     data class AddGalleryImages(val uris: List<Uri>) : BottomSheetEvents()
+
+    //  update selected images list
+    data class UpdateGalleryImages(val uris: List<Uri>) : BottomSheetEvents()
+
+    //  delete image from list
+    data class DeleteImageFromList(val index: Int) : BottomSheetEvents()
 }
 
 

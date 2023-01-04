@@ -4,12 +4,12 @@ import android.net.Uri
 import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.ImagesState
 import kotlinx.coroutines.launch
 
 class HomeViewModel () : ViewModel() {
@@ -21,6 +21,9 @@ class HomeViewModel () : ViewModel() {
     //  houses arraylist
     private val _housePicsList = mutableStateListOf<Uri>()
     val housePicsList: SnapshotStateList<Uri> = _housePicsList
+
+    var selectedImagesState by mutableStateOf(ImagesState())
+        private set
 
     //  validate if the apartment name has 'apartments' ahead of it
     fun addApartmentSuffix(
@@ -80,6 +83,32 @@ class HomeViewModel () : ViewModel() {
             is BottomSheetEvents.AddGalleryImages -> {
                 //  add all images from gallery
                 _housePicsList.addAll(event.uris)
+            }
+
+            //  update images
+            is BottomSheetEvents.UpdateGalleryImages -> {
+
+                val updatedImageList = selectedImagesState.listOfSelectedImages.toMutableList()
+
+                viewModelScope.launch {
+                    updatedImageList += event.uris
+                    selectedImagesState = selectedImagesState.copy(
+                        listOfSelectedImages = updatedImageList.distinct()
+                    )
+                }
+            }
+
+            //  delete an image
+            is BottomSheetEvents.DeleteImageFromList -> {
+
+                val updatedImageList = selectedImagesState.listOfSelectedImages.toMutableList()
+
+                viewModelScope.launch {
+                    updatedImageList.removeAt(event.index)
+                    selectedImagesState = selectedImagesState.copy(
+                        listOfSelectedImages = updatedImageList.distinct()
+                    )
+                }
             }
         }
     }

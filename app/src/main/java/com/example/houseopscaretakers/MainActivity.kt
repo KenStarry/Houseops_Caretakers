@@ -2,6 +2,7 @@ package com.example.houseopscaretakers
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
@@ -15,6 +16,8 @@ import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.presentation.LoginScreen
 import com.example.houseopscaretakers.feature_houses.MainScreen
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.HomeScreen
+import com.example.houseopscaretakers.navigation.Direction
+import com.example.houseopscaretakers.navigation.Screen
 import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 import com.example.houseopscaretakers.ui.theme.HouseopsCaretakersTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +41,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    
 }
 
 @Composable

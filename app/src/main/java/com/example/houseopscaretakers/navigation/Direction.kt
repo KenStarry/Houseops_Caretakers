@@ -15,4 +15,8 @@ class Direction(
          popUpTo(popRoute)
         }
     }
+
+    val navigateUp: () -> Unit = {
+        navHostController.navigateUp()
+    }
 }

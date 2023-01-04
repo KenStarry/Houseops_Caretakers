@@ -1,21 +1,34 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.domain.model
 
+import android.net.Uri
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import kotlinx.coroutines.CoroutineScope
 
-sealed class HomeEvents {
+sealed class BottomSheetEvents {
 
     //  open bottom sheet
     data class OpenBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor
-        (val state: ModalBottomSheetState, val scope: CoroutineScope) : HomeEvents()
+        (val state: ModalBottomSheetState, val scope: CoroutineScope) : BottomSheetEvents()
 
     //  close bottom sheet
     data class CloseBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor
-        (val state: ModalBottomSheetState, val scope: CoroutineScope) : HomeEvents()
+        (val state: ModalBottomSheetState, val scope: CoroutineScope) : BottomSheetEvents()
 
     //  change pill category
-    data class TogglePillCategory(val category: String) : HomeEvents()
+    data class TogglePillCategory(val category: String) : BottomSheetEvents()
 
-    //  pick images
+    //  pick images from gallery
+    data class AddGalleryImages(val uris: List<Uri>) : BottomSheetEvents()
 }
+
+
+
+
+
+
+
+
+
+
+

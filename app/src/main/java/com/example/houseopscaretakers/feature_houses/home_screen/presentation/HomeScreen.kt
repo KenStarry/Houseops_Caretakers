@@ -18,7 +18,7 @@ import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
@@ -57,7 +57,7 @@ fun HomeScreen(
             )
         },
         closeBottomSheet = { state, scope ->
-            homeviewModel.onEvent(HomeEvents.CloseBottomSheet(state, scope))
+            homeviewModel.onEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
         },
         sheetScope = { state, scope ->
 
@@ -78,7 +78,7 @@ fun HomeScreen(
                         icon = Icons.Rounded.Add,
                         onClick = {
                             //  open bottom sheet
-                            homeviewModel.onEvent(HomeEvents.OpenBottomSheet(state, scope))
+                            homeviewModel.onEvent(BottomSheetEvents.OpenBottomSheet(state, scope))
                         }
                     )
                 }

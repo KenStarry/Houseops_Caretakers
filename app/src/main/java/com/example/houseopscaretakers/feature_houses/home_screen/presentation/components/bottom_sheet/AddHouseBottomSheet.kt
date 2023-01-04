@@ -11,10 +11,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.ArrowDropDown
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Minimize
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.sharp.ArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,8 +28,7 @@ import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.utils.getMultipleImagesFromGallery
-import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentLight
 
@@ -175,7 +171,7 @@ fun ColumnScope.HouseCategory(
 
                             onClick = {
                                 //  toggle a blue color on the pill button
-                                viewModel.onEvent(HomeEvents.TogglePillCategory(pillCategory))
+                                viewModel.onEvent(BottomSheetEvents.TogglePillCategory(pillCategory))
 
                                 //  toggle visibility
                                 toggleCategories = false
@@ -197,17 +193,10 @@ fun PickHouseImages(
     viewModel: HomeViewModel
 ) {
 
-    var imageUriList by remember {
-        mutableStateOf<List<Uri>?>(null)
-    }
-
     val launcher = getMultipleImagesFromGallery(onResult = {
-        imageUriList = it
+        //  add images to viewmodel
+        viewModel.onEvent(BottomSheetEvents.AddGalleryImages(it))
     })
-
-    var isImagesSectionVisible by remember {
-        mutableStateOf(imageUriList.isNullOrEmpty())
-    }
 
     Column(
         modifier = Modifier
@@ -224,23 +213,21 @@ fun PickHouseImages(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
-            AnimatedVisibility(visible = isImagesSectionVisible) {
-                imageUriList?.let {
-                    LazyRow(
-                        content = {
-                            items(
-                                items = it
-                            ) {
+            AnimatedVisibility(visible = !viewModel.housePicsList.isEmpty()) {
+                LazyRow(
+                    content = {
+                        items(
+                            items = viewModel.housePicsList
+                        ) {
 
-                                //  display the images in an image container
-                                ImageContainer(imageUri = it)
-                            }
-                        },
-                        state = rememberLazyListState(),
-                        contentPadding = PaddingValues(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    )
-                }
+                            //  display the images in an image container
+                            ImageContainer(imageUri = it)
+                        }
+                    },
+                    state = rememberLazyListState(),
+                    contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                )
             }
 
             //  pick image from gallery button
@@ -304,6 +291,15 @@ fun ImageContainer(
         )
 
         //  delete button
+        IconBtn(
+            icon = Icons.Outlined.DeleteOutline,
+            shape = CircleShape,
+            containerColor = MaterialTheme.colorScheme.onSecondary,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            onClick = {
+                //  delete the image from the arraylist
+            }
+        )
     }
 
 }

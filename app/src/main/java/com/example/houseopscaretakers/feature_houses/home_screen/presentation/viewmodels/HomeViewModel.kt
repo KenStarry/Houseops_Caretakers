@@ -1,20 +1,26 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels
 
+import android.net.Uri
 import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HomeEvents
-import kotlinx.coroutines.CoroutineScope
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import kotlinx.coroutines.launch
 
 class HomeViewModel () : ViewModel() {
 
+    //  pill name
     private val _pillName = mutableStateOf("House Category")
     val pillName: State<String> = _pillName
+
+    //  houses arraylist
+    private val _housePicsList = mutableStateListOf<Uri>()
+    val housePicsList: SnapshotStateList<Uri> = _housePicsList
 
     //  validate if the apartment name has 'apartments' ahead of it
     fun addApartmentSuffix(
@@ -37,11 +43,11 @@ class HomeViewModel () : ViewModel() {
     }
 
     @OptIn(ExperimentalMaterialApi::class)
-    fun onEvent(event: HomeEvents) {
+    fun onEvent(event: BottomSheetEvents) {
 
         when (event) {
 
-            is HomeEvents.OpenBottomSheet -> {
+            is BottomSheetEvents.OpenBottomSheet -> {
                 //  open bottom sheet
                 event.scope.launch {
                     event.state.animateTo(
@@ -54,7 +60,7 @@ class HomeViewModel () : ViewModel() {
                 }
             }
 
-            is HomeEvents.CloseBottomSheet -> {
+            is BottomSheetEvents.CloseBottomSheet -> {
                 //  close bottom sheet
                 event.scope.launch {
                     event.state.animateTo(
@@ -67,8 +73,13 @@ class HomeViewModel () : ViewModel() {
                 }
             }
 
-            is HomeEvents.TogglePillCategory -> {
+            is BottomSheetEvents.TogglePillCategory -> {
                 _pillName.value = event.category
+            }
+
+            is BottomSheetEvents.AddGalleryImages -> {
+                //  add all images from gallery
+                _housePicsList.addAll(event.uris)
             }
         }
     }

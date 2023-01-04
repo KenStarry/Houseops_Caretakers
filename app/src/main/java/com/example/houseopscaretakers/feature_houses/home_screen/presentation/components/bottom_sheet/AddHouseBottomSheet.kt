@@ -8,15 +8,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Minimize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.sharp.ArrowRight
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.utils.getMultipleImagesFromGallery
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
@@ -215,14 +216,6 @@ fun PickHouseImages(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        //  title
-        Text(
-            text = "Pick Images",
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
-        )
-
         //  images section
         Column(
             modifier = Modifier
@@ -251,10 +244,37 @@ fun PickHouseImages(
             }
 
             //  pick image from gallery button
-            Button(onClick = {
-                launcher.launch("image/*")
-            }) {
-                Text(text = "Pick Image")
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                //  pick image text
+                Text(
+                    text = "Pick Images",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+
+                Icon(
+                    imageVector = Icons.Sharp.ArrowRight,
+                    contentDescription = "Arrow Icon"
+                )
+
+                //  pick image button
+                IconBtn(
+                    icon = Icons.Outlined.Image,
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.onSecondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
+                    onClick = {
+                        launcher.launch("image/*")
+                    }
+                )
+
             }
 
         }
@@ -270,14 +290,21 @@ fun ImageContainer(
 
     val context = LocalContext.current
 
-    CoilImage(
-        context = context,
-        imageUriString = imageUri,
-        placeholder = R.drawable.houseops_dark_final,
+    Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .size(150.dp)
-    )
+            .wrapContentSize()
+    ) {
+        CoilImage(
+            context = context,
+            imageUriString = imageUri,
+            placeholder = R.drawable.houseops_dark_final,
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(150.dp)
+        )
+
+        //  delete button
+    }
 
 }
 

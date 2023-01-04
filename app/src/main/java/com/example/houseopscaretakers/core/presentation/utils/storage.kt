@@ -26,13 +26,13 @@ fun getSingleImageFromGallery(
 
 @Composable
 fun getMultipleImagesFromGallery(
-    onResult: (uriList: List<Uri>) -> Unit
+    onResult: (uriList: ArrayList<Uri>) -> Unit
 ): ManagedActivityResultLauncher<String, List<Uri>> {
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetMultipleContents(),
         onResult = { uris: List<Uri> ->
-            onResult(uris)
+            onResult(uris as ArrayList<Uri>)
         }
     )
 

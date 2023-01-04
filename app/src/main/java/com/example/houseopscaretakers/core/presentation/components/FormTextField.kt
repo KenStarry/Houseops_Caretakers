@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
@@ -22,6 +23,7 @@ fun FormTextField(
     placeholder: String? = "",
     leadingIcon: ImageVector? = null,
     trailingIcon: ImageVector? = null,
+    imeAction: ImeAction? = ImeAction.Done,
     inputType: KeyboardType,
     onValueChange: (input: String) -> Unit
 ) {
@@ -55,7 +57,8 @@ fun FormTextField(
                 }
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = inputType
+                keyboardType = inputType,
+                imeAction = imeAction ?: ImeAction.Done
             ),
             placeholder = {
                 Text(

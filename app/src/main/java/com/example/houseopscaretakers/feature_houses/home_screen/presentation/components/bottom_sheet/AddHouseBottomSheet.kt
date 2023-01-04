@@ -25,11 +25,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.utils.getMultipleImagesFromGallery
@@ -74,6 +77,8 @@ fun AddHouseBottomSheet(
 
         //  pick house images
         PickHouseImages(viewModel)
+
+        UnitsRemaining() {}
     }
 }
 
@@ -317,7 +322,7 @@ fun ImageContainer(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Text(text = "Delete Item")
+            Text(text = "Delete Image")
 
             //  delete button
             IconBtn(
@@ -333,6 +338,37 @@ fun ImageContainer(
             )
         }
     }
+
+}
+
+//  Units remaining
+@Composable
+fun UnitsRemaining(
+    unitsRemaining: (Int) -> Unit
+) {
+
+    var unitsRem by remember {
+        mutableStateOf(0)
+    }
+
+    FormTextField(
+        inputType = KeyboardType.Number,
+        imeAction = ImeAction.Next,
+        onValueChange = {
+
+            if (it.isBlank() || it.isEmpty() || it != "." || it != ",") {
+                unitsRem = 0
+            } else {
+                unitsRem = it.trim().toInt()
+                unitsRemaining(unitsRem)
+            }
+
+        },
+        placeholder = "Units Remaining",
+        leadingIcon = Icons.Outlined.Numbers,
+        modifier = Modifier
+            .wrapContentWidth()
+    )
 
 }
 

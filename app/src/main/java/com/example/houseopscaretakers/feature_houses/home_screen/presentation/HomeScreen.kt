@@ -48,7 +48,7 @@ fun HomeScreen(
         sheetContent = {state, scope ->
             AddHouseBottomSheet(
                 modifier = Modifier
-                    .height(500.dp)
+                    .fillMaxSize()
                     .padding(
                         top = 4.dp,
                         start = 16.dp,

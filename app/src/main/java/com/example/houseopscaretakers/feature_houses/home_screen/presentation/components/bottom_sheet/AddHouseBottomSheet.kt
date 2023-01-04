@@ -79,6 +79,9 @@ fun AddHouseBottomSheet(
         PickHouseImages(viewModel)
 
         UnitsRemaining() {}
+
+        //  House Features
+        HouseFeatures()
     }
 }
 
@@ -220,11 +223,20 @@ fun PickHouseImages(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
+        //  images title
+        Text(
+            text = "Images",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+
         //  images section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentHeight()
+                .padding(start = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
@@ -351,29 +363,85 @@ fun UnitsRemaining(
         mutableStateOf(0)
     }
 
-    FormTextField(
-        inputType = KeyboardType.Number,
-        imeAction = ImeAction.Next,
-        onValueChange = {
-
-            if (it.isBlank() || it.isEmpty() || it != "." || it != ",") {
-                unitsRem = 0
-            } else {
-                unitsRem = it.trim().toInt()
-                unitsRemaining(unitsRem)
-            }
-
-        },
-        placeholder = "Units Remaining",
-        leadingIcon = Icons.Outlined.Numbers,
+    Column(
         modifier = Modifier
-            .wrapContentWidth()
-    )
+            .fillMaxWidth()
+    ) {
+
+        //  units title
+        Text(
+            text = "Units",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp)
+        ) {
+            FormTextField(
+                inputType = KeyboardType.Number,
+                imeAction = ImeAction.Next,
+                onValueChange = {
+
+                    if (it.isBlank() || it.isEmpty() || it != "." || it != ",") {
+                        unitsRem = 0
+                    } else {
+                        unitsRem = it.trim().toInt()
+                        unitsRemaining(unitsRem)
+                    }
+
+                },
+                placeholder = "Units Remaining",
+                leadingIcon = Icons.Outlined.Numbers,
+                modifier = Modifier
+                    .wrapContentWidth()
+            )
+        }
+
+    }
 
 }
 
 
+//  house features
+@Composable
+fun HouseFeatures() {
 
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        horizontalAlignment = Alignment.Start
+    ) {
+
+        //  features title
+        Text(
+            text = "Features",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+        
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Select all that apply.",
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        LazyRow(content = {
+
+        })
+
+    }
+}
 
 
 

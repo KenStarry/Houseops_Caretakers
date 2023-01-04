@@ -60,7 +60,6 @@ object Constants {
         PillBtnModel("Bedsitter", Icons.Outlined.LocalCafe),
         PillBtnModel("Single", Icons.Outlined.LocalHotel),
     )
-
 }
 
 

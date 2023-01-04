@@ -18,6 +18,8 @@ sealed class BottomSheetEvents {
     //  change pill category
     data class TogglePillCategory(val category: String) : BottomSheetEvents()
 
+    //  Toggle Feature
+
     //  pick images from gallery
     data class AddGalleryImages(val uris: List<Uri>) : BottomSheetEvents()
 

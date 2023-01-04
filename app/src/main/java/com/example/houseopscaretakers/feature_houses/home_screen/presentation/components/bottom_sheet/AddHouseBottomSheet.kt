@@ -1,7 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet
 
 import android.net.Uri
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
@@ -28,18 +27,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
-import com.example.houseopscaretakers.core.presentation.utils.getMultipleImagesFromGallery
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
-import com.example.houseopscaretakers.navigation.Direction
 import com.example.houseopscaretakers.ui.theme.BlueAccentLight
+import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 import com.example.houseopscaretakers.ui.theme.PinkAccent
 
 @Composable
@@ -410,6 +408,19 @@ fun UnitsRemaining(
 @Composable
 fun HouseFeatures() {
 
+    var houseFeatures by remember {
+        mutableStateOf(
+            listOf(
+                HouseFeatures("Security", Icons.Outlined.Security, false),
+                HouseFeatures("Water", Icons.Outlined.Water, false),
+                HouseFeatures("Electricity", Icons.Outlined.Thunderstorm, false),
+                HouseFeatures("Parking", Icons.Outlined.Park, false),
+                HouseFeatures("Shops", Icons.Outlined.Shop, false),
+                HouseFeatures("Rooftop", Icons.Outlined.Roofing, false)
+            )
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -424,7 +435,7 @@ fun HouseFeatures() {
             fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
@@ -436,9 +447,41 @@ fun HouseFeatures() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        LazyRow(content = {
+        LazyRow(
+            content = {
+                itemsIndexed(
+                    houseFeatures
+                ) { index, item ->
 
-        })
+
+                    PillButton(
+                        value = item.featureName,
+
+                        backgroundColor = if (item.featureSelected)
+                            BlueAccentTransparent
+                        else
+                            MaterialTheme.colorScheme.onSecondary,
+
+                        iconColor = MaterialTheme.colorScheme.primary,
+                        icon = item.featureIcon,
+                        onClick = {
+                            houseFeatures = houseFeatures.mapIndexed { j, feature ->
+                                //  check if index == j
+                                if (index == j) {
+                                    //  only change the selected value and pass it to our copied feature
+                                    feature.copy(featureSelected = !item.featureSelected)
+                                } else
+                                    feature
+                            }
+                        }
+                    )
+                }
+            },
+            state = rememberLazyListState(),
+            contentPadding = PaddingValues(start = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            userScrollEnabled = true
+        )
 
     }
 }

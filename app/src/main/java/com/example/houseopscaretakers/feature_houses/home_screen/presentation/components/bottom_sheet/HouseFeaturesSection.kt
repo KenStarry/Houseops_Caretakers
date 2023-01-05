@@ -12,15 +12,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 
 //  house features
 @Composable
-fun HouseFeaturesSection() {
+fun HouseFeaturesSection(
+    viewModel: HomeViewModel = hiltViewModel(),
+    houseFeatures: (List<HouseFeatures>) -> Unit
+) {
 
-    var houseFeatures by remember {
+//    var houseFeaturesState = viewModel.houseFeatures
+
+    var houseFeaturesState by remember {
         mutableStateOf(
             listOf(
                 HouseFeatures("Security", Icons.Outlined.Security, false),
@@ -62,7 +69,7 @@ fun HouseFeaturesSection() {
         LazyRow(
             content = {
                 itemsIndexed(
-                    houseFeatures
+                    houseFeaturesState
                 ) { index, item ->
 
 
@@ -81,7 +88,7 @@ fun HouseFeaturesSection() {
 
                         icon = item.featureIcon,
                         onClick = {
-                            houseFeatures = houseFeatures.mapIndexed { j, feature ->
+                            houseFeaturesState = houseFeaturesState.mapIndexed { j, feature ->
                                 //  check if index == j
                                 if (index == j) {
                                     //  only change the selected value and pass it to our copied feature
@@ -100,4 +107,6 @@ fun HouseFeaturesSection() {
         )
 
     }
+
+    houseFeatures(houseFeaturesState)
 }

@@ -37,6 +37,7 @@ fun PickHouseImages(
 ) {
 
     val state = viewModel.selectedImagesState
+
     val launcher =
         rememberLauncherForActivityResult(
             ActivityResultContracts.GetMultipleContents()

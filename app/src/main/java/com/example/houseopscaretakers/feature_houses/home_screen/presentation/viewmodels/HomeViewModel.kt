@@ -4,11 +4,14 @@ import android.net.Uri
 import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.ImagesState
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,9 +27,18 @@ class HomeViewModel @Inject constructor(
     private val _pillName = mutableStateOf("House Category")
     val pillName: State<String> = _pillName
 
-    //  houses arraylist
-    private val _housePicsList = mutableStateListOf<Uri>()
-    val housePicsList: SnapshotStateList<Uri> = _housePicsList
+    //  house features list
+    var houseFeatures by mutableStateOf(
+        listOf(
+            HouseFeatures("Security", Icons.Outlined.Security, false),
+            HouseFeatures("Water", Icons.Outlined.Water, false),
+            HouseFeatures("Electricity", Icons.Outlined.Thunderstorm, false),
+            HouseFeatures("Parking", Icons.Outlined.Park, false),
+            HouseFeatures("Shops", Icons.Outlined.Shop, false),
+            HouseFeatures("Rooftop", Icons.Outlined.Roofing, false)
+        )
+    )
+        private set
 
     var selectedImagesState by mutableStateOf(ImagesState())
         private set
@@ -94,11 +106,6 @@ class HomeViewModel @Inject constructor(
 
             is BottomSheetEvents.TogglePillCategory -> {
                 _pillName.value = event.category
-            }
-
-            is BottomSheetEvents.AddGalleryImages -> {
-                //  add all images from gallery
-                _housePicsList.addAll(event.uris)
             }
 
             //  update images

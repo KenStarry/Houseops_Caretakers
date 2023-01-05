@@ -11,13 +11,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable
 fun AddHouseBottomSheet(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    apartmentName: String
 ) {
+
+    var units by remember {
+        mutableStateOf(0)
+    }
+    var description by remember {
+        mutableStateOf("")
+    }
+    var houseFeaturesList by remember {
+        mutableStateOf<List<HouseFeatures>>(emptyList())
+    }
 
     Column(
         modifier = modifier,
@@ -49,23 +63,41 @@ fun AddHouseBottomSheet(
         //  pick house images
         PickHouseImages(viewModel)
 
-        UnitsRemaining() {}
+        UnitsRemaining() {
+            units = it
+        }
 
         //  House Features
-        HouseFeaturesSection()
+        HouseFeaturesSection(viewModel) {
+            houseFeaturesList = it
+        }
 
         //  description
         Description(
             onInput = {
                 //  save input
+                description = it
             }
+        )
+
+
+        val house = HouseModel(
+            houseCategory = viewModel.pillName.value,
+            houseImageUris = viewModel.selectedImagesState.listOfSelectedImages
+                .map { it.toString() },
+            houseUnits = units.toString(),
+            houseFeatures = houseFeaturesList.filter { it.featureSelected }
+                .map { it.featureName },
+            houseDescription = description
         )
 
         //  add house button
         Button(
             onClick = {
                 //  add house to apartments collection
-
+                viewModel.onEvent(BottomSheetEvents.AddHouseToFirestore(
+                    apartmentName, house
+                ))
             },
             contentPadding = PaddingValues(8.dp)
         ) {

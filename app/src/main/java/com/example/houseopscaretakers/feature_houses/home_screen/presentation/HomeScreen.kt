@@ -56,7 +56,8 @@ fun HomeScreen(
                         bottom = 16.dp
                     )
                     .verticalScroll(rememberScrollState()),
-                viewModel = homeviewModel
+                viewModel = homeviewModel,
+                apartmentName = caretaker?.caretakerApartment ?: "none"
             )
         },
         closeBottomSheet = { state, scope ->

@@ -10,9 +10,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.ImagesState
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel () : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val useCases: HouseUseCases
+) : ViewModel() {
 
     //  pill name
     private val _pillName = mutableStateOf("House Category")
@@ -49,6 +55,16 @@ class HomeViewModel () : ViewModel() {
     fun onEvent(event: BottomSheetEvents) {
 
         when (event) {
+
+            is BottomSheetEvents.AddHouseToFirestore -> {
+                //  add house to firestore
+                viewModelScope.launch {
+                    useCases.addHouse(
+                        event.apartmentName,
+                        event.houseModel
+                    )
+                }
+            }
 
             is BottomSheetEvents.OpenBottomSheet -> {
                 //  open bottom sheet

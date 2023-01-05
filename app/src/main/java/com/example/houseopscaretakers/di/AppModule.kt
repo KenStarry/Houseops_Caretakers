@@ -18,6 +18,8 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.UploadCaretakerImage
 import com.example.houseopscaretakers.feature_houses.home_screen.data.repository.HouseRepositoryImpl
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.repository.HouseRepository
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.AddHouse
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -74,6 +76,15 @@ object AppModule {
     fun provideHouseRepository(
         db: FirebaseFirestore
     ) : HouseRepository = HouseRepositoryImpl(db)
+
+    //  house use case
+    @Provides
+    @Singleton
+    fun provideHouseUseCases(
+        repository: HouseRepository
+    ) = HouseUseCases(
+        addHouse = AddHouse(repository)
+    )
 
     //  -----------------LOGIN REPOSITORY-------------------
     //  Login repository

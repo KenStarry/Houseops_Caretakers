@@ -34,7 +34,7 @@ fun HomeScreen(
 ) {
 
     val viewModel: CoreViewModel = hiltViewModel()
-    val homeviewModel = HomeViewModel()
+    val homeviewModel: HomeViewModel = hiltViewModel()
 
     val context = LocalContext.current
 
@@ -104,7 +104,7 @@ fun HomeScreen(
 
                         //  Apartment Name
                         HomeApartmentTitle(
-                            viewModel = HomeViewModel(),
+                            viewModel = homeviewModel,
                             apartmentName = caretaker?.caretakerApartment ?: "Apartments",
                             onFilter = {},
                             modifier = Modifier

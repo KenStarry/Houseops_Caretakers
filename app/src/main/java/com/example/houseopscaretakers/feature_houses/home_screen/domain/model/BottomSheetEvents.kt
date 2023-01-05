@@ -28,6 +28,9 @@ sealed class BottomSheetEvents {
 
     //  delete image from list
     data class DeleteImageFromList(val index: Int) : BottomSheetEvents()
+
+    //  Firestore
+    data class AddHouseToFirestore(val apartmentName: String, val houseModel: HouseModel) : BottomSheetEvents()
 }
 
 

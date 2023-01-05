@@ -15,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable
 fun HomeApartmentTitle(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel,
+    viewModel: HomeViewModel = hiltViewModel(),
     apartmentName: String,
     onFilter: () -> Unit
 ) {

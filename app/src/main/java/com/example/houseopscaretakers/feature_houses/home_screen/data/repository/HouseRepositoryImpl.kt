@@ -16,7 +16,9 @@ class HouseRepositoryImpl @Inject constructor(
             .document(apartmentName).collection(Constants.HOUSES_SUB_COLLECTION)
             .document(houseModel.houseCategory)
             .set(houseModel)
-            .addOnCompleteListener { }
+            .addOnSuccessListener {
+
+            }
             .addOnFailureListener { }
 
     }

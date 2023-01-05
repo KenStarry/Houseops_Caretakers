@@ -52,7 +52,11 @@ fun AddHouseBottomSheet(
         HouseFeaturesSection()
 
         //  description
-        Description()
+        Description(
+            onInput = {
+                //  save input
+            }
+        )
     }
 }
 

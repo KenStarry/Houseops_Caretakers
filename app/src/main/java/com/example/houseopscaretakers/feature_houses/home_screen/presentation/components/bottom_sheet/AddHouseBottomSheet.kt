@@ -7,6 +7,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
@@ -57,6 +59,21 @@ fun AddHouseBottomSheet(
                 //  save input
             }
         )
+
+        //  add house button
+        Button(
+            onClick = {
+                //  add house to apartments collection
+
+            },
+            contentPadding = PaddingValues(8.dp)
+        ) {
+            Text(
+                text = "Add House",
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White
+            )
+        }
     }
 }
 

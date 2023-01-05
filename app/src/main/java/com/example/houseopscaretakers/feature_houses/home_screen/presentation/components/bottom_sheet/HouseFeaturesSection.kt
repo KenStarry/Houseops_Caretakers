@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.PillButton
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 
 //  house features
@@ -22,12 +23,12 @@ fun HouseFeaturesSection() {
     var houseFeatures by remember {
         mutableStateOf(
             listOf(
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Security", Icons.Outlined.Security, false),
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Water", Icons.Outlined.Water, false),
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Electricity", Icons.Outlined.Thunderstorm, false),
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Parking", Icons.Outlined.Park, false),
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Shops", Icons.Outlined.Shop, false),
-                com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures("Rooftop", Icons.Outlined.Roofing, false)
+                HouseFeatures("Security", Icons.Outlined.Security, false),
+                HouseFeatures("Water", Icons.Outlined.Water, false),
+                HouseFeatures("Electricity", Icons.Outlined.Thunderstorm, false),
+                HouseFeatures("Parking", Icons.Outlined.Park, false),
+                HouseFeatures("Shops", Icons.Outlined.Shop, false),
+                HouseFeatures("Rooftop", Icons.Outlined.Roofing, false)
             )
         )
     }
@@ -73,7 +74,11 @@ fun HouseFeaturesSection() {
                         else
                             MaterialTheme.colorScheme.onSecondary,
 
-                        iconColor = MaterialTheme.colorScheme.primary,
+                        iconColor = if (item.featureSelected)
+                            MaterialTheme.colorScheme.onSecondaryContainer
+                        else
+                            MaterialTheme.colorScheme.primary,
+
                         icon = item.featureIcon,
                         onClick = {
                             houseFeatures = houseFeatures.mapIndexed { j, feature ->

@@ -16,6 +16,8 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.CreateCaretakerInFirebase
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.SignUpUseCases
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.UploadCaretakerImage
+import com.example.houseopscaretakers.feature_houses.home_screen.data.repository.HouseRepositoryImpl
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.repository.HouseRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -65,6 +67,13 @@ object AppModule {
         getCaretaker = GetCaretaker(repository),
         isCaretakerLoggedIn = IsCaretakerLoggedIn(repository)
     )
+
+    //  -----------------HOUSES REPOSITORY-------------------
+    @Provides
+    @Singleton
+    fun provideHouseRepository(
+        db: FirebaseFirestore
+    ) : HouseRepository = HouseRepositoryImpl(db)
 
     //  -----------------LOGIN REPOSITORY-------------------
     //  Login repository

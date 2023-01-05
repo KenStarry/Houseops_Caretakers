@@ -30,6 +30,8 @@ object Constants {
 
     //  Firestore
     const val CARETAKER_COLLECTION = "caretakers"
+    const val APARTMENTS_COLLECTION = "apartments"
+    const val HOUSES_SUB_COLLECTION = "houses"
 
     //  Firebase storage
     const val CARETAKER_IMAGES = "caretaker_images"

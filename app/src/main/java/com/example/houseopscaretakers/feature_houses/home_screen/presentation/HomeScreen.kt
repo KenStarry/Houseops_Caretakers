@@ -122,6 +122,8 @@ fun HomeScreen(
                             .background(MaterialTheme.colorScheme.onPrimary)
                     ) {
 
+                        Spacer(modifier = Modifier.height(24.dp))
+
                         //  Apartment Name
                         HomeApartmentTitle(
                             viewModel = homeviewModel,
@@ -132,6 +134,8 @@ fun HomeScreen(
                                 .wrapContentHeight()
                                 .padding(horizontal = 16.dp)
                         )
+
+                        Spacer(modifier = Modifier.height(24.dp))
 
                         //  Lazy column to display house categories
                         LazyColumn(

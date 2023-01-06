@@ -1,6 +1,7 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -48,6 +49,8 @@ fun HouseItem(
                     .fillMaxWidth(0.9f)
                     .height(200.dp)
                     .background(MaterialTheme.colorScheme.onSecondary)
+                    .clickable {  }
+                    .padding(16.dp)
             )
         }
 

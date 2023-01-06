@@ -42,7 +42,7 @@ fun PickHouseImages(
         rememberLauncherForActivityResult(
             ActivityResultContracts.GetMultipleContents()
         ) {
-            viewModel.onEvent(BottomSheetEvents.UpdateGalleryImages(uris = it))
+            viewModel.onBottomSheetEvent(BottomSheetEvents.UpdateGalleryImages(uris = it))
         }
 
     Column(
@@ -80,7 +80,7 @@ fun PickHouseImages(
                             ImageContainer(
                                 imageUri = uri,
                                 onDelete = {
-                                    viewModel.onEvent(BottomSheetEvents.DeleteImageFromList(index))
+                                    viewModel.onBottomSheetEvent(BottomSheetEvents.DeleteImageFromList(index))
                                 }
                             )
                         }

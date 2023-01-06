@@ -21,7 +21,7 @@ class CoreViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var loggedInState by mutableStateOf(false)
-    private var caretaker by mutableStateOf<Caretaker?>(null)
+    var caretaker by mutableStateOf<Caretaker?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
 
     //  is user logged in

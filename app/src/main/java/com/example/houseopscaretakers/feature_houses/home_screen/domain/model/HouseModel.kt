@@ -6,4 +6,7 @@ data class HouseModel(
     val houseUnits: String,
     val houseFeatures: List<String>,
     val houseDescription: String
-)
+) {
+
+    constructor() : this ("", emptyList(), "", emptyList(), "")
+}

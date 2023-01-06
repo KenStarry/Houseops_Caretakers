@@ -130,7 +130,7 @@ fun ColumnScope.HouseCategory(
 
                             onClick = {
                                 //  toggle a blue color on the pill button
-                                viewModel.onEvent(BottomSheetEvents.TogglePillCategory(pillCategory))
+                                viewModel.onBottomSheetEvent(BottomSheetEvents.TogglePillCategory(pillCategory))
 
                                 //  toggle visibility
                                 toggleCategories = false

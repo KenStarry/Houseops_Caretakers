@@ -1,18 +1,14 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels
 
-import android.net.Uri
 import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.ImagesState
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.*
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,6 +18,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val useCases: HouseUseCases
 ) : ViewModel() {
+
+    //  houses list
+    var housesState by mutableStateOf<List<HouseModel>>(emptyList())
+        private set
 
     //  pill name
     private val _pillName = mutableStateOf("House Category")
@@ -64,7 +64,7 @@ class HomeViewModel @Inject constructor(
     }
 
     @OptIn(ExperimentalMaterialApi::class)
-    fun onEvent(event: BottomSheetEvents) {
+    fun onBottomSheetEvent(event: BottomSheetEvents) {
 
         when (event) {
 
@@ -133,6 +133,25 @@ class HomeViewModel @Inject constructor(
                     updatedImageList.removeAt(event.index)
                     selectedImagesState = selectedImagesState.copy(
                         listOfSelectedImages = updatedImageList.distinct()
+                    )
+                }
+            }
+        }
+    }
+
+    //  events for the home screen
+    fun onHomeScreenEvent(event: HouseEvents) {
+
+        when (event) {
+
+            is HouseEvents.GetHouses -> {
+                viewModelScope.launch {
+
+                    useCases.getHouses(
+                        event.apartmentName,
+                        houseList = {
+                            housesState = it
+                        }
                     )
                 }
             }

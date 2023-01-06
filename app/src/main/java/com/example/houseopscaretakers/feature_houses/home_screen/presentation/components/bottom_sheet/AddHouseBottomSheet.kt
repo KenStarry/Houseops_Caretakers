@@ -109,7 +109,7 @@ fun AddHouseBottomSheet(
                 ))
 
                 //  add house to apartments collection
-                viewModel.onEvent(BottomSheetEvents.AddHouseToFirestore(
+                viewModel.onBottomSheetEvent(BottomSheetEvents.AddHouseToFirestore(
                     apartmentName, house
                 ))
             },

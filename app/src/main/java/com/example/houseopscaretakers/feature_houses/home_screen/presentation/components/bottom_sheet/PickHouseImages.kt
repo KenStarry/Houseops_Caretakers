@@ -149,7 +149,7 @@ fun ImageContainer(
 
         CoilImage(
             context = context,
-            imageUriString = imageUri,
+            imageUri = imageUri,
             placeholder = R.drawable.houseops_dark_final,
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))

@@ -1,10 +1,8 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -15,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
@@ -43,7 +40,7 @@ fun HomeTopAppBar(
             Spacer(modifier = Modifier.width(10.dp))
             CoilImage(
                 context = context,
-                imageUriString = userImageUri,
+                imageUri = userImageUri,
                 placeholder = placeholderImage,
                 modifier = Modifier
                     .clip(CircleShape)

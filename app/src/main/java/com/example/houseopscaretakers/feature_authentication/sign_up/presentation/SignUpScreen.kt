@@ -135,7 +135,7 @@ fun SignUpScreen(
                         } else {
                             CoilImage(
                                 context = LocalContext.current,
-                                imageUriString = caretakerImageUri,
+                                imageUri = caretakerImageUri,
                                 placeholder = R.drawable.houseops_dark_final,
                                 modifier = Modifier
                                     .clip(CircleShape)

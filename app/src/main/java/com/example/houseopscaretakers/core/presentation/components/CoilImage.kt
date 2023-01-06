@@ -12,11 +12,11 @@ import coil.request.ImageRequest
 fun CoilImage(
     modifier: Modifier = Modifier,
     context: Context,
-    imageUriString: Uri?,
+    imageUri: Uri?,
     placeholder: Int
 ) {
 
-    imageUriString?.let {
+    imageUri?.let {
 
         AsyncImage(
             model = ImageRequest.Builder(context)

@@ -14,7 +14,8 @@ import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.Ho
 
 @Composable
 fun HouseItem(
-    house: HouseModel
+    house: HouseModel,
+    onViewClick: () -> Unit
 ) {
 
     Box(
@@ -49,8 +50,10 @@ fun HouseItem(
                     .fillMaxWidth(0.9f)
                     .height(200.dp)
                     .background(MaterialTheme.colorScheme.onSecondary)
-                    .clickable {  }
-                    .padding(16.dp)
+                    .padding(16.dp),
+                onViewClick = {
+                    onViewClick()
+                }
             )
         }
 

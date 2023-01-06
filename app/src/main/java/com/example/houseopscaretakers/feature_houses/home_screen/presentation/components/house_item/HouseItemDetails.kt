@@ -28,7 +28,8 @@ import com.example.houseopscaretakers.ui.theme.PinkAccent
 @Composable
 fun HouseItemDetails(
     houseModel: HouseModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onViewClick: () -> Unit
 ) {
 
 
@@ -143,7 +144,9 @@ fun HouseItemDetails(
                     .weight(1f),
                 contentAlignment = Alignment.Center,
             ) {
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = {
+                    onViewClick()
+                }) {
                     Text(
                         text = "view",
                         fontSize = MaterialTheme.typography.bodyMedium.fontSize,

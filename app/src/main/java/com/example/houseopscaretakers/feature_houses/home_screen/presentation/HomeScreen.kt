@@ -143,7 +143,12 @@ fun HomeScreen(
                                 items(
                                     items = homeviewModel.housesState
                                 ) {
-                                    HouseItem(it)
+                                    HouseItem(
+                                        house = it,
+                                        onViewClick = {
+                                            //  navigate to house view activity
+                                        }
+                                    )
                                 }
                             },
                             state = rememberLazyListState(),

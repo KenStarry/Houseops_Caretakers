@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -15,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -48,12 +51,16 @@ fun HomeScreen(
     )
 
     //  getting all houses
-    homeviewModel.onHomeScreenEvent(HouseEvents.GetHouses(apartmentName = caretaker?.caretakerApartment ?: "none"))
+    homeviewModel.onHomeScreenEvent(
+        HouseEvents.GetHouses(
+            apartmentName = caretaker?.caretakerApartment ?: "none"
+        )
+    )
 
     //  Bottom Sheet as the root composable
     BottomSheet(
         sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
-        sheetContent = {state, scope ->
+        sheetContent = { state, scope ->
             AddHouseBottomSheet(
                 modifier = Modifier
                     .fillMaxSize()
@@ -90,7 +97,12 @@ fun HomeScreen(
                         icon = Icons.Rounded.Add,
                         onClick = {
                             //  open bottom sheet
-                            homeviewModel.onBottomSheetEvent(BottomSheetEvents.OpenBottomSheet(state, scope))
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.OpenBottomSheet(
+                                    state,
+                                    scope
+                                )
+                            )
                         }
                     )
                 }
@@ -108,7 +120,6 @@ fun HomeScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onPrimary)
-                            .padding(16.dp)
                     ) {
 
                         //  Apartment Name
@@ -119,16 +130,24 @@ fun HomeScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()
+                                .padding(horizontal = 16.dp)
                         )
 
                         //  Lazy column to display house categories
-                        LazyColumn(content = {
-                            items(
-                                items = homeviewModel.housesState
-                            ) {
-                                Text(text = it.houseCategory)
-                            }
-                        })
+                        LazyColumn(
+                            content = {
+                                items(
+                                    items = homeviewModel.housesState
+                                ) {
+                                    HouseItem(it)
+                                }
+                            },
+                            state = rememberLazyListState(),
+                            verticalArrangement = Arrangement.spacedBy(24.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            userScrollEnabled = true,
+                            contentPadding = PaddingValues(16.dp)
+                        )
 
                     }
 

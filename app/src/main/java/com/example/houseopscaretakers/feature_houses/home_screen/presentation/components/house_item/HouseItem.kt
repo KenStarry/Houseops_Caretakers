@@ -1,13 +1,11 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -21,9 +19,9 @@ fun HouseItem(
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
-            .fillMaxSize()
+            .fillMaxSize(1f)
             .height(400.dp)
-            .background(MaterialTheme.colorScheme.onSecondary)
+            .background(MaterialTheme.colorScheme.onPrimary)
     ) {
 
         //  main image
@@ -35,6 +33,43 @@ fun HouseItem(
                 .height(250.dp)
         )
 
+        //  house item details
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(150.dp))
+            
+            HouseItemDetails(
+                houseModel = house,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .fillMaxWidth(0.9f)
+                    .height(200.dp)
+                    .background(MaterialTheme.colorScheme.onSecondary)
+            )
+        }
+
+
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

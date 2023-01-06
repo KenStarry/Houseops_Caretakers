@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.ui.theme.BlueAccentLight
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
@@ -23,6 +24,8 @@ fun PillButton(
     icon: ImageVector? = null,
     backgroundColor: Color,
     iconColor: Color,
+    paddingHorizontal: Dp = 16.dp,
+    paddingVertical: Dp = 16.dp,
     onClick: () -> Unit
 ) {
     Row(
@@ -31,7 +34,7 @@ fun PillButton(
             .wrapContentSize()
             .background(backgroundColor)
             .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+            .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

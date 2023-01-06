@@ -144,9 +144,10 @@ fun HomeScreen(
                             },
                             state = rememberLazyListState(),
                             verticalArrangement = Arrangement.spacedBy(24.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
                             userScrollEnabled = true,
-                            contentPadding = PaddingValues(16.dp)
+                            contentPadding = PaddingValues(16.dp),
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
                         )
 
                     }

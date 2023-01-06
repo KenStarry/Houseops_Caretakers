@@ -8,9 +8,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseopscaretakers.core.domain.model.CoreEvents
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
@@ -22,6 +25,9 @@ fun AddHouseBottomSheet(
     viewModel: HomeViewModel = hiltViewModel(),
     apartmentName: String
 ) {
+
+    val coreViewModel: CoreViewModel = hiltViewModel()
+    val context = LocalContext.current
 
     var units by remember {
         mutableStateOf(0)
@@ -83,8 +89,7 @@ fun AddHouseBottomSheet(
 
         val house = HouseModel(
             houseCategory = viewModel.pillName.value,
-            houseImageUris = viewModel.selectedImagesState.listOfSelectedImages
-                .map { it.toString() },
+            houseImageUris = emptyList(),
             houseUnits = units.toString(),
             houseFeatures = houseFeaturesList.filter { it.featureSelected }
                 .map { it.featureName },
@@ -94,6 +99,15 @@ fun AddHouseBottomSheet(
         //  add house button
         Button(
             onClick = {
+
+                // upload images to firestore
+                coreViewModel.onEvent(CoreEvents.UploadImageEvent(
+                    imageUriList = viewModel.selectedImagesState.listOfSelectedImages,
+                    context = context,
+                    houseModel = house,
+                    apartmentName = apartmentName
+                ))
+
                 //  add house to apartments collection
                 viewModel.onEvent(BottomSheetEvents.AddHouseToFirestore(
                     apartmentName, house

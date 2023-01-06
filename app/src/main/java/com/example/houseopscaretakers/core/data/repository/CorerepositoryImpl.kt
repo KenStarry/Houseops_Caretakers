@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.core.data.repository
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshotFlow
 import com.example.houseopscaretakers.core.Constants
@@ -75,6 +76,8 @@ class CorerepositoryImpl(
                                     .document(houseModel.houseCategory)
 
                                 apartmentCollection.update("houseImageUris", FieldValue.arrayUnion(url))
+
+                                Log.d("Storage", url.toString())
                             }
 
                         } catch (e: Exception) {

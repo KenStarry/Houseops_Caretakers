@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.domain.use_cases.CoreUseCases
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,5 +55,21 @@ class CoreViewModel @Inject constructor(
         }
 
         return currentUser
+    }
+
+    fun onEvent(event: CoreEvents) {
+        when (event) {
+
+            is CoreEvents.UploadImageEvent -> {
+                viewModelScope.launch {
+                    useCase.coreUploadImages(
+                        event.imageUriList,
+                        event.context,
+                        event.houseModel,
+                        event.apartmentName
+                    )
+                }
+            }
+        }
     }
 }

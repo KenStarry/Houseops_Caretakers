@@ -45,7 +45,7 @@ fun UnitsRemaining(
                 imeAction = ImeAction.Next,
                 onValueChange = {
 
-                    if (it.isBlank() || it.isEmpty() || it != "." || it != ",") {
+                    if (it.isBlank() || it.isEmpty()) {
                         unitsRem = 0
                     } else {
                         unitsRem = it.trim().toInt()

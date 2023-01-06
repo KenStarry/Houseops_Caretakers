@@ -45,6 +45,7 @@ fun Description(
             value = description,
             onValueChange = {
                 description = it
+                onInput(description)
             },
             placeholder = {
                 Text(text = "House description")

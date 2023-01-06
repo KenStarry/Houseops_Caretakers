@@ -1,6 +1,7 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,12 +19,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
+import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
@@ -34,6 +39,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
+import org.checkerframework.common.subtyping.qual.Bottom
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -72,7 +78,28 @@ fun HomeScreen(
                     )
                     .verticalScroll(rememberScrollState()),
                 viewModel = homeviewModel,
-                apartmentName = caretaker?.caretakerApartment ?: "none"
+                onHouseAdd = { house ->
+
+                    // upload images to firestore
+                    viewModel.onEvent(
+                        CoreEvents.UploadImageEvent(
+                            imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
+                            context = context,
+                            houseModel = house,
+                            apartmentName = caretaker?.caretakerApartment ?: "none"
+                        )
+                    )
+
+                    //  add house to apartments collection
+                    homeviewModel.onBottomSheetEvent(
+                        BottomSheetEvents.AddHouseToFirestore(
+                            caretaker?.caretakerApartment ?: "none", house
+                        )
+                    )
+
+                    //  close bottom sheet
+                    homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
+                }
             )
         },
         closeBottomSheet = { state, scope ->
@@ -137,27 +164,60 @@ fun HomeScreen(
 
                         Spacer(modifier = Modifier.height(24.dp))
 
-                        //  Lazy column to display house categories
-                        LazyColumn(
-                            content = {
-                                items(
-                                    items = homeviewModel.housesState
-                                ) {
-                                    HouseItem(
-                                        house = it,
-                                        onViewClick = {
-                                            //  navigate to house view activity
-                                        }
+                        //  toggle visibility of the houses accordingly
+                        if (homeviewModel.housesState.isEmpty()) {
+
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(24.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                //  show svg
+                                Image(
+                                    painter = painterResource(id = R.drawable.undraw_new_ideas_re_asn4),
+                                    contentDescription = "No houses",
+                                    contentScale = ContentScale.Fit
+                                )
+
+                                Spacer(modifier = Modifier.height(24.dp))
+
+                                Text(
+                                    text = "Add Houses to see them here...",
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
                                     )
-                                }
-                            },
-                            state = rememberLazyListState(),
-                            verticalArrangement = Arrangement.spacedBy(24.dp),
-                            userScrollEnabled = true,
-                            contentPadding = PaddingValues(16.dp),
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                        )
+                                )
+                            }
+
+                        } else {
+
+                            //  Lazy column to display house categories
+                            LazyColumn(
+                                content = {
+                                    items(
+                                        items = homeviewModel.housesState
+                                    ) {
+                                        HouseItem(
+                                            house = it,
+                                            onViewClick = {
+                                                //  navigate to house view activity
+                                            }
+                                        )
+                                    }
+                                },
+                                state = rememberLazyListState(),
+                                verticalArrangement = Arrangement.spacedBy(24.dp),
+                                userScrollEnabled = true,
+                                contentPadding = PaddingValues(16.dp),
+                                modifier = Modifier
+                                    .align(Alignment.CenterHorizontally)
+                            )
+
+                        }
 
                     }
 

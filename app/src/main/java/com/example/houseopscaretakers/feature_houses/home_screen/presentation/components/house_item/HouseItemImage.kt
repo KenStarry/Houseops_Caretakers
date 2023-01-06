@@ -33,13 +33,15 @@ fun HouseItemImage(
     ) {
 
         //  image covering the area
-        CoilImage(
-            context = context,
-            imageUri = houseModel.houseImageUris[0].toUri(),
-            placeholder = R.drawable.houseops_light_final,
-            modifier = Modifier
-                .fillMaxSize()
-        )
+        if (houseModel.houseImageUris.isNotEmpty()) {
+            CoilImage(
+                context = context,
+                imageUri = houseModel.houseImageUris[0].toUri(),
+                placeholder = R.drawable.houseops_light_final,
+                modifier = Modifier
+                    .fillMaxSize()
+            )
+        }
 
         //  black transparent layer on top
         Box(

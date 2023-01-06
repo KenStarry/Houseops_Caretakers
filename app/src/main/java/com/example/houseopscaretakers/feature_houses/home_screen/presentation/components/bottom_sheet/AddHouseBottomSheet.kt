@@ -23,7 +23,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.vi
 fun AddHouseBottomSheet(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    apartmentName: String
+    onHouseAdd: (HouseModel) -> Unit
 ) {
 
     val coreViewModel: CoreViewModel = hiltViewModel()
@@ -99,19 +99,7 @@ fun AddHouseBottomSheet(
         //  add house button
         Button(
             onClick = {
-
-                // upload images to firestore
-                coreViewModel.onEvent(CoreEvents.UploadImageEvent(
-                    imageUriList = viewModel.selectedImagesState.listOfSelectedImages,
-                    context = context,
-                    houseModel = house,
-                    apartmentName = apartmentName
-                ))
-
-                //  add house to apartments collection
-                viewModel.onBottomSheetEvent(BottomSheetEvents.AddHouseToFirestore(
-                    apartmentName, house
-                ))
+                onHouseAdd(house)
             },
             contentPadding = PaddingValues(8.dp)
         ) {

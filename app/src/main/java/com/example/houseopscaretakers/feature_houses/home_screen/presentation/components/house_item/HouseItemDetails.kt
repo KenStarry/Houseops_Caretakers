@@ -47,15 +47,14 @@ fun HouseItemDetails(
         ) {
 
             //  units left
-            Text(
-                text = "${houseModel.houseUnits} units left",
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = if (houseModel.houseUnits.toInt() < 5)
-                    PinkAccent
-                else
-                    MaterialTheme.colorScheme.onSecondaryContainer,
-            )
+            PillButton(
+                value = "${houseModel.houseUnits} units left",
+                backgroundColor = MaterialTheme.colorScheme.onPrimary,
+                paddingHorizontal = 8.dp,
+                paddingVertical = 8.dp
+            ) {
+
+            }
 
             //  house pricing
             Text(
@@ -121,7 +120,7 @@ fun HouseItemDetails(
                     ) {
                         PillButton(
                             value = it,
-                            backgroundColor = MaterialTheme.colorScheme.onSecondary,
+                            backgroundColor = MaterialTheme.colorScheme.onPrimary,
                             iconColor = MaterialTheme.colorScheme.primary,
                             paddingHorizontal = 8.dp,
                             paddingVertical = 8.dp

@@ -23,7 +23,7 @@ fun PillButton(
     value: String,
     icon: ImageVector? = null,
     backgroundColor: Color,
-    iconColor: Color,
+    iconColor: Color = MaterialTheme.colorScheme.primary,
     paddingHorizontal: Dp = 16.dp,
     paddingVertical: Dp = 16.dp,
     onClick: () -> Unit

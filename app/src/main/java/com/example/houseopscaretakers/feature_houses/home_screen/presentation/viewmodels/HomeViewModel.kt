@@ -71,9 +71,6 @@ class HomeViewModel @Inject constructor(
             is BottomSheetEvents.AddHouseToFirestore -> {
                 //  add house to firestore
                 viewModelScope.launch {
-
-
-
                     useCases.addHouse(
                         event.apartmentName,
                         event.houseModel

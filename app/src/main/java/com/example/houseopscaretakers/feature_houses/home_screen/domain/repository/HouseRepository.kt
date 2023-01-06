@@ -8,5 +8,8 @@ interface HouseRepository {
     suspend fun addHouseToFirestore(apartmentName: String, houseModel: HouseModel)
 
     //  get all houses from firestore
-    suspend fun getHousesFromFirestore(): HouseModel
+    suspend fun getHousesFromFirestore(
+        apartmentName: String,
+        houseList: (List<HouseModel>) -> Unit
+    )
 }

@@ -82,6 +82,7 @@ fun HouseItemDetails(
 
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
         //  item description
         Column(
             modifier = Modifier
@@ -97,11 +98,13 @@ fun HouseItemDetails(
                 fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
             )
-
-
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         //  item features
         Row(

@@ -39,6 +39,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
+import com.example.houseopscaretakers.navigation.Screen
 import org.checkerframework.common.subtyping.qual.Bottom
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -205,6 +206,9 @@ fun HomeScreen(
                                             house = it,
                                             onViewClick = {
                                                 //  navigate to house view activity
+                                                navHostController.navigate(
+                                                    route = Screen.HouseView.passHouseCategory(it.houseCategory)
+                                                )
                                             }
                                         )
                                     }

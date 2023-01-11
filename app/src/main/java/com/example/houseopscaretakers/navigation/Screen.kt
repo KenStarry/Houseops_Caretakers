@@ -10,9 +10,12 @@ sealed class Screen(
     object SignUp : Screen(Constants.SIGN_UP_SCREEN_ROUTE)
 
     object HouseView : Screen(
-        route = "${Constants.HOUSE_VIEW_SCREEN_ROUTE}/{category}"
+        route = "${Constants.HOUSE_VIEW_SCREEN_ROUTE}/{apartment}/{category}"
     ) {
-        fun passHouseCategory(category: String): String =
-            "${Constants.HOUSE_VIEW_SCREEN_ROUTE}/${category}"
+        fun passHouseCategoryAndApartment(
+            apartment: String,
+            category: String
+        ): String =
+            "${Constants.HOUSE_VIEW_SCREEN_ROUTE}/$apartment/${category}"
     }
 }

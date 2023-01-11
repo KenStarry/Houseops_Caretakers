@@ -1,7 +1,5 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -42,7 +40,6 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
-import org.checkerframework.common.subtyping.qual.Bottom
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -212,7 +209,10 @@ fun HomeScreen(
                                             onViewClick = {
                                                 //  navigate to house view activity
                                                 navHostController.navigate(
-                                                    route = Screen.HouseView.passHouseCategory(it.houseCategory)
+                                                    route = Screen.HouseView.passHouseCategoryAndApartment(
+                                                        apartment = caretaker?.caretakerApartment ?: "Apartments",
+                                                        category = it.houseCategory
+                                                    )
                                                 )
                                             }
                                         )

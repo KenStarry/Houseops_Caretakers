@@ -24,6 +24,9 @@ fun NavGraphBuilder.homeNavGraph(
         composable(
             route = Screen.HouseView.route,
             arguments = listOf(
+                navArgument("apartment") {
+                    type = NavType.StringType
+                },
                 navArgument("category") {
                     type = NavType.StringType
                 }
@@ -31,7 +34,8 @@ fun NavGraphBuilder.homeNavGraph(
         ) {
             HouseViewScreen(
                 navHostController = navHostController,
-                houseCategory = it.arguments?.getString("category") ?: "none"
+                houseCategory = it.arguments?.getString("category") ?: "none",
+                apartmentName = it.arguments?.getString("apartment") ?: "none"
             )
         }
 

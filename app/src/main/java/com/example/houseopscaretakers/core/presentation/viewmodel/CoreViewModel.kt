@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.domain.use_cases.CoreUseCases
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class CoreViewModel @Inject constructor(
 
     private var loggedInState by mutableStateOf(false)
     var caretaker by mutableStateOf<Caretaker?>(null)
+    var currentHouse by mutableStateOf<HouseModel?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
 
     //  is user logged in
@@ -69,6 +71,19 @@ class CoreViewModel @Inject constructor(
                         event.context,
                         event.houseModel,
                         event.apartmentName
+                    )
+                }
+            }
+
+            is CoreEvents.GetHouse -> {
+
+                viewModelScope.launch {
+                    useCase.getHouse(
+                        category = event.category,
+                        apartmentName = event.apartmentName,
+                        currentHouse = {
+                            currentHouse = it
+                        }
                     )
                 }
             }

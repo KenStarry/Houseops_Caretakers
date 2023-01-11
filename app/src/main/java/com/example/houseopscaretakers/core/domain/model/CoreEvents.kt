@@ -12,4 +12,9 @@ sealed class CoreEvents {
         val houseModel: HouseModel,
         val apartmentName: String
     ) : CoreEvents()
+
+    data class GetHouse(
+        val apartmentName: String,
+        val category: String
+    ) : CoreEvents()
 }

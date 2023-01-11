@@ -1,9 +1,11 @@
 package com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components
 
 import android.util.Log
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -22,12 +24,12 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun HousePager(
     modifier: Modifier = Modifier,
-    currentHouse: HouseModel
+    currentHouseImages: List<String>
 ) {
     val context = LocalContext.current
 
     HorizontalPager(
-        count = currentHouse.houseImageUris.size,
+        count = currentHouseImages.size,
         state = rememberPagerState(),
         modifier = modifier,
         itemSpacing = 16.dp
@@ -36,7 +38,7 @@ fun HousePager(
         //  display image
         CoilImage(
             context = context,
-            imageUri = currentHouse.houseImageUris[page].toUri(),
+            imageUri = currentHouseImages[page].toUri(),
             placeholder = R.drawable.houseops_light_final,
             modifier = Modifier
                 .fillMaxSize()

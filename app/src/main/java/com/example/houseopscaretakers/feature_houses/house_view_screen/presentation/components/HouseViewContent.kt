@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomPagerIndicator
@@ -124,6 +125,28 @@ fun HouseViewContent(
                 )
 
             }
+
+            //  description
+            Text(
+                text = currentHouse.houseDescription,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                maxLines = 10,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            //  features title
+            Text(
+                text = "House Features",
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+
+
 
         }
 

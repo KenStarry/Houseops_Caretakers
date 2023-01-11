@@ -1,14 +1,13 @@
 package com.example.houseopscaretakers.core
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.Hotel
-import androidx.compose.material.icons.outlined.LocalCafe
-import androidx.compose.material.icons.outlined.LocalHotel
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.houseopscaretakers.core.domain.model.PillBtnModel
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.TextFieldContent
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.model.StatsCardModel
+import com.example.houseopscaretakers.ui.theme.BlueAccent
 
 object Constants {
 
@@ -63,6 +62,13 @@ object Constants {
         PillBtnModel("Two Bedroom", Icons.Outlined.Hotel),
         PillBtnModel("Bedsitter", Icons.Outlined.LocalCafe),
         PillBtnModel("Single", Icons.Outlined.LocalHotel),
+    )
+
+    val statsCardList = listOf(
+        StatsCardModel(Icons.Outlined.Apartment, BlueAccent, "10", "Users Booked"),
+        StatsCardModel(Icons.Outlined.ThumbUp, BlueAccent, "0", "Liked Houses"),
+        StatsCardModel(Icons.Outlined.Comment, BlueAccent, "10", "Comments"),
+        StatsCardModel(Icons.Outlined.Pending, BlueAccent, "10", "Pending Approval")
     )
 }
 

@@ -3,9 +3,7 @@ package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,6 +25,7 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
@@ -36,6 +35,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.Ho
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.StatsCard
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
@@ -49,9 +49,6 @@ fun HomeScreen(
 
     val viewModel: CoreViewModel = hiltViewModel()
     val homeviewModel: HomeViewModel = hiltViewModel()
-    val vm: UtilsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
-
-    vm.hideSplash()
 
     val context = LocalContext.current
 
@@ -101,7 +98,12 @@ fun HomeScreen(
                     )
 
                     //  close bottom sheet
-                    homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
+                    homeviewModel.onBottomSheetEvent(
+                        BottomSheetEvents.CloseBottomSheet(
+                            state,
+                            scope
+                        )
+                    )
                 }
             )
         },
@@ -153,6 +155,48 @@ fun HomeScreen(
                     ) {
 
                         Spacer(modifier = Modifier.height(24.dp))
+
+                        //  welcome text
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+
+                            Text(
+                                text = "Hello",
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                            )
+
+                            Text(
+                                text = caretaker?.caretakerName ?: "",
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        //  Apartment Statistics cards
+                        LazyRow(content = {
+                            itemsIndexed(
+                                Constants.statsCardList
+                            ) { index, card ->
+
+                                StatsCard(
+                                    title = card.title,
+                                    icon = card.icon,
+                                    value = card.value
+                                )
+                            }
+                        })
+
 
                         //  Apartment Name
                         HomeApartmentTitle(
@@ -210,7 +254,8 @@ fun HomeScreen(
                                                 //  navigate to house view activity
                                                 navHostController.navigate(
                                                     route = Screen.HouseView.passHouseCategoryAndApartment(
-                                                        apartment = caretaker?.caretakerApartment ?: "Apartments",
+                                                        apartment = caretaker?.caretakerApartment
+                                                            ?: "Apartments",
                                                         category = it.houseCategory
                                                     )
                                                 )

@@ -1,15 +1,14 @@
 package com.example.houseopscaretakers.feature_houses.house_view_screen.presentation
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
@@ -17,9 +16,10 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.vi
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HousePager
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewContent
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun HouseViewScreen(
     navHostController: NavHostController,
@@ -37,8 +37,15 @@ fun HouseViewScreen(
             category = houseCategory
         )
     )
-
     val currentHouse = coreViewModel.currentHouse
+
+    Scaffold(
+        floatingActionButton = {
+
+        }
+    ) {
+
+    }
 
     //  Box to hold our contents
     Box(

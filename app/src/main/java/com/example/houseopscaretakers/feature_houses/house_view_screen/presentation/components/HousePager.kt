@@ -1,11 +1,14 @@
 package com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -56,16 +59,24 @@ fun HousePager(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
+            
+            Spacer(modifier = Modifier.fillMaxHeight(0.75f))
 
-            Spacer(modifier = Modifier.weight(2f))
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .wrapContentSize()
+                    .background(MaterialTheme.colorScheme.onSecondary)
+                    .padding(8.dp)
+            ) {
 
-            CustomPagerIndicator(
-                pagerState = pagerState,
-                modifier = Modifier.weight(1f),
-                height = 7.dp,
-                width = 7.dp,
-                inactiveColor = MaterialTheme.colorScheme.onSecondary
-            )
+                CustomPagerIndicator(
+                    pagerState = pagerState,
+                    height = 7.dp,
+                    width = 7.dp,
+                    inactiveColor = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
 
     }

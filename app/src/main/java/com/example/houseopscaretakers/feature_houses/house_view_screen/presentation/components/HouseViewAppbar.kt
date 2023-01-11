@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 
 @Composable
 fun HouseViewAppbar(
     modifier: Modifier = Modifier,
+    category: String,
     onBackPressed: () -> Unit
 ) {
 
@@ -31,6 +33,12 @@ fun HouseViewAppbar(
         ) {
             onBackPressed()
         }
+
+        PillButton(
+            value = category,
+            backgroundColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
+            onClick = {}
+        )
 
     }
 }

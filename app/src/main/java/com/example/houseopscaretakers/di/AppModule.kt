@@ -67,7 +67,8 @@ object AppModule {
         currentUser = CurrentUser(repository),
         getCaretaker = GetCaretaker(repository),
         isCaretakerLoggedIn = IsCaretakerLoggedIn(repository),
-        coreUploadImages = CoreUploadImages(repository)
+        coreUploadImages = CoreUploadImages(repository),
+        getHouse = GetHouse(repository)
     )
 
     //  -----------------HOUSES REPOSITORY-------------------

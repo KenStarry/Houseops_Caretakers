@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels
 
+import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -21,6 +22,10 @@ class HomeViewModel @Inject constructor(
 
     //  houses list
     var housesState by mutableStateOf<List<HouseModel>>(emptyList())
+        private set
+
+    //  current house
+    var currentHouse by mutableStateOf<HouseModel?>(null)
         private set
 
     //  pill name
@@ -61,6 +66,17 @@ class HomeViewModel @Inject constructor(
 
         return newName
 
+    }
+
+    fun getCurrentHouse(category: String): HouseModel? {
+        //  loop through all houses
+        housesState.forEach { house ->
+            if (house.houseCategory == category) {
+                currentHouse = house
+            }
+        }
+
+        return currentHouse
     }
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -150,6 +166,18 @@ class HomeViewModel @Inject constructor(
                             housesState = it
                         }
                     )
+                }
+            }
+
+            is HouseEvents.GetHouse -> {
+                viewModelScope.launch {
+                    //  loop through all houses
+                    housesState.forEach { house ->
+
+                        if (house.houseCategory == event.category) {
+                            currentHouse = house
+                        }
+                    }
                 }
             }
         }

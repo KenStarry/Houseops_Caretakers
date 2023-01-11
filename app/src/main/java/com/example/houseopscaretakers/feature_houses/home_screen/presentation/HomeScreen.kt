@@ -1,6 +1,7 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
+import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
@@ -50,6 +52,9 @@ fun HomeScreen(
 
     val viewModel: CoreViewModel = hiltViewModel()
     val homeviewModel: HomeViewModel = hiltViewModel()
+    val vm: UtilsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+
+    vm.hideSplash()
 
     val context = LocalContext.current
 

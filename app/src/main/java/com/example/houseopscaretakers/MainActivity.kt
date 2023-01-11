@@ -26,33 +26,34 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         val vm: UtilsViewModel by viewModels()
+        var keepSplashScreenOn = true
 
         //  initialize our Splash screen
         installSplashScreen().apply {
-//            this.setKeepOnScreenCondition { vm.hideSplash() }
+//            this.setKeepOnScreenCondition { vm.isShowing.value }
         }
-
-        super.onCreate(savedInstanceState)
         setContent {
             HouseopsCaretakersTheme {
                 SetupNavGraph()
             }
         }
     }
-    
+
 }
 
 @Composable
-fun SetupNavGraph(coreViewModel: CoreViewModel = hiltViewModel()) {
+fun SetupNavGraph(
+    coreViewModel: CoreViewModel = hiltViewModel()
+) {
     val navController = rememberNavController()
 
     RootNavGraph(
         navHostController = navController,
         isLoggedIn = coreViewModel.isUserLoggedIn()
     )
-
 }
 
 

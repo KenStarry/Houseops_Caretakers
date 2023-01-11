@@ -28,6 +28,12 @@ interface CoreRepository {
         apartmentName: String
     )
 
+    suspend fun getCurrentHouse(
+        category: String,
+        apartmentName: String,
+        currentHouse: (house: HouseModel) -> Unit
+    )
+
 }
 
 

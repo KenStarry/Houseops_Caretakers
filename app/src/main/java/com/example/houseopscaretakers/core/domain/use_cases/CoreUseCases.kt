@@ -4,5 +4,6 @@ data class CoreUseCases(
     val currentUser: CurrentUser,
     val getCaretaker: GetCaretaker,
     val isCaretakerLoggedIn: IsCaretakerLoggedIn,
-    val coreUploadImages: CoreUploadImages
+    val coreUploadImages: CoreUploadImages,
+    val getHouse: GetHouse
 )

@@ -16,10 +16,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
+import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
@@ -38,6 +41,12 @@ fun LoginScreen(
     var passwordInput by remember { mutableStateOf("") }
     val context = LocalContext.current
     val direction = Direction(navHostController)
+
+    val vm: UtilsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+
+    LaunchedEffect(key1 = Unit) {
+        vm.isShowing.value = false
+    }
 
     Column(
         modifier = Modifier

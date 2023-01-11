@@ -55,7 +55,8 @@ class CorerepositoryImpl(
         apartmentName: String
     ) {
 
-        val storageRef = FirebaseStorage.getInstance().getReference("${houseModel.houseCategory}/${Constants.HOUSE_IMAGES}")
+        val storageRef = FirebaseStorage.getInstance()
+            .getReference("${houseModel.houseCategory}/${Constants.HOUSE_IMAGES}")
 
         imageUriList.forEach {
 
@@ -71,11 +72,16 @@ class CorerepositoryImpl(
                         try {
                             fileRef.downloadUrl.addOnSuccessListener { url ->
                                 //  add url to the caretaker collection
-                                val apartmentCollection = db.collection(Constants.APARTMENTS_COLLECTION)
-                                    .document(apartmentName).collection(Constants.HOUSES_SUB_COLLECTION)
-                                    .document(houseModel.houseCategory)
+                                val apartmentCollection =
+                                    db.collection(Constants.APARTMENTS_COLLECTION)
+                                        .document(apartmentName)
+                                        .collection(Constants.HOUSES_SUB_COLLECTION)
+                                        .document(houseModel.houseCategory)
 
-                                apartmentCollection.update("houseImageUris", FieldValue.arrayUnion(url))
+                                apartmentCollection.update(
+                                    "houseImageUris",
+                                    FieldValue.arrayUnion(url)
+                                )
 
                                 Log.d("Storage", url.toString())
                             }
@@ -92,6 +98,25 @@ class CorerepositoryImpl(
 
         }
 
+    }
+
+    override suspend fun getCurrentHouse(
+        category: String,
+        apartmentName: String,
+        currentHouse: (house: HouseModel) -> Unit
+    ) {
+
+        db.collection(Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(Constants.HOUSES_SUB_COLLECTION).document(category)
+            .addSnapshotListener { snapshot, error ->
+
+                if (error != null)
+                    return@addSnapshotListener
+
+                snapshot?.toObject(HouseModel::class.java)?.let {
+                    currentHouse(it)
+                }
+            }
     }
 }
 

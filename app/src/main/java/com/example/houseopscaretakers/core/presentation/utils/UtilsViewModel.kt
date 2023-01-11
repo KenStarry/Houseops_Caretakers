@@ -8,15 +8,13 @@ import kotlinx.coroutines.launch
 
 class UtilsViewModel : ViewModel() {
 
-    var isShowing = mutableStateOf<Boolean>(false)
+    var isShowing = mutableStateOf<Boolean>(true)
 
-    fun hideSplash(): Boolean {
+    fun hideSplash() {
 
         viewModelScope.launch {
             delay(3000)
-            isShowing.value = true
+            isShowing.value = false
         }
-
-        return isShowing.value
     }
 }

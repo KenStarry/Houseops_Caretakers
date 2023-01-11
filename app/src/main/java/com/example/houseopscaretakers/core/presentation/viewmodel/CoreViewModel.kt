@@ -20,6 +20,8 @@ class CoreViewModel @Inject constructor(
     private val useCase: CoreUseCases
 ) : ViewModel() {
 
+    var isSplashOpened by mutableStateOf(false)
+
     private var loggedInState by mutableStateOf(false)
     var caretaker by mutableStateOf<Caretaker?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)

@@ -59,7 +59,9 @@ fun HouseViewScreen(
             )
 
             //  Main Content
-            HouseViewContent()
+            HouseViewContent(
+                apartmentName, currentHouse
+            )
 
         }
 

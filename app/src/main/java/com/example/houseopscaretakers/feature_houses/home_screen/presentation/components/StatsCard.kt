@@ -41,8 +41,8 @@ fun StatsCard(
     ) {
         Column(
             modifier = Modifier
-                .size(width = 150.dp, height = 150.dp)
-                .background(MaterialTheme.colorScheme.onSecondary)
+                .size(width = 130.dp, height = 130.dp)
+                .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(horizontal = 24.dp, vertical = 8.dp),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceEvenly

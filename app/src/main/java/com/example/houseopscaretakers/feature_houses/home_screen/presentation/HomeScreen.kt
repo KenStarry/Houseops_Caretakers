@@ -28,7 +28,6 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
-import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
@@ -184,18 +183,24 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.height(24.dp))
 
                         //  Apartment Statistics cards
-                        LazyRow(content = {
-                            itemsIndexed(
-                                Constants.statsCardList
-                            ) { index, card ->
+                        LazyRow(
+                            content = {
+                                itemsIndexed(
+                                    Constants.statsCardList
+                                ) { index, card ->
 
-                                StatsCard(
-                                    title = card.title,
-                                    icon = card.icon,
-                                    value = card.value
-                                )
-                            }
-                        })
+                                    StatsCard(
+                                        title = card.title,
+                                        icon = card.icon,
+                                        iconColor = card.iconColor,
+                                        value = card.value
+                                    )
+                                }
+                            },
+                            state = rememberLazyListState(),
+                            contentPadding = PaddingValues(16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        )
 
 
                         //  Apartment Name

@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 data class StatsCardModel(
     val icon: ImageVector,
-    val iconCol: Color,
+    val iconColor: Color,
     val value: String,
     val title: String
 )

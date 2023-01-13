@@ -25,11 +25,12 @@ fun StatsCard(
     title: String,
     icon: ImageVector,
     iconColor: Color = MaterialTheme.colorScheme.primary,
-    value: String
+    value: String,
+    onClick: (title: String) -> Unit
 ) {
 
     Card(
-        onClick = { /*TODO*/ },
+        onClick = { onClick(title) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
@@ -86,5 +87,5 @@ fun StastsItemPrev() {
         Icons.Outlined.Notifications,
         BlueAccent,
         "25"
-    )
+    ) {}
 }

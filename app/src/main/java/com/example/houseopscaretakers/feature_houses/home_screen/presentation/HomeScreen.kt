@@ -193,13 +193,16 @@ fun HomeScreen(
                                         title = card.title,
                                         icon = card.icon,
                                         iconColor = card.iconColor,
-                                        value = card.value
+                                        value = card.value,
+                                        onClick = { title ->
+                                            //  navigate to card page
+                                        }
                                     )
                                 }
                             },
                             state = rememberLazyListState(),
                             contentPadding = PaddingValues(16.dp),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
                         )
 
 

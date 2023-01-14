@@ -151,11 +151,12 @@ fun HomeScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onPrimary)
+                            .verticalScroll(rememberScrollState())
                     ) {
 
                         Spacer(modifier = Modifier.height(24.dp))
 
-                        //  welcome text
+                        //  greetings text
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -279,6 +280,8 @@ fun HomeScreen(
                                 contentPadding = PaddingValues(16.dp),
                                 modifier = Modifier
                                     .align(Alignment.CenterHorizontally)
+                                    .fillMaxWidth()
+                                    .height(500.dp)
                             )
 
                         }

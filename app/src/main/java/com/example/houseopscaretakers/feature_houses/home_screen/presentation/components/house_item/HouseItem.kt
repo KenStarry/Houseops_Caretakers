@@ -195,7 +195,9 @@ fun HouseItem(
                     shape = CircleShape,
                     containerColor = BlueAccentTransparentAlt,
                     contentColor = MaterialTheme.colorScheme.primary,
-                    onClick = {}
+                    onClick = {
+                        onViewClick()
+                    }
                 )
 
             }

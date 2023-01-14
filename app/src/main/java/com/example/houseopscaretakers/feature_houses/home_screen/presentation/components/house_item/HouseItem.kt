@@ -11,10 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.ArrowRightAlt
-import androidx.compose.material.icons.outlined.ChevronRight
-import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -69,7 +66,10 @@ fun HouseItem(
                 .fillMaxWidth()
                 .height(200.dp)
                 .background(MaterialTheme.colorScheme.onSecondary)
-                .padding(16.dp)
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 4.dp
+                )
                 .clickable { },
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -98,7 +98,7 @@ fun HouseItem(
                         withStyle(
                             style = SpanStyle(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                                fontSize = 36.sp,
                                 fontWeight = FontWeight.ExtraBold
                             )
                         ) { append(house.houseUnits) }
@@ -113,8 +113,6 @@ fun HouseItem(
 
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             //  house images
             Row(
                 modifier = Modifier
@@ -128,13 +126,13 @@ fun HouseItem(
                     text = "Images",
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
 
                 IconBtn(
-                    icon = Icons.Outlined.ChevronRight,
+                    icon = Icons.Outlined.ArrowRight,
                     shape = CircleShape,
-                    containerColor = BlueAccentTransparentAlt,
+                    containerColor = MaterialTheme.colorScheme.onSecondary,
                     contentColor = MaterialTheme.colorScheme.primary,
                     onClick = {}
                 )
@@ -175,52 +173,36 @@ fun HouseItem(
 
             }
 
+            //  house view icon
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = "View",
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+                
+                Spacer(modifier = Modifier.width(8.dp))
+
+                IconBtn(
+                    icon = Icons.Outlined.NavigateNext,
+                    shape = CircleShape,
+                    containerColor = BlueAccentTransparentAlt,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    onClick = {}
+                )
+
+            }
+
         }
 
     }
-
-
-//    Box(
-//        modifier = Modifier
-//            .clip(RoundedCornerShape(16.dp))
-//            .fillMaxSize(1f)
-//            .height(400.dp)
-//            .background(MaterialTheme.colorScheme.onPrimary)
-//    ) {
-//
-//        //  main image
-//        HouseItemImage(
-//            houseModel = house,
-//            modifier = Modifier
-//                .clip(RoundedCornerShape(16.dp))
-//                .fillMaxWidth()
-//                .height(250.dp)
-//        )
-//
-//        //  house item details
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//            Spacer(modifier = Modifier.height(150.dp))
-//
-//            HouseItemDetails(
-//                houseModel = house,
-//                modifier = Modifier
-//                    .clip(RoundedCornerShape(16.dp))
-//                    .fillMaxWidth(0.9f)
-//                    .height(200.dp)
-//                    .background(MaterialTheme.colorScheme.onSecondary)
-//                    .padding(16.dp),
-//                onViewClick = {
-//                    onViewClick()
-//                }
-//            )
-//        }
-//
-//
-//    }
 
 }
 

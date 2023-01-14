@@ -268,7 +268,8 @@ fun HomeScreen(
                                                         category = it.houseCategory
                                                     )
                                                 )
-                                            }
+                                            },
+                                            context = context
                                         )
                                     }
                                 },

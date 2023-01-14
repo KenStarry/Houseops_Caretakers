@@ -224,8 +224,9 @@ fun HomeScreen(
 
                             Column(
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(24.dp),
+                                    .fillMaxSize(0.8f)
+                                    .padding(24.dp)
+                                    .align(Alignment.CenterHorizontally),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {

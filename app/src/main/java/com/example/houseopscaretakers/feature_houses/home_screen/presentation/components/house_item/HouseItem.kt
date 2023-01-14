@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import com.example.houseopscaretakers.core.domain.model.PillBtnModel
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
@@ -124,8 +125,8 @@ fun HouseItem(
                 //  images text
                 Text(
                     text = "Images",
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
 
@@ -177,28 +178,62 @@ fun HouseItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Text(
-                    text = "View",
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
-                
-                Spacer(modifier = Modifier.width(8.dp))
+                //  item icons
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
-                IconBtn(
-                    icon = Icons.Outlined.NavigateNext,
-                    shape = CircleShape,
-                    containerColor = BlueAccentTransparentAlt,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    onClick = {
-                        onViewClick()
+                    val houseItemPillIcons = listOf(
+                        PillBtnModel("0", Icons.Outlined.Notifications),
+                        PillBtnModel("", Icons.Outlined.Notes),
+                        PillBtnModel(house.houseImageUris.size.toString(), Icons.Outlined.Image),
+                        PillBtnModel(
+                            house.houseFeatures.size.toString(),
+                            Icons.Outlined.FlashOn
+                        )
+                    )
+
+                    houseItemPillIcons.forEach {
+                        PillButton(
+                            value = it.pillText,
+                            backgroundColor = BlueAccentTransparentAlt,
+                            icon = it.pillIcon,
+                            iconColor = MaterialTheme.colorScheme.primary,
+                            paddingHorizontal = 4.dp,
+                            paddingVertical = 4.dp
+                        ) {
+
+                        }
                     }
-                )
+                }
+
+                //  item view button
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "View",
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    IconBtn(
+                        icon = Icons.Outlined.NavigateNext,
+                        shape = CircleShape,
+                        containerColor = BlueAccentTransparentAlt,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                        onClick = {
+                            onViewClick()
+                        }
+                    )
+                }
 
             }
 

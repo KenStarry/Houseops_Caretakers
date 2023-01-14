@@ -68,10 +68,10 @@ fun HouseItem(
                 .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(
                     horizontal = 16.dp,
-                    vertical = 4.dp
+                    vertical = 8.dp
                 )
                 .clickable { },
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
 
             //  house category & units

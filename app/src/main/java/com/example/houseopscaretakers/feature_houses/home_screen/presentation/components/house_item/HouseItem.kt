@@ -164,6 +164,11 @@ fun HouseItem(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
                                     .size(50.dp)
+                                    .border(
+                                        width = 2.dp,
+                                        color = MaterialTheme.colorScheme.onSecondary,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
                             )
                         }
 

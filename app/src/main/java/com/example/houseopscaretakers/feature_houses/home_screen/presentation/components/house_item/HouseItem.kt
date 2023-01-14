@@ -2,7 +2,9 @@ package com.example.houseopscaretakers.feature_houses.home_screen.presentation.c
 
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -10,14 +12,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.ArrowRightAlt
+import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -33,6 +41,9 @@ import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
+import com.example.houseopscaretakers.ui.theme.BlueAccent
+import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
+import com.example.houseopscaretakers.ui.theme.BlueAccentTransparentAlt
 
 @Composable
 fun HouseItem(
@@ -44,7 +55,7 @@ fun HouseItem(
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp
+            defaultElevation = 4.dp
         ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onSecondary,
@@ -107,9 +118,28 @@ fun HouseItem(
             //  house images
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
 
+                //  images text
+                Text(
+                    text = "Images",
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                )
+
+                IconBtn(
+                    icon = Icons.Outlined.ChevronRight,
+                    shape = CircleShape,
+                    containerColor = BlueAccentTransparentAlt,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    onClick = {}
+                )
+
+                //  house images array
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -138,7 +168,7 @@ fun HouseItem(
                             )
                         }
 
-                        spacing += 8.dp
+                        spacing += 16.dp
                     }
 
                 }

@@ -11,7 +11,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
+import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material.icons.outlined.Watch
+import androidx.compose.material.icons.outlined.WatchLater
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -275,7 +277,7 @@ fun HomeScreen(
 
                             //  watchlist action for swipeable component
                             val watchlist = customSwipeAction(
-                                icon = Icons.Outlined.Watch,
+                                icon = Icons.Outlined.TrackChanges,
                                 iconTint = LimeGreen,
                                 background = LimeGreenDull,
                                 onSwipe = {
@@ -294,6 +296,7 @@ fun HomeScreen(
                                             startActions = listOf(watchlist),
                                             endActions = listOf(delete),
                                             swipeThreshold = 20.dp,
+                                            backgroundUntilSwipeThreshold = MaterialTheme.colorScheme.onPrimary,
                                             modifier = Modifier
                                                 .clip(RoundedCornerShape(16.dp))
                                         ) {

@@ -6,10 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
+import androidx.compose.material.icons.outlined.Watch
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,6 +45,8 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
+import com.example.houseopscaretakers.ui.theme.LimeGreen
+import com.example.houseopscaretakers.ui.theme.LimeGreenDull
 import com.example.houseopscaretakers.ui.theme.RedOrange
 import com.example.houseopscaretakers.ui.theme.RedOrangeDull
 import me.saket.swipe.SwipeableActionsBox
@@ -268,6 +273,16 @@ fun HomeScreen(
                                 }
                             )
 
+                            //  watchlist action for swipeable component
+                            val watchlist = customSwipeAction(
+                                icon = Icons.Outlined.Watch,
+                                iconTint = LimeGreen,
+                                background = LimeGreenDull,
+                                onSwipe = {
+                                    Log.d("Swipe", "Watchlist")
+                                }
+                            )
+
                             //  Lazy column to display house categories
                             LazyColumn(
                                 content = {
@@ -276,8 +291,11 @@ fun HomeScreen(
                                     ) {
 
                                         SwipeableActionsBox(
-                                            startActions = listOf(),
-                                            endActions = listOf(delete)
+                                            startActions = listOf(watchlist),
+                                            endActions = listOf(delete),
+                                            swipeThreshold = 20.dp,
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(16.dp))
                                         ) {
 
                                             HouseItem(

@@ -24,7 +24,12 @@ val DarkBlueAccent = Color(0xFF1c1f33)
 val PinkAccent = Color(0xFFf72585)
 
 val RedOrange = Color(0xFFFF4309)
-val RedOrangeDull = Color(0xFF74321D)
+val RedOrangeDull = Color(0xFF74321D).copy(alpha = 0.5f)
+
+val LimeGreen = Color(0xFF3EFF09)
+val LimeGreenDull = Color(0xFF30741D).copy(alpha = 0.5f)
+
+
 val RedPink = Color(0xFFFF0A5B)
 val BabyBlue = Color(0xFF0BCDE6)
 val Violet = Color(0xffcf94da)

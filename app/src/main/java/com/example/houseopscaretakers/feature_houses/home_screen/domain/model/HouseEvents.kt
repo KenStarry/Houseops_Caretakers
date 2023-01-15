@@ -5,4 +5,9 @@ sealed class HouseEvents {
     data class GetHouses(val apartmentName: String) : HouseEvents()
 
     data class GetHouse(val category: String) : HouseEvents()
+
+    data class DeleteHouse(
+        val apartmentName: String,
+        val houseModel: HouseModel
+    ) : HouseEvents()
 }

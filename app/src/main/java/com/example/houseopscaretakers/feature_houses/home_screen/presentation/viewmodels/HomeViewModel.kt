@@ -182,6 +182,16 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
+
+            is HouseEvents.DeleteHouse -> {
+                //  delete house from firestore
+                viewModelScope.launch {
+                    useCases.deleteHouse(
+                        apartmentName = event.apartmentName,
+                        houseModel = event.houseModel
+                    )
+                }
+            }
         }
     }
 }

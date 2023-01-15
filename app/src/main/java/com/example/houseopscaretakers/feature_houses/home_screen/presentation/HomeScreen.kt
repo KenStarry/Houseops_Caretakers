@@ -131,7 +131,8 @@ fun HomeScreen(
                         userImageUri = caretaker?.caretakerImage?.toUri(),
                         placeholderImage = R.drawable.houseops_light_final,
                         onClickMore = {},
-                        onClickNotifications = {}
+                        onClickNotifications = {},
+                        onClickWatchlist = {}
                     )
                 },
                 floatingActionButton = {

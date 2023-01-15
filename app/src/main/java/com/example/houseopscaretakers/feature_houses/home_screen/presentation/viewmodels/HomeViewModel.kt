@@ -84,6 +84,8 @@ class HomeViewModel @Inject constructor(
 
         when (event) {
 
+            is BottomSheetEvents.AddGalleryImages -> {}
+
             is BottomSheetEvents.AddHouseToFirestore -> {
                 //  add house to firestore
                 viewModelScope.launch {

@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +30,7 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
+import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
@@ -39,6 +42,9 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
+import com.example.houseopscaretakers.ui.theme.RedOrange
+import com.example.houseopscaretakers.ui.theme.RedOrangeDull
+import me.saket.swipe.SwipeableActionsBox
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -252,26 +258,45 @@ fun HomeScreen(
 
                         } else {
 
+                            //  delete action for swipeable component
+                            val delete = customSwipeAction(
+                                icon = Icons.Outlined.DeleteForever,
+                                iconTint = RedOrange,
+                                background = RedOrangeDull,
+                                onSwipe = {
+                                    Log.d("Swipe", "Deleted")
+                                }
+                            )
+
                             //  Lazy column to display house categories
                             LazyColumn(
                                 content = {
                                     items(
                                         items = homeviewModel.housesState
                                     ) {
-                                        HouseItem(
-                                            house = it,
-                                            onViewClick = {
-                                                //  navigate to house view activity
-                                                navHostController.navigate(
-                                                    route = Screen.HouseView.passHouseCategoryAndApartment(
-                                                        apartment = caretaker?.caretakerApartment
-                                                            ?: "Apartments",
-                                                        category = it.houseCategory
+
+                                        SwipeableActionsBox(
+                                            startActions = listOf(),
+                                            endActions = listOf(delete)
+                                        ) {
+
+                                            HouseItem(
+                                                house = it,
+                                                onViewClick = {
+                                                    //  navigate to house view activity
+                                                    navHostController.navigate(
+                                                        route = Screen.HouseView.passHouseCategoryAndApartment(
+                                                            apartment = caretaker?.caretakerApartment
+                                                                ?: "Apartments",
+                                                            category = it.houseCategory
+                                                        )
                                                     )
-                                                )
-                                            },
-                                            context = context
-                                        )
+                                                },
+                                                context = context
+                                            )
+
+                                        }
+
                                     }
                                 },
                                 state = rememberLazyListState(),

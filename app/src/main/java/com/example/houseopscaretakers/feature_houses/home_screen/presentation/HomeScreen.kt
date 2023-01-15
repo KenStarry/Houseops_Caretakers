@@ -278,6 +278,8 @@ fun HomeScreen(
                                             background = RedOrangeDull,
                                             onSwipe = {
 
+                                                //  open dialog
+                                                homeviewModel.openDeleteDialog = true
                                                 //  delete house
                                                 caretaker?.caretakerApartment?.let {
                                                     homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(

@@ -28,6 +28,10 @@ class HomeViewModel @Inject constructor(
     var currentHouse by mutableStateOf<HouseModel?>(null)
         private set
 
+    //  open delete dialog
+    var openDeleteDialog by mutableStateOf(false)
+        private set
+
     //  pill name
     private val _pillName = mutableStateOf("House Category")
     val pillName: State<String> = _pillName
@@ -158,6 +162,14 @@ class HomeViewModel @Inject constructor(
     fun onHomeScreenEvent(event: HouseEvents) {
 
         when (event) {
+
+            is HouseEvents.OpenDeleteDialog -> {
+                openDeleteDialog = true
+            }
+
+            is HouseEvents.CloseDeleteDialog -> {
+                openDeleteDialog = false
+            }
 
             is HouseEvents.GetHouses -> {
                 viewModelScope.launch {

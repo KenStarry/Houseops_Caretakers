@@ -31,6 +31,7 @@ val Violet = Color(0xffcf94da)
 val LightGreen = Color(0xFFDDEE0B)
 
 val col1 = Color(0xFFFF1744)
+val col2 = Color(0xFFFF5252)
 
 val PendingColor = Color.Yellow
 

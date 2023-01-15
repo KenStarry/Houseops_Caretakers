@@ -66,9 +66,9 @@ object Constants {
 
     val statsCardList = listOf(
         StatsCardModel(Icons.Outlined.Apartment, RedOrange, "10", "Users Booked"),
-        StatsCardModel(Icons.Outlined.ThumbUp, BabyBlue, "0", "Liked Houses"),
+        StatsCardModel(Icons.Outlined.ThumbUp, BabyBlue, "0", "Likes"),
         StatsCardModel(Icons.Outlined.Comment, BlueAccent, "10", "Comments"),
-        StatsCardModel(Icons.Outlined.Pending, LightGreen, "10", "Pending Approval")
+        StatsCardModel(Icons.Outlined.Pending, LightGreen, "10", "Pending Issues")
     )
 }
 

@@ -16,6 +16,7 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_
 import com.example.houseopscaretakers.feature_houses.home_screen.data.repository.HouseRepositoryImpl
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.repository.HouseRepository
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.AddHouse
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.DeleteHouse
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.GetHouses
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import com.google.firebase.auth.FirebaseAuth
@@ -85,7 +86,8 @@ object AppModule {
         repository: HouseRepository
     ) = HouseUseCases(
         addHouse = AddHouse(repository),
-        getHouses = GetHouses(repository)
+        getHouses = GetHouses(repository),
+        deleteHouse = DeleteHouse(repository)
     )
 
     //  -----------------LOGIN REPOSITORY-------------------

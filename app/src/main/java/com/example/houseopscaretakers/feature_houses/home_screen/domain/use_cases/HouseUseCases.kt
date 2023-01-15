@@ -2,5 +2,6 @@ package com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cas
 
 data class HouseUseCases(
     val addHouse: AddHouse,
-    val getHouses: GetHouses
+    val getHouses: GetHouses,
+    val deleteHouse: DeleteHouse
 )

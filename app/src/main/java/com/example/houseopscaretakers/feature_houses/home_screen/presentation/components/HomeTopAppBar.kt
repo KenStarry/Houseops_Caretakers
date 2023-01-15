@@ -24,7 +24,8 @@ fun HomeTopAppBar(
     userImageUri: Uri?,
     placeholderImage: Int,
     onClickMore: () -> Unit,
-    onClickFilter: () -> Unit
+    onClickNotifications: () -> Unit,
+    onClickWatchlist: () -> Unit,
 ) {
 
     TopAppBar(
@@ -52,11 +53,19 @@ fun HomeTopAppBar(
         elevation = 0.dp,
         actions = {
 
-            //  Filter icon
-            IconButton(onClick = { onClickFilter() }) {
+            //  Watchlist Icon
+            IconButton(onClick = { onClickWatchlist() }) {
+                Icon(
+                    imageVector = Icons.Outlined.TrackChanges,
+                    contentDescription = "Watchlist Icon"
+                )
+            }
+
+            //  Notifications icon
+            IconButton(onClick = { onClickNotifications() }) {
                 Icon(
                     imageVector = Icons.Outlined.Notifications,
-                    contentDescription = "Expand Icon"
+                    contentDescription = "Notifications Icon"
                 )
             }
 

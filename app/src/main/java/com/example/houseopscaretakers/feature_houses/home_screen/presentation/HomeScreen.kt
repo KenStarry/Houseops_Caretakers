@@ -12,8 +12,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.TrackChanges
-import androidx.compose.material.icons.outlined.Watch
-import androidx.compose.material.icons.outlined.WatchLater
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -133,7 +131,7 @@ fun HomeScreen(
                         userImageUri = caretaker?.caretakerImage?.toUri(),
                         placeholderImage = R.drawable.houseops_light_final,
                         onClickMore = {},
-                        onClickFilter = {}
+                        onClickNotifications = {}
                     )
                 },
                 floatingActionButton = {

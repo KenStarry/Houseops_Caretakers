@@ -264,32 +264,39 @@ fun HomeScreen(
 
                         } else {
 
-                            //  delete action for swipeable component
-                            val delete = customSwipeAction(
-                                icon = Icons.Outlined.DeleteForever,
-                                iconTint = RedOrange,
-                                background = RedOrangeDull,
-                                onSwipe = {
-                                    //  delete house
-                                }
-                            )
-
-                            //  watchlist action for swipeable component
-                            val watchlist = customSwipeAction(
-                                icon = Icons.Outlined.TrackChanges,
-                                iconTint = LimeGreen,
-                                background = LimeGreenDull,
-                                onSwipe = {
-                                    Log.d("Swipe", "Watchlist")
-                                }
-                            )
-
                             //  Lazy column to display house categories
                             LazyColumn(
                                 content = {
                                     items(
                                         items = homeviewModel.housesState
-                                    ) {
+                                    ) { house ->
+
+                                        //  delete action for swipeable component
+                                        val delete = customSwipeAction(
+                                            icon = Icons.Outlined.DeleteForever,
+                                            iconTint = RedOrange,
+                                            background = RedOrangeDull,
+                                            onSwipe = {
+
+                                                //  delete house
+                                                caretaker?.caretakerApartment?.let {
+                                                    homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
+                                                        apartmentName = it,
+                                                        houseModel = house
+                                                    ))
+                                                }
+                                            }
+                                        )
+
+                                        //  watchlist action for swipeable component
+                                        val watchlist = customSwipeAction(
+                                            icon = Icons.Outlined.TrackChanges,
+                                            iconTint = LimeGreen,
+                                            background = LimeGreenDull,
+                                            onSwipe = {
+                                                Log.d("Swipe", "Watchlist")
+                                            }
+                                        )
 
                                         SwipeableActionsBox(
                                             startActions = listOf(watchlist),
@@ -301,14 +308,14 @@ fun HomeScreen(
                                         ) {
 
                                             HouseItem(
-                                                house = it,
+                                                house = house,
                                                 onViewClick = {
                                                     //  navigate to house view activity
                                                     navHostController.navigate(
                                                         route = Screen.HouseView.passHouseCategoryAndApartment(
                                                             apartment = caretaker?.caretakerApartment
                                                                 ?: "Apartments",
-                                                            category = it.houseCategory
+                                                            category = house.houseCategory
                                                         )
                                                     )
                                                 },

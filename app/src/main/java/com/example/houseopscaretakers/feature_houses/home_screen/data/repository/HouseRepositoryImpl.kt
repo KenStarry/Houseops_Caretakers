@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.data.repository
 
+import android.util.Log
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.repository.HouseRepository
@@ -13,9 +14,8 @@ class HouseRepositoryImpl @Inject constructor(
 
     override suspend fun addHouseToFirestore(apartmentName: String, houseModel: HouseModel) {
 
-        db.collection(Constants.APARTMENTS_COLLECTION)
-            .document(apartmentName).collection(Constants.HOUSES_SUB_COLLECTION)
-            .document(houseModel.houseCategory)
+        db.collection(Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
             .set(houseModel)
             .addOnSuccessListener {
 
@@ -46,6 +46,19 @@ class HouseRepositoryImpl @Inject constructor(
                 }
 
                 houseList(houses)
+            }
+    }
+
+    override suspend fun deleteHouseFromFirestore(apartmentName: String, houseModel: HouseModel) {
+
+        db.collection(Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("DeleteDoc", "${houseModel.houseCategory} deleted successfully!")
+            }
+            .addOnFailureListener {
+                Log.d("DeleteDoc", "Error while deleting document!")
             }
     }
 }

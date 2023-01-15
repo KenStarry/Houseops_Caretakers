@@ -270,7 +270,7 @@ fun HomeScreen(
                                 iconTint = RedOrange,
                                 background = RedOrangeDull,
                                 onSwipe = {
-                                    Log.d("Swipe", "Deleted")
+                                    //  delete house
                                 }
                             )
 

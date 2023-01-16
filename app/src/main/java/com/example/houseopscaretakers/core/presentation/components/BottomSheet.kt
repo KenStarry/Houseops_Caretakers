@@ -37,10 +37,13 @@ fun BottomSheet(
     }
 
     //  on back pressed
-//    BackHandler(onBack = {
-//        //  close bottomsheet
-//        closeBottomSheet(modalBottomSheetState, scope)
-//    })
+    BackHandler(
+        enabled = modalBottomSheetState.isVisible,
+        onBack = {
+            //  close bottomsheet
+            closeBottomSheet(modalBottomSheetState, scope)
+        }
+    )
 
 }
 

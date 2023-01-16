@@ -36,6 +36,7 @@ import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
@@ -172,26 +173,58 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.height(24.dp))
 
                         //  greetings text
-                        Column(
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
 
-                            Text(
-                                text = "Hello",
-                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-                            )
+                            Column(
+                                modifier = Modifier
+                                    .weight(1f),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = "Hello",
+                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.6f
+                                    )
+                                )
 
+                                Text(
+                                    text = caretaker?.caretakerName ?: "",
+                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                    fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.9f
+                                    )
+                                )
+                            }
+
+                            PillButton(
+                                value = homeviewModel.addApartmentSuffix(
+                                    caretaker?.caretakerApartment ?: "Apartments"
+                                ),
+                                backgroundColor =
+                            ) {
+
+                            }
+
+                            //  apartment name
                             Text(
-                                text = caretaker?.caretakerName ?: "",
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+                                text = homeviewModel.addApartmentSuffix(
+                                    caretaker?.caretakerApartment ?: "Apartments"
+                                ),
+                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                fontWeight = FontWeight.ExtraBold,
+                                softWrap = true,
+                                modifier = Modifier
+                                    .weight(1f),
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
                             )
 
                         }
@@ -297,7 +330,9 @@ fun HomeScreen(
                                                         house = house,
                                                         onCancel = {
                                                             //  close dialog
-                                                            homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
+                                                            homeviewModel.onHomeScreenEvent(
+                                                                HouseEvents.CloseDeleteDialog
+                                                            )
                                                         },
                                                         onConfirm = {
 
@@ -310,10 +345,12 @@ fun HomeScreen(
 
                                                             //  delete house
                                                             caretaker?.caretakerApartment?.let {
-                                                                homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
-                                                                    apartmentName = it,
-                                                                    houseModel = house
-                                                                ))
+                                                                homeviewModel.onHomeScreenEvent(
+                                                                    HouseEvents.DeleteHouse(
+                                                                        apartmentName = it,
+                                                                        houseModel = house
+                                                                    )
+                                                                )
                                                             }
                                                         }
                                                     )

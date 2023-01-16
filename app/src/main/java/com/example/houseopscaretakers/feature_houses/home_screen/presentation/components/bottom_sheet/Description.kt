@@ -6,8 +6,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.NoteAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -40,42 +42,51 @@ fun Description(
             color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
 
-        //  decription text
-        TextField(
-            value = description,
-            onValueChange = {
-                description = it
-                onInput(description)
-            },
-            placeholder = {
-                Text(text = "House description")
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Outlined.Description,
-                    contentDescription = "Description icon"
-                )
-            },
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Sentences,
-                autoCorrect = true,
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Default
-            ),
-            singleLine = false,
-            maxLines = 10,
-            shape = RoundedCornerShape(16.dp),
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(200.dp)
                 .padding(16.dp),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = MaterialTheme.colorScheme.onSecondary,
-                textColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
-                unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
-                focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
-                cursorColor = MaterialTheme.colorScheme.primary
+            contentAlignment = Alignment.Center
+        ) {
+
+            //  decription text
+            TextField(
+                value = description,
+                onValueChange = {
+                    description = it
+                    onInput(description)
+                },
+                placeholder = {
+                    Text(text = "House description")
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Outlined.NoteAlt,
+                        contentDescription = "Description icon"
+                    )
+                },
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    autoCorrect = true,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Default
+                ),
+                singleLine = false,
+                maxLines = 10,
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .fillMaxSize(),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = MaterialTheme.colorScheme.onSecondary,
+                    textColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
+                    unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+                    focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+                    cursorColor = MaterialTheme.colorScheme.primary
+                )
             )
-        )
+
+        }
     }
 }
 

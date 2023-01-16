@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FilterList
+import androidx.compose.material.icons.outlined.Sort
 import androidx.compose.material.icons.rounded.Filter
 import androidx.compose.material.icons.rounded.Filter1
 import androidx.compose.material3.*
@@ -54,8 +55,8 @@ fun MyHousesTitle(
                 )
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.FilterList,
-                    contentDescription = "Expand Icon"
+                    imageVector = Icons.Outlined.Sort,
+                    contentDescription = "Filter Icon"
                 )
             }
         }

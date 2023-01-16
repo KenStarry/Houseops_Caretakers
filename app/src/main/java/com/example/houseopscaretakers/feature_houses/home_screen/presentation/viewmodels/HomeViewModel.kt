@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
         private set
 
     //  pill name
-    private val _pillName = mutableStateOf("House Category")
+    private val _pillName = mutableStateOf("Choose house category")
     val pillName: State<String> = _pillName
 
     //  house features list

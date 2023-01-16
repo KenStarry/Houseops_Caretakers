@@ -39,6 +39,7 @@ import com.example.houseopscaretakers.core.presentation.components.CustomAlertDi
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.*
@@ -78,45 +79,96 @@ fun HomeScreen(
     BottomSheet(
         sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
         sheetContent = { state, scope ->
-            AddHouseBottomSheet(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        top = 4.dp,
-                        start = 16.dp,
-                        end = 16.dp,
-                        bottom = 16.dp
-                    )
-                    .verticalScroll(rememberScrollState()),
-                viewModel = homeviewModel,
-                onHouseAdd = { house ->
+            when (homeviewModel.bottomSheetType) {
 
-                    // upload images to firestore
-                    viewModel.onEvent(
-                        CoreEvents.UploadImageEvent(
-                            imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
-                            context = context,
-                            houseModel = house,
-                            apartmentName = caretaker?.caretakerApartment ?: "none"
-                        )
-                    )
+                HomeConstants.PROFILE_BOTTOM_SHEET -> {
+                    Text(text = "Hello Ken")
+                }
 
-                    //  add house to apartments collection
-                    homeviewModel.onBottomSheetEvent(
-                        BottomSheetEvents.AddHouseToFirestore(
-                            caretaker?.caretakerApartment ?: "none", house
-                        )
-                    )
+                HomeConstants.FAB_BOTTOM_SHEET -> {
+                    AddHouseBottomSheet(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                top = 4.dp,
+                                start = 16.dp,
+                                end = 16.dp,
+                                bottom = 16.dp
+                            )
+                            .verticalScroll(rememberScrollState()),
+                        viewModel = homeviewModel,
+                        onHouseAdd = { house ->
 
-                    //  close bottom sheet
-                    homeviewModel.onBottomSheetEvent(
-                        BottomSheetEvents.CloseBottomSheet(
-                            state,
-                            scope
-                        )
+                            // upload images to firestore
+                            viewModel.onEvent(
+                                CoreEvents.UploadImageEvent(
+                                    imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
+                                    context = context,
+                                    houseModel = house,
+                                    apartmentName = caretaker?.caretakerApartment ?: "none"
+                                )
+                            )
+
+                            //  add house to apartments collection
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.AddHouseToFirestore(
+                                    caretaker?.caretakerApartment ?: "none", house
+                                )
+                            )
+
+                            //  close bottom sheet
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
+                                    state,
+                                    scope
+                                )
+                            )
+                        }
                     )
                 }
-            )
+
+                else -> {
+                    AddHouseBottomSheet(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                top = 4.dp,
+                                start = 16.dp,
+                                end = 16.dp,
+                                bottom = 16.dp
+                            )
+                            .verticalScroll(rememberScrollState()),
+                        viewModel = homeviewModel,
+                        onHouseAdd = { house ->
+
+                            // upload images to firestore
+                            viewModel.onEvent(
+                                CoreEvents.UploadImageEvent(
+                                    imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
+                                    context = context,
+                                    houseModel = house,
+                                    apartmentName = caretaker?.caretakerApartment ?: "none"
+                                )
+                            )
+
+                            //  add house to apartments collection
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.AddHouseToFirestore(
+                                    caretaker?.caretakerApartment ?: "none", house
+                                )
+                            )
+
+                            //  close bottom sheet
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
+                                    state,
+                                    scope
+                                )
+                            )
+                        }
+                    )
+                }
+            }
         },
         closeBottomSheet = { state, scope ->
             homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
@@ -135,7 +187,14 @@ fun HomeScreen(
                         onClickNotifications = {},
                         onClickWatchlist = {},
                         onClickImage = {
-
+                            //  open profile bottom sheet
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.OpenBottomSheet(
+                                    state,
+                                    scope,
+                                    HomeConstants.PROFILE_BOTTOM_SHEET
+                                )
+                            )
                         }
                     )
                 },
@@ -143,11 +202,12 @@ fun HomeScreen(
                     HomeFab(
                         icon = Icons.Rounded.Add,
                         onClick = {
-                            //  open bottom sheet
+                            //  open fab bottom sheet
                             homeviewModel.onBottomSheetEvent(
                                 BottomSheetEvents.OpenBottomSheet(
                                     state,
-                                    scope
+                                    scope,
+                                    HomeConstants.FAB_BOTTOM_SHEET
                                 )
                             )
                         }
@@ -239,18 +299,6 @@ fun HomeScreen(
                             contentPadding = PaddingValues(16.dp),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         )
-
-
-                        //  Apartment Name
-//                        HomeApartmentTitle(
-//                            viewModel = homeviewModel,
-//                            apartmentName = caretaker?.caretakerApartment ?: "Apartments",
-//                            onFilter = {},
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .wrapContentHeight()
-//                                .padding(horizontal = 16.dp)
-//                        )
 
                         Spacer(modifier = Modifier.height(24.dp))
 
@@ -412,7 +460,6 @@ fun HomeScreen(
 
         },
     )
-
 }
 
 

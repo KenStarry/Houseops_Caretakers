@@ -9,6 +9,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseopscaretakers.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.*
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,10 @@ class HomeViewModel @Inject constructor(
 
     //  houses list
     var housesState by mutableStateOf<List<HouseModel>>(emptyList())
+        private set
+
+    //  bottomsheet type
+    var bottomSheetType by mutableStateOf("none")
         private set
 
     //  current house
@@ -103,6 +108,9 @@ class HomeViewModel @Inject constructor(
             is BottomSheetEvents.OpenBottomSheet -> {
                 //  open bottom sheet
                 event.scope.launch {
+
+                    bottomSheetType = event.bottomSheetType
+
                     event.state.animateTo(
                         ModalBottomSheetValue.Expanded,
                         tween(

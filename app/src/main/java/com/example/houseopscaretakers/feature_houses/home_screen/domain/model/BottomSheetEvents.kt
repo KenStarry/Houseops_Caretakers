@@ -9,7 +9,11 @@ sealed class BottomSheetEvents {
 
     //  open bottom sheet
     data class OpenBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor
-        (val state: ModalBottomSheetState, val scope: CoroutineScope) : BottomSheetEvents()
+        (
+        val state: ModalBottomSheetState,
+        val scope: CoroutineScope,
+        val bottomSheetType: String
+    ) : BottomSheetEvents()
 
     //  close bottom sheet
     data class CloseBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor
@@ -30,7 +34,8 @@ sealed class BottomSheetEvents {
     data class DeleteImageFromList(val index: Int) : BottomSheetEvents()
 
     //  Firestore
-    data class AddHouseToFirestore(val apartmentName: String, val houseModel: HouseModel) : BottomSheetEvents()
+    data class AddHouseToFirestore(val apartmentName: String, val houseModel: HouseModel) :
+        BottomSheetEvents()
 }
 
 

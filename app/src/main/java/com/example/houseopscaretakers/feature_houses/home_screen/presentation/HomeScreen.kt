@@ -1,6 +1,9 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
+import android.app.Activity
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,6 +12,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.TrackChanges
@@ -33,14 +38,12 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
+import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog
 import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeApartmentTitle
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.StatsCard
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.*
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
@@ -132,7 +135,10 @@ fun HomeScreen(
                         placeholderImage = R.drawable.houseops_light_final,
                         onClickMore = {},
                         onClickNotifications = {},
-                        onClickWatchlist = {}
+                        onClickWatchlist = {},
+                        onClickImage = {
+
+                        }
                     )
                 },
                 floatingActionButton = {
@@ -271,22 +277,50 @@ fun HomeScreen(
                                         items = homeviewModel.housesState
                                     ) { house ->
 
+                                        //  Alert Dialogs
+                                        if (homeviewModel.openDeleteDialog) {
+                                            CustomAlertDialog(
+                                                onDismiss = {
+                                                    //  close dialog
+                                                    homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
+                                                },
+                                                content = {
+                                                    HouseDeleteDialog(
+                                                        house = house,
+                                                        onCancel = {
+                                                            //  close dialog
+                                                            homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
+                                                        },
+                                                        onConfirm = {
+
+                                                            //  toast message
+                                                            Toast.makeText(
+                                                                context,
+                                                                "${house.houseCategory} category deleted.",
+                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+
+                                                            //  delete house
+                                                            caretaker?.caretakerApartment?.let {
+                                                                homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
+                                                                    apartmentName = it,
+                                                                    houseModel = house
+                                                                ))
+                                                            }
+                                                        }
+                                                    )
+                                                }
+                                            )
+                                        }
+
                                         //  delete action for swipeable component
                                         val delete = customSwipeAction(
                                             icon = Icons.Outlined.DeleteForever,
                                             iconTint = RedOrange,
                                             background = RedOrangeDull,
                                             onSwipe = {
-
                                                 //  open dialog
-                                                homeviewModel.openDeleteDialog = true
-                                                //  delete house
-                                                caretaker?.caretakerApartment?.let {
-                                                    homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
-                                                        apartmentName = it,
-                                                        houseModel = house
-                                                    ))
-                                                }
+                                                homeviewModel.onHomeScreenEvent(HouseEvents.OpenDeleteDialog)
                                             }
                                         )
 

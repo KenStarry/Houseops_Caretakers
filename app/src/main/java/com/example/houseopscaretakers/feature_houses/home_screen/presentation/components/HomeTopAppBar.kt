@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.feature_houses.home_screen.presentation.c
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,6 +27,7 @@ fun HomeTopAppBar(
     onClickMore: () -> Unit,
     onClickNotifications: () -> Unit,
     onClickWatchlist: () -> Unit,
+    onClickImage: () -> Unit
 ) {
 
     TopAppBar(
@@ -46,6 +48,7 @@ fun HomeTopAppBar(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(40.dp)
+                    .clickable { onClickImage() }
             )
         },
         backgroundColor = MaterialTheme.colorScheme.onPrimary,

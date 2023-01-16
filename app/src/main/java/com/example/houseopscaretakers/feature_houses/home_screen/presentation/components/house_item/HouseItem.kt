@@ -71,7 +71,7 @@ fun HouseItem(
                     horizontal = 16.dp,
                     vertical = 8.dp
                 )
-                .clickable { },
+                .clickable { onViewClick() },
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 

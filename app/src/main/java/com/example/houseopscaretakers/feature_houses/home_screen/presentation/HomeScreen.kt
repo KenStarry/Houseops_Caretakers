@@ -209,22 +209,8 @@ fun HomeScreen(
                                 value = homeviewModel.addApartmentSuffix(
                                     caretaker?.caretakerApartment ?: "Apartments"
                                 ),
-                                backgroundColor =
-                            ) {
-
-                            }
-
-                            //  apartment name
-                            Text(
-                                text = homeviewModel.addApartmentSuffix(
-                                    caretaker?.caretakerApartment ?: "Apartments"
-                                ),
-                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                fontWeight = FontWeight.ExtraBold,
-                                softWrap = true,
-                                modifier = Modifier
-                                    .weight(1f),
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                                backgroundColor = MaterialTheme.colorScheme.tertiary,
+                                onClick = {}
                             )
 
                         }

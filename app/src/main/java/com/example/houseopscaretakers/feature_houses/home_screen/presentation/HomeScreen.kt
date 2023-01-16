@@ -44,6 +44,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.Bo
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.*
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.ProfileBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
@@ -82,7 +83,15 @@ fun HomeScreen(
             when (homeviewModel.bottomSheetType) {
 
                 HomeConstants.PROFILE_BOTTOM_SHEET -> {
-                    Text(text = "Hello Ken")
+                    ProfileBottomSheet(
+                        caretaker = caretaker,
+                        context = context,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.onPrimary)
+                            .wrapContentHeight()
+                            .padding(24.dp)
+                    )
                 }
 
                 HomeConstants.FAB_BOTTOM_SHEET -> {

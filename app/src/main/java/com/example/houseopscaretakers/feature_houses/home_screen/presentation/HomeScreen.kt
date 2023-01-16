@@ -73,318 +73,322 @@ fun HomeScreen(
         )
     )
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    //  Bottom Sheet as the root composable
+    BottomSheet(
+        sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
+        sheetContent = { state, scope ->
+            AddHouseBottomSheet(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        top = 4.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 16.dp
+                    )
+                    .verticalScroll(rememberScrollState()),
+                viewModel = homeviewModel,
+                onHouseAdd = { house ->
 
-        //  Bottom Sheet as the root composable
-        BottomSheet(
-            sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
-            sheetContent = { state, scope ->
-                AddHouseBottomSheet(
+                    // upload images to firestore
+                    viewModel.onEvent(
+                        CoreEvents.UploadImageEvent(
+                            imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
+                            context = context,
+                            houseModel = house,
+                            apartmentName = caretaker?.caretakerApartment ?: "none"
+                        )
+                    )
+
+                    //  add house to apartments collection
+                    homeviewModel.onBottomSheetEvent(
+                        BottomSheetEvents.AddHouseToFirestore(
+                            caretaker?.caretakerApartment ?: "none", house
+                        )
+                    )
+
+                    //  close bottom sheet
+                    homeviewModel.onBottomSheetEvent(
+                        BottomSheetEvents.CloseBottomSheet(
+                            state,
+                            scope
+                        )
+                    )
+                }
+            )
+        },
+        closeBottomSheet = { state, scope ->
+            homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
+        },
+        sheetScope = { state, scope ->
+
+            //  Main Content
+            Scaffold(
+                topBar = {
+                    HomeTopAppBar(
+                        context = context,
+                        title = "Home",
+                        userImageUri = caretaker?.caretakerImage?.toUri(),
+                        placeholderImage = R.drawable.houseops_light_final,
+                        onClickMore = {},
+                        onClickNotifications = {},
+                        onClickWatchlist = {},
+                        onClickImage = {
+
+                        }
+                    )
+                },
+                floatingActionButton = {
+                    HomeFab(
+                        icon = Icons.Rounded.Add,
+                        onClick = {
+                            //  open bottom sheet
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.OpenBottomSheet(
+                                    state,
+                                    scope
+                                )
+                            )
+                        }
+                    )
+                }
+            ) { contentPadding ->
+
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(
-                            top = 4.dp,
-                            start = 16.dp,
-                            end = 16.dp,
-                            bottom = 16.dp
-                        )
-                        .verticalScroll(rememberScrollState()),
-                    viewModel = homeviewModel,
-                    onHouseAdd = { house ->
+                        .background(MaterialTheme.colorScheme.onPrimary)
+                        .padding(contentPadding)
+                ) {
 
-                        // upload images to firestore
-                        viewModel.onEvent(
-                            CoreEvents.UploadImageEvent(
-                                imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
-                                context = context,
-                                houseModel = house,
-                                apartmentName = caretaker?.caretakerApartment ?: "none"
-                            )
-                        )
-
-                        //  add house to apartments collection
-                        homeviewModel.onBottomSheetEvent(
-                            BottomSheetEvents.AddHouseToFirestore(
-                                caretaker?.caretakerApartment ?: "none", house
-                            )
-                        )
-
-                        //  close bottom sheet
-                        homeviewModel.onBottomSheetEvent(
-                            BottomSheetEvents.CloseBottomSheet(
-                                state,
-                                scope
-                            )
-                        )
-                    }
-                )
-            },
-            closeBottomSheet = { state, scope ->
-                homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
-            },
-            sheetScope = { state, scope ->
-
-                //  Main Content
-                Scaffold(
-                    topBar = {
-                        HomeTopAppBar(
-                            context = context,
-                            title = "Home",
-                            userImageUri = caretaker?.caretakerImage?.toUri(),
-                            placeholderImage = R.drawable.houseops_light_final,
-                            onClickMore = {},
-                            onClickNotifications = {},
-                            onClickWatchlist = {},
-                            onClickImage = {
-
-                            }
-                        )
-                    },
-                    floatingActionButton = {
-                        HomeFab(
-                            icon = Icons.Rounded.Add,
-                            onClick = {
-                                //  open bottom sheet
-                                homeviewModel.onBottomSheetEvent(
-                                    BottomSheetEvents.OpenBottomSheet(
-                                        state,
-                                        scope
-                                    )
-                                )
-                            }
-                        )
-                    }
-                ) { contentPadding ->
-
-                    Box(
+                    //  Main Content
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onPrimary)
-                            .padding(contentPadding)
+                            .verticalScroll(rememberScrollState())
                     ) {
 
-                        //  Main Content
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        //  greetings text
                         Column(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .background(MaterialTheme.colorScheme.onPrimary)
-                                .verticalScroll(rememberScrollState())
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
 
-                            Spacer(modifier = Modifier.height(24.dp))
+                            Text(
+                                text = "Hello",
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                            )
 
-                            //  greetings text
+                            Text(
+                                text = caretaker?.caretakerName ?: "",
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        //  Apartment Statistics cards
+                        LazyRow(
+                            content = {
+                                itemsIndexed(
+                                    Constants.statsCardList
+                                ) { index, card ->
+
+                                    StatsCard(
+                                        title = card.title,
+                                        icon = card.icon,
+                                        iconColor = card.iconColor,
+                                        value = card.value,
+                                        onClick = { title ->
+                                            //  navigate to card page
+                                        }
+                                    )
+                                }
+                            },
+                            state = rememberLazyListState(),
+                            contentPadding = PaddingValues(16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        )
+
+
+                        //  Apartment Name
+//                        HomeApartmentTitle(
+//                            viewModel = homeviewModel,
+//                            apartmentName = caretaker?.caretakerApartment ?: "Apartments",
+//                            onFilter = {},
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .wrapContentHeight()
+//                                .padding(horizontal = 16.dp)
+//                        )
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        //  My Houses
+                        MyHousesTitle(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .padding(horizontal = 16.dp),
+                            onFilter = {}
+                        )
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        //  toggle visibility of the houses accordingly
+                        if (homeviewModel.housesState.isEmpty()) {
+
                             Column(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp),
-                                horizontalAlignment = Alignment.Start,
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    .fillMaxSize(0.8f)
+                                    .padding(24.dp)
+                                    .align(Alignment.CenterHorizontally),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
                             ) {
-
-                                Text(
-                                    text = "Hello",
-                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                                //  show svg
+                                Image(
+                                    painter = painterResource(id = R.drawable.undraw_new_ideas_re_asn4),
+                                    contentDescription = "No houses",
+                                    contentScale = ContentScale.Fit
                                 )
 
-                                Text(
-                                    text = caretaker?.caretakerName ?: "",
-                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                    fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
-                                )
+                                Spacer(modifier = Modifier.height(24.dp))
 
+                                Text(
+                                    text = "Add Houses to see them here...",
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
+                                    )
+                                )
                             }
 
-                            Spacer(modifier = Modifier.height(24.dp))
+                        } else {
 
-                            //  Apartment Statistics cards
-                            LazyRow(
+                            //  Lazy column to display house categories
+                            LazyColumn(
                                 content = {
-                                    itemsIndexed(
-                                        Constants.statsCardList
-                                    ) { index, card ->
+                                    items(
+                                        items = homeviewModel.housesState
+                                    ) { house ->
 
-                                        StatsCard(
-                                            title = card.title,
-                                            icon = card.icon,
-                                            iconColor = card.iconColor,
-                                            value = card.value,
-                                            onClick = { title ->
-                                                //  navigate to card page
+                                        //  Alert Dialogs
+                                        if (homeviewModel.openDeleteDialog) {
+                                            CustomAlertDialog(
+                                                onDismiss = {
+                                                    //  close dialog
+                                                    homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
+                                                },
+                                                content = {
+                                                    HouseDeleteDialog(
+                                                        house = house,
+                                                        onCancel = {
+                                                            //  close dialog
+                                                            homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
+                                                        },
+                                                        onConfirm = {
+
+                                                            //  toast message
+                                                            Toast.makeText(
+                                                                context,
+                                                                "${house.houseCategory} category deleted.",
+                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+
+                                                            //  delete house
+                                                            caretaker?.caretakerApartment?.let {
+                                                                homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
+                                                                    apartmentName = it,
+                                                                    houseModel = house
+                                                                ))
+                                                            }
+                                                        }
+                                                    )
+                                                }
+                                            )
+                                        }
+
+                                        //  delete action for swipeable component
+                                        val delete = customSwipeAction(
+                                            icon = Icons.Outlined.DeleteForever,
+                                            iconTint = RedOrange,
+                                            background = RedOrangeDull,
+                                            onSwipe = {
+                                                //  open dialog
+                                                homeviewModel.onHomeScreenEvent(HouseEvents.OpenDeleteDialog)
                                             }
                                         )
+
+                                        //  watchlist action for swipeable component
+                                        val watchlist = customSwipeAction(
+                                            icon = Icons.Outlined.TrackChanges,
+                                            iconTint = LimeGreen,
+                                            background = LimeGreenDull,
+                                            onSwipe = {
+                                                Log.d("Swipe", "Watchlist")
+                                            }
+                                        )
+
+                                        SwipeableActionsBox(
+                                            startActions = listOf(watchlist),
+                                            endActions = listOf(delete),
+                                            swipeThreshold = 20.dp,
+                                            backgroundUntilSwipeThreshold = MaterialTheme.colorScheme.onPrimary,
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(16.dp))
+                                        ) {
+
+                                            HouseItem(
+                                                house = house,
+                                                onViewClick = {
+                                                    //  navigate to house view activity
+                                                    navHostController.navigate(
+                                                        route = Screen.HouseView.passHouseCategoryAndApartment(
+                                                            apartment = caretaker?.caretakerApartment
+                                                                ?: "Apartments",
+                                                            category = house.houseCategory
+                                                        )
+                                                    )
+                                                },
+                                                context = context
+                                            )
+
+                                        }
+
                                     }
                                 },
                                 state = rememberLazyListState(),
+                                verticalArrangement = Arrangement.spacedBy(24.dp),
+                                userScrollEnabled = true,
                                 contentPadding = PaddingValues(16.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp)
-                            )
-
-
-                            //  Apartment Name
-                            HomeApartmentTitle(
-                                viewModel = homeviewModel,
-                                apartmentName = caretaker?.caretakerApartment ?: "Apartments",
-                                onFilter = {},
                                 modifier = Modifier
+                                    .align(Alignment.CenterHorizontally)
                                     .fillMaxWidth()
-                                    .wrapContentHeight()
-                                    .padding(horizontal = 16.dp)
+                                    .height(500.dp)
                             )
-
-                            Spacer(modifier = Modifier.height(24.dp))
-
-                            //  toggle visibility of the houses accordingly
-                            if (homeviewModel.housesState.isEmpty()) {
-
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize(0.8f)
-                                        .padding(24.dp)
-                                        .align(Alignment.CenterHorizontally),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.Center
-                                ) {
-                                    //  show svg
-                                    Image(
-                                        painter = painterResource(id = R.drawable.undraw_new_ideas_re_asn4),
-                                        contentDescription = "No houses",
-                                        contentScale = ContentScale.Fit
-                                    )
-
-                                    Spacer(modifier = Modifier.height(24.dp))
-
-                                    Text(
-                                        text = "Add Houses to see them here...",
-                                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
-                                            alpha = 0.8f
-                                        )
-                                    )
-                                }
-
-                            } else {
-
-                                //  Lazy column to display house categories
-                                LazyColumn(
-                                    content = {
-                                        items(
-                                            items = homeviewModel.housesState
-                                        ) { house ->
-
-                                            //  Alert Dialogs
-                                            if (homeviewModel.openDeleteDialog) {
-                                                CustomAlertDialog(
-                                                    onDismiss = {
-                                                        //  close dialog
-                                                        homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
-                                                    },
-                                                    content = {
-                                                        HouseDeleteDialog(
-                                                            house = house,
-                                                            onCancel = {
-                                                                //  close dialog
-                                                                homeviewModel.onHomeScreenEvent(HouseEvents.CloseDeleteDialog)
-                                                            },
-                                                            onConfirm = {
-
-                                                                //  toast message
-                                                                Toast.makeText(
-                                                                    context,
-                                                                    "${house.houseCategory} category deleted.",
-                                                                    Toast.LENGTH_SHORT
-                                                                ).show()
-
-                                                                //  delete house
-                                                                caretaker?.caretakerApartment?.let {
-                                                                    homeviewModel.onHomeScreenEvent(HouseEvents.DeleteHouse(
-                                                                        apartmentName = it,
-                                                                        houseModel = house
-                                                                    ))
-                                                                }
-                                                            }
-                                                        )
-                                                    }
-                                                )
-                                            }
-
-                                            //  delete action for swipeable component
-                                            val delete = customSwipeAction(
-                                                icon = Icons.Outlined.DeleteForever,
-                                                iconTint = RedOrange,
-                                                background = RedOrangeDull,
-                                                onSwipe = {
-                                                    //  open dialog
-                                                    homeviewModel.onHomeScreenEvent(HouseEvents.OpenDeleteDialog)
-                                                }
-                                            )
-
-                                            //  watchlist action for swipeable component
-                                            val watchlist = customSwipeAction(
-                                                icon = Icons.Outlined.TrackChanges,
-                                                iconTint = LimeGreen,
-                                                background = LimeGreenDull,
-                                                onSwipe = {
-                                                    Log.d("Swipe", "Watchlist")
-                                                }
-                                            )
-
-                                            SwipeableActionsBox(
-                                                startActions = listOf(watchlist),
-                                                endActions = listOf(delete),
-                                                swipeThreshold = 20.dp,
-                                                backgroundUntilSwipeThreshold = MaterialTheme.colorScheme.onPrimary,
-                                                modifier = Modifier
-                                                    .clip(RoundedCornerShape(16.dp))
-                                            ) {
-
-                                                HouseItem(
-                                                    house = house,
-                                                    onViewClick = {
-                                                        //  navigate to house view activity
-                                                        navHostController.navigate(
-                                                            route = Screen.HouseView.passHouseCategoryAndApartment(
-                                                                apartment = caretaker?.caretakerApartment
-                                                                    ?: "Apartments",
-                                                                category = house.houseCategory
-                                                            )
-                                                        )
-                                                    },
-                                                    context = context
-                                                )
-
-                                            }
-
-                                        }
-                                    },
-                                    state = rememberLazyListState(),
-                                    verticalArrangement = Arrangement.spacedBy(24.dp),
-                                    userScrollEnabled = true,
-                                    contentPadding = PaddingValues(16.dp),
-                                    modifier = Modifier
-                                        .align(Alignment.CenterHorizontally)
-                                        .fillMaxWidth()
-                                        .height(500.dp)
-                                )
-
-                            }
 
                         }
 
                     }
+
                 }
+            }
 
-            },
-        )
-
-    }
+        },
+    )
 
 }
 

@@ -5,24 +5,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.Sort
-import androidx.compose.material.icons.rounded.Filter
-import androidx.compose.material.icons.rounded.Filter1
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable
 fun MyHousesTitle(
     modifier: Modifier = Modifier,
-    onFilter: () -> Unit
+    onSort: () -> Unit
 ) {
 
     Row(
@@ -49,7 +43,7 @@ fun MyHousesTitle(
             contentAlignment = Alignment.Center
         ) {
             FilledTonalIconButton(
-                onClick = { onFilter() },
+                onClick = { onSort() },
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = MaterialTheme.colorScheme.onSecondary
                 )

@@ -1,9 +1,7 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation
 
-import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,8 +10,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.TrackChanges
@@ -45,6 +41,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.Ho
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.*
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.ProfileBottomSheet
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.SortBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
@@ -134,6 +131,11 @@ fun HomeScreen(
                             )
                         }
                     )
+                }
+
+                HomeConstants.SORT_BOTTOM_SHEET -> {
+                    //  open sort bottomsheet
+                    SortBottomSheet()
                 }
 
                 else -> {
@@ -317,7 +319,16 @@ fun HomeScreen(
                                 .fillMaxWidth()
                                 .wrapContentHeight()
                                 .padding(horizontal = 16.dp),
-                            onFilter = {}
+                            onSort = {
+                                //  open sort bottomsheet
+                                homeviewModel.onBottomSheetEvent(
+                                    BottomSheetEvents.OpenBottomSheet(
+                                        state = state,
+                                        scope = scope,
+                                        bottomSheetType = HomeConstants.SORT_BOTTOM_SHEET
+                                    )
+                                )
+                            }
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))

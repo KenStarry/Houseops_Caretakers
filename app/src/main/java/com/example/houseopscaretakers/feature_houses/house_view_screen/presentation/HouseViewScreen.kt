@@ -10,7 +10,9 @@ import androidx.compose.material.icons.outlined.LocalOffer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -72,7 +74,8 @@ fun HouseViewScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(16.dp)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 //  Image & Navigation icons
                 currentHouse?.let {
@@ -84,6 +87,34 @@ fun HouseViewScreen(
                             .height(240.dp),
                         currentHouseImages = it.houseImageUris
                     )
+
+                    //  house description title
+                    Text(
+                        text = "Description",
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    //  house description
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .background(MaterialTheme.colorScheme.onSecondary)
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Text(
+                            text = currentHouse.houseDescription,
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+
+                    }
 
                 }
             }

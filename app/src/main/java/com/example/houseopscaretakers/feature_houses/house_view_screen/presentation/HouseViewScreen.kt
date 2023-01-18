@@ -1,8 +1,10 @@
 package com.example.houseopscaretakers.feature_houses.house_view_screen.presentation
 
+import android.view.RoundedCorner
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocalOffer
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -78,7 +81,7 @@ fun HouseViewScreen(
                     HousePager(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.4f),
+                            .height(240.dp),
                         currentHouseImages = it.houseImageUris
                     )
 

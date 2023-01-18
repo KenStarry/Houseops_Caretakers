@@ -29,15 +29,23 @@ fun HousePager(
     val context = LocalContext.current
     val pagerState = rememberPagerState()
 
-    Box(
-        modifier = modifier
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+
+        val contentPadding = if (currentHouseImages.size < 2)
+            PaddingValues(end = 0.dp)
+        else
+            PaddingValues(end = 48.dp)
 
         HorizontalPager(
             count = currentHouseImages.size,
             state = pagerState,
-            modifier = Modifier.fillMaxSize(),
-            itemSpacing = 16.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            contentPadding = contentPadding
         ) { page ->
 
             //  display image
@@ -46,37 +54,29 @@ fun HousePager(
                 imageUri = currentHouseImages[page].toUri(),
                 placeholder = R.drawable.houseops_light_final,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .clip(RoundedCornerShape(16.dp))
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight()
             )
 
         }
 
         //  horizontal item indicator
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+                .clip(RoundedCornerShape(16.dp))
+                .wrapContentSize()
+                .background(MaterialTheme.colorScheme.onSecondary)
+                .padding(8.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
-            
-            Spacer(modifier = Modifier.fillMaxHeight(0.75f))
 
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .wrapContentSize()
-                    .background(MaterialTheme.colorScheme.onSecondary)
-                    .padding(8.dp)
-            ) {
-
-                CustomPagerIndicator(
-                    pagerState = pagerState,
-                    height = 7.dp,
-                    width = 7.dp,
-                    inactiveColor = MaterialTheme.colorScheme.onPrimary
-                )
-            }
+            CustomPagerIndicator(
+                pagerState = pagerState,
+                height = 7.dp,
+                width = 7.dp,
+                inactiveColor = MaterialTheme.colorScheme.onPrimary
+            )
         }
 
     }

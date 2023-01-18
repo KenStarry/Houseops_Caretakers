@@ -22,6 +22,9 @@ sealed class BottomSheetEvents {
     //  change pill category
     data class TogglePillCategory(val category: String) : BottomSheetEvents()
 
+    //  sort house categories
+    data class SortHouseCategories(val selectedOption: String) : BottomSheetEvents()
+
     //  Toggle Feature
 
     //  pick images from gallery

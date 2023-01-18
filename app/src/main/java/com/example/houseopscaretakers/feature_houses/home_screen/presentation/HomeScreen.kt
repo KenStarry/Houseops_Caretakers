@@ -135,7 +135,11 @@ fun HomeScreen(
 
                 HomeConstants.SORT_BOTTOM_SHEET -> {
                     //  open sort bottomsheet
-                    SortBottomSheet()
+                    SortBottomSheet(
+                        onOptionSelected = {
+
+                        }
+                    )
                 }
 
                 else -> {

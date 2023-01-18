@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 
@@ -34,7 +35,12 @@ fun HouseViewAppbar(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
-                Text(text = category)
+                Text(
+                    text = category,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
 
                 //  get the number of units remaining
                 PillButton(

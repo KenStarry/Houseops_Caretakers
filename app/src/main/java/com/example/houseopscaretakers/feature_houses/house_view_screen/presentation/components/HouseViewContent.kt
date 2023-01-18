@@ -45,7 +45,8 @@ fun HouseViewContent(
 
             },
             onHouseEdit = {},
-            category = apartmentName
+            category = apartmentName,
+            units = "0"
         )
 
         //  Main scrollable content

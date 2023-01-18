@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.feature_houses.house_view_screen.presenta
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
@@ -19,13 +20,28 @@ import com.example.houseopscaretakers.core.presentation.components.PillButton
 fun HouseViewAppbar(
     modifier: Modifier = Modifier,
     category: String,
+    units: String,
     onBackPressed: () -> Unit,
     onHouseEdit: () -> Unit
 ) {
 
     LargeTopAppBar(
         title = {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
                 Text(text = category)
+
+                //  get the number of units remaining
+                PillButton(
+                    value = "$units units remaining",
+                    backgroundColor = MaterialTheme.colorScheme.onSecondary
+                ) {}
+            }
         },
         navigationIcon = {
             IconButton(onClick = { onBackPressed() }) {

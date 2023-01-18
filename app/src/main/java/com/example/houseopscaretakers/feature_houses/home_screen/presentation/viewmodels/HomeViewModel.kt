@@ -148,19 +148,19 @@ class HomeViewModel @Inject constructor(
                     }
                     //  alphabetical ascending sort
                     HomeConstants.sortOptions[1] -> {
-                        housesState.sortedBy { it.houseCategory }
+                        housesState = housesState.sortedBy { it.houseCategory }
                     }
                     //  alphabetical descending sort
                     HomeConstants.sortOptions[2] -> {
-                        housesState.sortedByDescending { it.houseCategory }
+                        housesState = housesState.sortedByDescending { it.houseCategory }
                     }
                     //  units ascending sort
                     HomeConstants.sortOptions[3] -> {
-                        housesState.sortedBy { it.houseUnits.toInt() }
+                        housesState = housesState.sortedBy { it.houseUnits.toInt() }
                     }
                     //  units descending sort
                     HomeConstants.sortOptions[4] -> {
-                        housesState.sortedByDescending { it.houseUnits.toInt() }
+                        housesState = housesState.sortedByDescending { it.houseUnits.toInt() }
                     }
                 }
             }

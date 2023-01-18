@@ -137,7 +137,10 @@ fun HomeScreen(
                     //  open sort bottomsheet
                     SortBottomSheet(
                         onOptionSelected = {
-
+                            //  sort a house based on the options given
+                            homeviewModel.onBottomSheetEvent(
+                                BottomSheetEvents.SortHouseCategories(it)
+                            )
                         }
                     )
                 }

@@ -138,6 +138,33 @@ class HomeViewModel @Inject constructor(
                 _pillName.value = event.category
             }
 
+            is BottomSheetEvents.SortHouseCategories -> {
+
+                //  check the type of sort that has taken place
+                when (event.selectedOption) {
+                    //  custom sort
+                    HomeConstants.sortOptions[0] -> {
+
+                    }
+                    //  alphabetical ascending sort
+                    HomeConstants.sortOptions[1] -> {
+                        housesState.sortedBy { it.houseCategory }
+                    }
+                    //  alphabetical descending sort
+                    HomeConstants.sortOptions[2] -> {
+                        housesState.sortedByDescending { it.houseCategory }
+                    }
+                    //  units ascending sort
+                    HomeConstants.sortOptions[3] -> {
+                        housesState.sortedBy { it.houseUnits.toInt() }
+                    }
+                    //  units descending sort
+                    HomeConstants.sortOptions[4] -> {
+                        housesState.sortedByDescending { it.houseUnits.toInt() }
+                    }
+                }
+            }
+
             //  update images
             is BottomSheetEvents.UpdateGalleryImages -> {
 

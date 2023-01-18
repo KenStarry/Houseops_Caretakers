@@ -9,6 +9,8 @@ object HomeConstants {
 
     //  sort options
     val sortOptions = listOf(
-        "Custom", "Alphabetical (Ascending)", "Alphabetical (Descending)", "Units (Ascending)", "Units (Descending)"
+        "Custom", "Alphabetical (Ascending)",
+        "Alphabetical (Descending)", "Units (Ascending)",
+        "Units (Descending)"
     )
 }

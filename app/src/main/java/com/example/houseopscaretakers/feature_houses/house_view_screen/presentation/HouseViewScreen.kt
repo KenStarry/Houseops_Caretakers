@@ -14,10 +14,12 @@ import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HousePager
+import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewAppbar
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewContent
 import com.google.accompanist.pager.ExperimentalPagerApi
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class,
+@OptIn(
+    ExperimentalPagerApi::class, ExperimentalFoundationApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
@@ -40,38 +42,38 @@ fun HouseViewScreen(
     val currentHouse = coreViewModel.currentHouse
 
     Scaffold(
-        floatingActionButton = {
+        topBar = {
+            HouseViewAppbar(
+                category = houseCategory,
+                onBackPressed = { /*TODO*/ },
+                onHouseEdit = {}
+            )
+        }
+    ) { contentPadding ->
+
+        //  Box to hold our contents
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(contentPadding)
+        ) {
+
+            //  Image & Navigation icons
+            currentHouse?.let {
+
+                //  our house pager
+                HousePager(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.4f),
+                    currentHouseImages = it.houseImageUris
+                )
+
+            }
+
 
         }
-    ) {
-
-    }
-
-    //  Box to hold our contents
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary)
-    ) {
-
-        //  Image & Navigation icons
-        currentHouse?.let {
-
-            //  our house pager
-            HousePager(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.4f),
-                currentHouseImages = it.houseImageUris
-            )
-
-            //  Main Content
-            HouseViewContent(
-                apartmentName, currentHouse
-            )
-
-        }
-
 
     }
 }

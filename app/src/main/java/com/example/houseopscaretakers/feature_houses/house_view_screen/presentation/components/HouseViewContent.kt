@@ -41,10 +41,11 @@ fun HouseViewContent(
                 .fillMaxWidth()
                 .weight(2f)
                 .padding(8.dp),
-            category = currentHouse.houseCategory,
             onBackPressed = {
 
-            }
+            },
+            onHouseEdit = {},
+            category = apartmentName
         )
 
         //  Main scrollable content

@@ -5,42 +5,56 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HouseViewAppbar(
     modifier: Modifier = Modifier,
     category: String,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onHouseEdit: () -> Unit
 ) {
 
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top
-    ) {
+    LargeTopAppBar(
+        title = {
+                Text(text = category)
+        },
+        navigationIcon = {
+            IconButton(onClick = { onBackPressed() }) {
+                Icon(
+                    imageVector = Icons.Outlined.ArrowBack,
+                    contentDescription = "Back Arrow"
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = { onHouseEdit() }) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "Edit Icon"
+                )
+            }
 
-        //  back arrow
-        IconBtn(
-            icon = Icons.Outlined.ArrowBack,
-            shape = CircleShape,
+            IconButton(onClick = { TODO("add onClick for more button") }) {
+                Icon(
+                    imageVector = Icons.Outlined.MoreVert,
+                    contentDescription = "More Icon"
+                )
+            }
+
+        },
+        colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.onPrimary
-        ) {
-            onBackPressed()
-        }
-
-        PillButton(
-            value = category,
-            backgroundColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
-            onClick = {}
         )
-
-    }
+    )
 }
 
 

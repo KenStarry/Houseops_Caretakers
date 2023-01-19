@@ -83,8 +83,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideCoreUseCases(
-        repository: CoreRepository
+        repository: CoreRepository,
+        connectivityObserver: ConnectivityObserver
     ) = CoreUseCases(
+        connection = Connection(connectivityObserver),
         currentUser = CurrentUser(repository),
         getCaretaker = GetCaretaker(repository),
         isCaretakerLoggedIn = IsCaretakerLoggedIn(repository),

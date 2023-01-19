@@ -2,7 +2,9 @@ package com.example.houseopscaretakers.di
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.example.houseopscaretakers.core.data.repository.ConnectivityObserverImpl
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
+import com.example.houseopscaretakers.core.domain.repository.ConnectivityObserver
 import com.example.houseopscaretakers.core.domain.repository.CoreRepository
 import com.example.houseopscaretakers.core.domain.use_cases.*
 import com.example.houseopscaretakers.feature_authentication.login.data.repository.LoginRepositoryImpl
@@ -46,6 +48,13 @@ object AppModule {
         @ApplicationContext context: Context
     ): ConnectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    //  connectivity observer repository injection
+    @Provides
+    @Singleton
+    fun provideConnectivityObserver(
+        connectivityManager: ConnectivityManager
+    ) : ConnectivityObserver = ConnectivityObserverImpl(connectivityManager)
 
     //  Firestore instance
     @Provides

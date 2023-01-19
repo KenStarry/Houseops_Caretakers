@@ -61,7 +61,8 @@ fun HouseViewAppbar(
 
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = MaterialTheme.colorScheme.onPrimary,
+            scrolledContainerColor = MaterialTheme.colorScheme.onPrimary
         ),
         scrollBehavior = scrollBehavior
     )

@@ -29,26 +29,12 @@ fun HouseViewAppbar(
     LargeTopAppBar(
         title = {
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = category,
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-
-                //  get the number of units remaining
-                PillButton(
-                    value = "$units units remaining",
-                    backgroundColor = MaterialTheme.colorScheme.onSecondary
-                ) {}
-            }
+            Text(
+                text = category,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
         },
         navigationIcon = {
             IconButton(onClick = { onBackPressed() }) {

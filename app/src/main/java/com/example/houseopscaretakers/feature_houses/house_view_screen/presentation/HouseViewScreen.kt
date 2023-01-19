@@ -22,6 +22,7 @@ import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
+import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseDescription
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HousePager
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewAppbar
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewContent
@@ -88,33 +89,7 @@ fun HouseViewScreen(
                         currentHouseImages = it.houseImageUris
                     )
 
-                    //  house description title
-                    Text(
-                        text = "Description",
-                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                        fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-
-                    //  house description
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .background(MaterialTheme.colorScheme.onSecondary)
-                            .padding(16.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-
-                        Text(
-                            text = currentHouse.houseDescription,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-
-                    }
+                    HouseDescription(currentHouse)
 
                 }
             }

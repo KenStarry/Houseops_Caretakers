@@ -98,6 +98,9 @@ fun HouseViewScreen(
                         isEditMode = false
                     )
 
+                    //  house features
+                    HouseFeatures(house = it)
+
                     //  house description
                     HouseDescription(it)
 

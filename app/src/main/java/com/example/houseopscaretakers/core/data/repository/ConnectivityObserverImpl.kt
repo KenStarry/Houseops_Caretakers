@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ConnectivityObserverImpl(
+class ConnectivityObserverImpl @Inject constructor(
     private val connectivityManager: ConnectivityManager
 ) : ConnectivityObserver {
 

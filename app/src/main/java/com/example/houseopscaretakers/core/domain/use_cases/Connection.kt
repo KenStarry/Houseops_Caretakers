@@ -8,7 +8,5 @@ class Connection(
     private val repo: ConnectivityObserver
 ) {
 
-    suspend operator fun invoke(): Flow<ConnectionStatus> {
-        return repo.observeConnectivity()
-    }
+    operator fun invoke() = repo.observeConnectivity()
 }

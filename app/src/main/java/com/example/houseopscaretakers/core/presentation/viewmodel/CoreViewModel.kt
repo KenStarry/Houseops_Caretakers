@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.core.presentation.viewmodel
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,6 +16,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.Ho
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,8 +25,8 @@ class CoreViewModel @Inject constructor(
     private val useCase: CoreUseCases
 ) : ViewModel() {
 
-    var connectionStatus by mutableStateOf<Flow<ConnectionStatus>?>(null)
-        private set
+//    var connectionStatus by mutableStateOf<ConnectionStatus>(ConnectionStatus.Available)
+    var connectionStatus by mutableStateOf(useCase.connection())
 
     var isSplashOpened by mutableStateOf(false)
 
@@ -32,10 +34,6 @@ class CoreViewModel @Inject constructor(
     var caretaker by mutableStateOf<Caretaker?>(null)
     var currentHouse by mutableStateOf<HouseModel?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
-
-    init {
-        getConnectionStatus()
-    }
 
     //  is user logged in
     fun isUserLoggedIn(): Boolean {
@@ -96,12 +94,6 @@ class CoreViewModel @Inject constructor(
                     )
                 }
             }
-        }
-    }
-
-    fun getConnectionStatus() {
-        viewModelScope.launch {
-            connectionStatus = useCase.connection()
         }
     }
 }

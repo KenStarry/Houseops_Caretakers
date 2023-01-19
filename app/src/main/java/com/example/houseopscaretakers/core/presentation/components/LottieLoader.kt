@@ -22,7 +22,7 @@ fun LottieLoader(
 ) {
 
     val composition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(R.raw.success_lottie)
+        LottieCompositionSpec.RawRes(R.raw.loading1)
     )
 
     val progress by animateLottieCompositionAsState(

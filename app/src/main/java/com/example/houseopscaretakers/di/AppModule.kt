@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.di
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
 import com.example.houseopscaretakers.core.domain.repository.CoreRepository
 import com.example.houseopscaretakers.core.domain.use_cases.*
@@ -29,12 +31,21 @@ import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    //  connectivity manager to monitor our internet connection
+    @Provides
+    @Singleton
+    fun provideConnectivityManager(
+        @ApplicationContext context: Context
+    ): ConnectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     //  Firestore instance
     @Provides
@@ -58,7 +69,7 @@ object AppModule {
         db: FirebaseFirestore,
         auth: FirebaseAuth,
         storage: FirebaseStorage
-    ) : CoreRepository = CorerepositoryImpl(db, auth, storage)
+    ): CoreRepository = CorerepositoryImpl(db, auth, storage)
 
     @Provides
     @Singleton
@@ -77,7 +88,7 @@ object AppModule {
     @Singleton
     fun provideHouseRepository(
         db: FirebaseFirestore
-    ) : HouseRepository = HouseRepositoryImpl(db)
+    ): HouseRepository = HouseRepositoryImpl(db)
 
     //  house use case
     @Provides
@@ -96,7 +107,7 @@ object AppModule {
     @Singleton
     fun provideLoginRepository(
         auth: FirebaseAuth
-    ) : LoginRepository = LoginRepositoryImpl(auth)
+    ): LoginRepository = LoginRepositoryImpl(auth)
 
     //  login use case
     @Provides

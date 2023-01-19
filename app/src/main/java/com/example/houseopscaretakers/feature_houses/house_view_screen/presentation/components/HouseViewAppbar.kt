@@ -21,7 +21,7 @@ import com.example.houseopscaretakers.core.presentation.components.PillButton
 fun HouseViewAppbar(
     modifier: Modifier = Modifier,
     category: String,
-    units: String,
+    scrollBehavior: TopAppBarScrollBehavior,
     onBackPressed: () -> Unit,
     onHouseEdit: () -> Unit
 ) {
@@ -62,7 +62,8 @@ fun HouseViewAppbar(
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.onPrimary
-        )
+        ),
+        scrollBehavior = scrollBehavior
     )
 }
 

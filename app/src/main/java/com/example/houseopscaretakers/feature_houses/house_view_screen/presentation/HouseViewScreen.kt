@@ -4,7 +4,9 @@ import android.view.RoundedCorner
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocalOffer
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,10 +24,7 @@ import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
-import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseDescription
-import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HousePager
-import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewAppbar
-import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.HouseViewContent
+import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.components.*
 import com.example.houseopscaretakers.ui.theme.RedOrangeDull
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -75,6 +74,7 @@ fun HouseViewScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.onPrimary)
+                    .verticalScroll(rememberScrollState())
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
@@ -89,7 +89,14 @@ fun HouseViewScreen(
                         currentHouseImages = it.houseImageUris
                     )
 
-                    HouseDescription(currentHouse)
+                    //  house units
+                    HouseUnits(
+                        house = currentHouse,
+                        isEditMode = false
+                    )
+
+                    //  house description
+                    HouseDescription(it)
 
                 }
             }

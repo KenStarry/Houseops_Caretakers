@@ -89,9 +89,12 @@ fun HouseViewScreen(
                         currentHouseImages = it.houseImageUris
                     )
 
+                    //  house price
+                    HousePrice(it)
+
                     //  house units
                     HouseUnits(
-                        house = currentHouse,
+                        house = it,
                         isEditMode = false
                     )
 

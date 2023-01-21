@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.PinkAccent
@@ -80,7 +81,11 @@ fun PickHouseImages(
                             ImageContainer(
                                 imageUri = uri,
                                 onDelete = {
-                                    viewModel.onBottomSheetEvent(BottomSheetEvents.DeleteImageFromList(index))
+                                    viewModel.onBottomSheetEvent(
+                                        BottomSheetEvents.DeleteImageFromList(
+                                            index
+                                        )
+                                    )
                                 }
                             )
                         }
@@ -91,38 +96,13 @@ fun PickHouseImages(
                 )
             }
 
-            //  pick image from gallery button
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            PillButton(
+                value = "Pick Images",
+                backgroundColor = MaterialTheme.colorScheme.onSecondary,
+                icon = Icons.Outlined.Image,
+                iconColor = MaterialTheme.colorScheme.primary
             ) {
-
-                //  pick image text
-                Text(
-                    text = "Pick Images",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-
-                Icon(
-                    imageVector = Icons.Sharp.ArrowRight,
-                    contentDescription = "Arrow Icon"
-                )
-
-                //  pick image button
-                IconBtn(
-                    icon = Icons.Outlined.Image,
-                    shape = CircleShape,
-                    containerColor = MaterialTheme.colorScheme.onSecondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
-                    onClick = {
-                        launcher.launch("image/*")
-                    }
-                )
-
+                launcher.launch("image/*")
             }
 
         }

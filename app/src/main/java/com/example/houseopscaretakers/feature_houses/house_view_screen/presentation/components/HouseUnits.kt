@@ -22,50 +22,59 @@ fun HouseUnits(
     isEditMode: Boolean
 ) {
 
-    var houseUnits by remember {
+    val houseUnits by remember {
         mutableStateOf(house.houseUnits)
     }
 
-    Text(
-        text = "Units",
-        fontSize = MaterialTheme.typography.titleMedium.fontSize,
-        fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-    )
-
-    Row(
+    Column(
         modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+            .wrapContentSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        //  minus button
-        IconBtn(
-            icon = Icons.Outlined.Remove,
-            containerColor = MaterialTheme.colorScheme.onSecondary,
-            contentColor = MaterialTheme.colorScheme.primary
-        ) {
-
-        }
-
-        Spacer(modifier = Modifier.width(16.dp))
-
         Text(
-            text = houseUnits,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
+            text = "Units",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
-        Spacer(modifier = Modifier.width(16.dp))
-
-        //  add button
-        IconBtn(
-            icon = Icons.Outlined.Add,
-            containerColor = MaterialTheme.colorScheme.onSecondary,
-            contentColor = MaterialTheme.colorScheme.primary
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
+
+            //  minus button
+            IconBtn(
+                icon = Icons.Outlined.Remove,
+                containerColor = MaterialTheme.colorScheme.onSecondary,
+                contentColor = MaterialTheme.colorScheme.primary
+            ) {
+
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Text(
+                text = houseUnits,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            //  add button
+            IconBtn(
+                icon = Icons.Outlined.Add,
+                containerColor = MaterialTheme.colorScheme.onSecondary,
+                contentColor = MaterialTheme.colorScheme.primary
+            ) {
+
+            }
 
         }
 

@@ -83,6 +83,7 @@ fun HouseItemDetails(
         }
 
         Spacer(modifier = Modifier.height(8.dp))
+
         //  item description
         Column(
             modifier = Modifier

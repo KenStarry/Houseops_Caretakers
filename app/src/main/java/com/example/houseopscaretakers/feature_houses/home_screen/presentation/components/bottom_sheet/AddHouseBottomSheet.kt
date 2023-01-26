@@ -8,13 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.core.domain.model.CoreEvents
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
-import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
@@ -23,16 +21,22 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.vi
 fun AddHouseBottomSheet(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
+    apartmentName: String,
     onHouseAdd: (HouseModel) -> Unit
 ) {
 
     val coreViewModel: CoreViewModel = hiltViewModel()
-    val context = LocalContext.current
 
     var units by remember {
         mutableStateOf(0)
     }
     var description by remember {
+        mutableStateOf("")
+    }
+    var price by remember {
+        mutableStateOf("")
+    }
+    var priceCategory by remember {
         mutableStateOf("")
     }
     var houseFeaturesList by remember {
@@ -66,6 +70,13 @@ fun AddHouseBottomSheet(
         //  house category
         HouseCategory(viewModel)
 
+        //  house price
+        HousePrice(
+            viewModel = viewModel,
+            onPriceEntered = { price = it },
+            onPriceCategory = { priceCategory = it }
+        )
+
         //  pick house images
         PickHouseImages(viewModel)
 
@@ -89,15 +100,17 @@ fun AddHouseBottomSheet(
 
         val house = HouseModel(
             houseCategory = viewModel.pillName.value,
+            housePurchaseType = "For Rent",
             houseImageUris = emptyList(),
             houseUnits = units.toString(),
             houseFeatures = houseFeaturesList.filter { it.featureSelected }
                 .map { it.featureName },
             houseDescription = description,
-            houseLikes = "0",
-            houseApartmentName = "",
+            houseLikes = "67",
+            houseApartmentName = apartmentName,
             houseComments = "",
-            housePrice = ""
+            housePriceCategory = priceCategory,
+            housePrice = price
         )
 
         //  add house button

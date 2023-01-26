@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.ArrowDropUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
@@ -32,7 +34,7 @@ import com.example.houseopscaretakers.ui.theme.BlueAccentLight
 //  House Category
 @Composable
 fun ColumnScope.HouseCategory(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
 
     var toggleCategories by remember {
@@ -87,9 +89,12 @@ fun ColumnScope.HouseCategory(
                 )
 
                 Icon(
-                    imageVector = Icons.Outlined.ArrowDropDown,
+                    imageVector = if (toggleCategories)
+                        Icons.Outlined.ArrowDropUp
+                    else
+                        Icons.Outlined.ArrowDropDown,
                     contentDescription = "Dropdown arrow",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                    tint = MaterialTheme.colorScheme.primary
                 )
 
             }
@@ -122,7 +127,7 @@ fun ColumnScope.HouseCategory(
                             backgroundColor = if (pillCategory == viewModel.pillName.value)
                                 MaterialTheme.colorScheme.primary
                             else
-                                MaterialTheme.colorScheme.onSecondary,
+                                MaterialTheme.colorScheme.tertiary,
 
                             iconColor = if (pillCategory == viewModel.pillName.value)
                                 Color.Black

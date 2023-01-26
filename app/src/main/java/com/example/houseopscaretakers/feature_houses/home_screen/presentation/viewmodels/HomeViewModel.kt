@@ -9,11 +9,13 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.*
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.checkerframework.common.subtyping.qual.Bottom
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,6 +42,10 @@ class HomeViewModel @Inject constructor(
     //  pill name
     private val _pillName = mutableStateOf("Choose house category")
     val pillName: State<String> = _pillName
+
+    //  price category
+    private val _priceCategory = mutableStateOf(Constants.priceCategories[0])
+    val priceCategory: State<String> = _priceCategory
 
     //  house features list
     var houseFeatures by mutableStateOf(
@@ -136,6 +142,10 @@ class HomeViewModel @Inject constructor(
 
             is BottomSheetEvents.TogglePillCategory -> {
                 _pillName.value = event.category
+            }
+
+            is BottomSheetEvents.TogglePriceCategory -> {
+                _priceCategory.value = event.category
             }
 
             is BottomSheetEvents.SortHouseCategories -> {

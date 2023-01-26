@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.IconBtn
@@ -34,7 +35,7 @@ import com.example.houseopscaretakers.ui.theme.PinkAccent
 //  pick house images
 @Composable
 fun PickHouseImages(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
 
     val state = viewModel.selectedImagesState

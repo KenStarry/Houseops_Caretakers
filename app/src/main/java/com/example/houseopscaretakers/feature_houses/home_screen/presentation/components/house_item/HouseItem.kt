@@ -104,7 +104,7 @@ fun HouseItem(
                             )
                         ) { append(house.houseUnits) }
 
-                        append(" units")
+                        append(" vacant units")
                     },
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -194,8 +194,7 @@ fun HouseItem(
                 ) {
 
                     val houseItemPillIcons = listOf(
-                        PillBtnModel("0", Icons.Outlined.Notifications),
-                        PillBtnModel("", Icons.Outlined.Notes),
+                        PillBtnModel(house.houseLikes, Icons.Outlined.ThumbUpAlt),
                         PillBtnModel(house.houseImageUris.size.toString(), Icons.Outlined.Image),
                         PillBtnModel(
                             house.houseFeatures.size.toString(),
@@ -256,11 +255,12 @@ fun HomeItemPrev() {
     HouseItem(
         house = HouseModel(
             "One Bedroom",
+            "For Rent",
             emptyList(),
             "7",
             emptyList(),
             "A beautiful house for you and your kin",
-            "","","",""
+            "","","","",""
         ),
         LocalContext.current
     ) {

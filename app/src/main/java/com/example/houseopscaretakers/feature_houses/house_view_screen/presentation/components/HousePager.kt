@@ -45,7 +45,8 @@ fun HousePager(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            contentPadding = contentPadding
+            contentPadding = contentPadding,
+            verticalAlignment = Alignment.CenterVertically
         ) { page ->
 
             //  display image

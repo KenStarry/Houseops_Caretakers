@@ -33,8 +33,7 @@ fun FormTextField(
     }
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -71,7 +70,6 @@ fun FormTextField(
                 unfocusedIndicatorColor = BlueAccentTransparent,
                 focusedIndicatorColor = MaterialTheme.colorScheme.primary
             ),
-            modifier = modifier,
             maxLines = 1
         )
 

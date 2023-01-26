@@ -110,6 +110,7 @@ fun HomeScreen(
                                     )
                                     .verticalScroll(rememberScrollState()),
                                 viewModel = homeviewModel,
+                                apartmentName = caretaker?.caretakerApartment ?: "none",
                                 onHouseAdd = { house ->
 
                                     // upload images to firestore
@@ -164,6 +165,7 @@ fun HomeScreen(
                                     )
                                     .verticalScroll(rememberScrollState()),
                                 viewModel = homeviewModel,
+                                apartmentName = caretaker?.caretakerApartment ?: "none",
                                 onHouseAdd = { house ->
 
                                     // upload images to firestore

@@ -64,6 +64,13 @@ object Constants {
         PillBtnModel("Single", Icons.Outlined.LocalHotel),
     )
 
+    val priceCategories = listOf(
+        "month",
+        "year",
+        "quarter",
+        "6 months",
+    )
+
     val statsCardList = listOf(
         StatsCardModel(Icons.Outlined.Apartment, RedOrange, "10", "Users Booked"),
         StatsCardModel(Icons.Outlined.ThumbUp, BabyBlue, "0", "Likes"),

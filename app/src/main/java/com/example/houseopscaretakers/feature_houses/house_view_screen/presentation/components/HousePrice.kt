@@ -37,7 +37,7 @@ fun HousePrice(
                         fontSize = MaterialTheme.typography.titleLarge.fontSize,
                         fontWeight = FontWeight.Bold
                     )
-                ) { append("27,000") }
+                ) { append(house.housePrice) }
             },
             fontSize = MaterialTheme.typography.bodySmall.fontSize,
             fontWeight = FontWeight.Bold,
@@ -47,7 +47,7 @@ fun HousePrice(
         Spacer(modifier = Modifier.width(8.dp))
 
         PillButton(
-            value = "month",
+            value = house.housePriceCategory,
             icon = Icons.Outlined.AlternateEmail,
             iconColor = MaterialTheme.colorScheme.primary,
             backgroundColor = MaterialTheme.colorScheme.tertiary,

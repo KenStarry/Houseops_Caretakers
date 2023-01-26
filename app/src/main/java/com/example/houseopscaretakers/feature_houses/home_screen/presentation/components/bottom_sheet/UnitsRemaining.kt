@@ -36,7 +36,7 @@ fun UnitsRemaining(
 
         //  units title
         Text(
-            text = "Units",
+            text = "Vacant Units",
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -44,7 +44,8 @@ fun UnitsRemaining(
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 16.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {

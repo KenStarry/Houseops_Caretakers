@@ -259,7 +259,8 @@ fun HomeItemPrev() {
             emptyList(),
             "7",
             emptyList(),
-            "A beautiful house for you and your kin"
+            "A beautiful house for you and your kin",
+            "","","",""
         ),
         LocalContext.current
     ) {

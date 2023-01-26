@@ -143,7 +143,12 @@ fun ImageContainer(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Text(text = "Delete Image")
+            Text(
+                text = "Delete Image",
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
+            )
 
             //  delete button
             IconBtn(

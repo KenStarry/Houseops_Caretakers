@@ -93,7 +93,11 @@ fun AddHouseBottomSheet(
             houseUnits = units.toString(),
             houseFeatures = houseFeaturesList.filter { it.featureSelected }
                 .map { it.featureName },
-            houseDescription = description
+            houseDescription = description,
+            houseLikes = "0",
+            houseApartmentName = "",
+            houseComments = "",
+            housePrice = ""
         )
 
         //  add house button

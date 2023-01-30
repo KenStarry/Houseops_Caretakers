@@ -39,6 +39,12 @@ class HomeViewModel @Inject constructor(
     var openDeleteDialog by mutableStateOf(false)
         private set
 
+    var areDetailsValid by mutableStateOf(false)
+        private set
+
+    private val _validationMessage = mutableStateOf("")
+    val validationMessage: State<String> = _validationMessage
+
     //  pill name
     private val _pillName = mutableStateOf("Choose house category")
     val pillName: State<String> = _pillName
@@ -199,6 +205,27 @@ class HomeViewModel @Inject constructor(
                         listOfSelectedImages = updatedImageList.distinct()
                     )
                 }
+            }
+
+            is BottomSheetEvents.ValidateDetails -> {
+
+                if (event.house.houseCategory == "Choose house category") {
+                    areDetailsValid = false
+                    _validationMessage.value = "Please choose a house category"
+
+                } else if (event.house.housePrice == "") {
+                    areDetailsValid = false
+                    _validationMessage.value = "Specify a price for your house."
+
+                }  else if (event.house.houseImageUris.isEmpty()) {
+                    areDetailsValid = false
+                    _validationMessage.value = "Please add at least 1 image."
+
+                } else {
+                    areDetailsValid = true
+                    _validationMessage.value = "House Added successfully"
+                }
+
             }
         }
     }

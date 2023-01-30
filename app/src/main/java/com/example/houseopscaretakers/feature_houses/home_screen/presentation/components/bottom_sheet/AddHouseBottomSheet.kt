@@ -116,6 +116,8 @@ fun AddHouseBottomSheet(
         //  add house button
         Button(
             onClick = {
+
+                //  validate details
                 onHouseAdd(house)
             },
             contentPadding = PaddingValues(8.dp)

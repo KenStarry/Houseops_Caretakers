@@ -42,6 +42,9 @@ sealed class BottomSheetEvents {
     //  Firestore
     data class AddHouseToFirestore(val apartmentName: String, val houseModel: HouseModel) :
         BottomSheetEvents()
+
+    //  validate house
+    data class ValidateDetails(val house: HouseModel) : BottomSheetEvents()
 }
 
 

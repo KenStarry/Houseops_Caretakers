@@ -34,10 +34,10 @@ fun AddHouseBottomSheet(
         mutableStateOf("")
     }
     var price by remember {
-        mutableStateOf("")
+        mutableStateOf("00")
     }
     var priceCategory by remember {
-        mutableStateOf("")
+        mutableStateOf(Constants.priceCategories[0])
     }
     var houseFeaturesList by remember {
         mutableStateOf<List<HouseFeatures>>(emptyList())

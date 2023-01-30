@@ -29,7 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.core.data.repository.ConnectivityObserverImpl
 import com.example.houseopscaretakers.core.domain.model.ConnectionStatus
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.*
@@ -50,7 +49,6 @@ import com.example.houseopscaretakers.ui.theme.LimeGreen
 import com.example.houseopscaretakers.ui.theme.LimeGreenDull
 import com.example.houseopscaretakers.ui.theme.RedOrange
 import com.example.houseopscaretakers.ui.theme.RedOrangeDull
-import kotlinx.coroutines.flow.observeOn
 import me.saket.swipe.SwipeableActionsBox
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -111,7 +109,7 @@ fun HomeScreen(
                                         bottom = 16.dp
                                     )
                                     .verticalScroll(rememberScrollState()),
-                                viewModel = homeviewModel,
+                                homeVM = homeviewModel,
                                 apartmentName = caretaker?.caretakerApartment ?: "none",
                                 onHouseAdd = { house ->
 
@@ -166,7 +164,7 @@ fun HomeScreen(
                                         bottom = 16.dp
                                     )
                                     .verticalScroll(rememberScrollState()),
-                                viewModel = homeviewModel,
+                                homeVM = homeviewModel,
                                 apartmentName = caretaker?.caretakerApartment ?: "none",
                                 onHouseAdd = { house ->
 

@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -8,11 +10,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
@@ -20,12 +24,13 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.vi
 @Composable
 fun AddHouseBottomSheet(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
+    homeVM: HomeViewModel = hiltViewModel(),
     apartmentName: String,
     onHouseAdd: (HouseModel) -> Unit
 ) {
 
     val coreViewModel: CoreViewModel = hiltViewModel()
+    val context: Context = LocalContext.current
 
     var units by remember {
         mutableStateOf(0)
@@ -34,7 +39,7 @@ fun AddHouseBottomSheet(
         mutableStateOf("")
     }
     var price by remember {
-        mutableStateOf("00")
+        mutableStateOf("")
     }
     var priceCategory by remember {
         mutableStateOf(Constants.priceCategories[0])
@@ -68,24 +73,24 @@ fun AddHouseBottomSheet(
         )
 
         //  house category
-        HouseCategory(viewModel)
+        HouseCategory(homeVM)
 
         //  house price
         HousePrice(
-            viewModel = viewModel,
+            viewModel = homeVM,
             onPriceEntered = { price = it },
             onPriceCategory = { priceCategory = it }
         )
 
         //  pick house images
-        PickHouseImages(viewModel)
+        PickHouseImages(homeVM)
 
         UnitsRemaining() {
             units = it
         }
 
         //  House Features
-        HouseFeaturesSection(viewModel) {
+        HouseFeaturesSection(homeVM) {
             houseFeaturesList = it
         }
 
@@ -99,7 +104,7 @@ fun AddHouseBottomSheet(
 
 
         val house = HouseModel(
-            houseCategory = viewModel.pillName.value,
+            houseCategory = homeVM.pillName.value,
             housePurchaseType = "For Rent",
             houseImageUris = emptyList(),
             houseUnits = units.toString(),
@@ -118,7 +123,14 @@ fun AddHouseBottomSheet(
             onClick = {
 
                 //  validate details
-                onHouseAdd(house)
+                homeVM.onBottomSheetEvent(BottomSheetEvents.ValidateDetails(house))
+
+                if (homeVM.areDetailsValid) {
+                    onHouseAdd(house)
+                } else {
+                    Toast.makeText(context, homeVM.validationMessage.value, Toast.LENGTH_SHORT)
+                        .show()
+                }
             },
             contentPadding = PaddingValues(8.dp)
         ) {

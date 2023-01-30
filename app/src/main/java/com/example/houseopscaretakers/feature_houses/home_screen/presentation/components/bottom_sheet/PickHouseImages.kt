@@ -35,7 +35,7 @@ import com.example.houseopscaretakers.ui.theme.PinkAccent
 //  pick house images
 @Composable
 fun PickHouseImages(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
 
     val state = viewModel.selectedImagesState

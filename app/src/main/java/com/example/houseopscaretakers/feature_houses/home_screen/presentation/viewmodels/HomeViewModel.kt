@@ -209,21 +209,23 @@ class HomeViewModel @Inject constructor(
 
             is BottomSheetEvents.ValidateDetails -> {
 
-                if (event.house.houseCategory == "Choose house category") {
-                    areDetailsValid = false
-                    _validationMessage.value = "Please choose a house category"
+                viewModelScope.launch {
+                    if (event.house.houseCategory == "Choose house category") {
+                        areDetailsValid = false
+                        _validationMessage.value = "Please choose a house category"
 
-                } else if (event.house.housePrice == "") {
-                    areDetailsValid = false
-                    _validationMessage.value = "Specify a price for your house."
+                    } else if (event.house.housePrice == "") {
+                        areDetailsValid = false
+                        _validationMessage.value = "Specify a price for your house."
 
-                }  else if (event.house.houseImageUris.isEmpty()) {
-                    areDetailsValid = false
-                    _validationMessage.value = "Please add at least 1 image."
+                    } else if (selectedImagesState.listOfSelectedImages.isEmpty()) {
+                        areDetailsValid = false
+                        _validationMessage.value = "Please add at least 1 image."
 
-                } else {
-                    areDetailsValid = true
-                    _validationMessage.value = "House Added successfully"
+                    } else {
+                        areDetailsValid = true
+                        _validationMessage.value = "House Added successfully"
+                    }
                 }
 
             }

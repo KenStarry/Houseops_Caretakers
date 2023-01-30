@@ -41,6 +41,8 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.ProfileBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.SortBottomSheet
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.home_content.GreetingsText
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.home_content.StatsCards
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
@@ -263,72 +265,15 @@ fun HomeScreen(
                                 Spacer(modifier = Modifier.height(24.dp))
 
                                 //  greetings text
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-
-                                    Column(
-                                        modifier = Modifier
-                                            .weight(1f),
-                                        horizontalAlignment = Alignment.Start,
-                                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                                    ) {
-                                        Text(
-                                            text = "Hello",
-                                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
-                                                alpha = 0.6f
-                                            )
-                                        )
-
-                                        Text(
-                                            text = caretaker?.caretakerName ?: "",
-                                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
-                                                alpha = 0.9f
-                                            )
-                                        )
-                                    }
-
-                                    PillButton(
-                                        value = homeviewModel.addApartmentSuffix(
-                                            caretaker?.caretakerApartment ?: "Apartments"
-                                        ),
-                                        backgroundColor = MaterialTheme.colorScheme.tertiary,
-                                        onClick = {}
-                                    )
-
-                                }
+                                GreetingsText(
+                                    homeViewModel = homeviewModel,
+                                    caretaker = caretaker
+                                )
 
                                 Spacer(modifier = Modifier.height(24.dp))
 
                                 //  Apartment Statistics cards
-                                LazyRow(
-                                    content = {
-                                        itemsIndexed(
-                                            Constants.statsCardList
-                                        ) { index, card ->
-
-                                            StatsCard(
-                                                title = card.title,
-                                                icon = card.icon,
-                                                iconColor = card.iconColor,
-                                                value = card.value,
-                                                onClick = { title ->
-                                                    //  navigate to card page
-                                                }
-                                            )
-                                        }
-                                    },
-                                    state = rememberLazyListState(),
-                                    contentPadding = PaddingValues(16.dp),
-                                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                                )
+                                StatsCards(statsCardsList = Constants.statsCardList)
 
                                 Spacer(modifier = Modifier.height(24.dp))
 

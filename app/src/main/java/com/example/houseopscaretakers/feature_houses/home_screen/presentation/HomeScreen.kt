@@ -64,7 +64,7 @@ fun HomeScreen(
 
     val context = LocalContext.current
     val status by coreViewModel.connectionStatus.collectAsState(
-        initial = ConnectionStatus.Unavailable
+        initial = ConnectionStatus.Available
     )
 
     val caretaker = coreViewModel.getCaretakerDetails(
@@ -468,12 +468,13 @@ fun HomeScreen(
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
-//                Image(
-//                    painter = painterResource(id = R.drawable.undraw_signal_searching_re_yl8n),
-//                    contentDescription = "Signal lost",
-//                    modifier = Modifier
-//                        .fillMaxSize(0.8f)
-//                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.undraw_signal_searching_re_yl8n),
+                    contentDescription = "Signal lost",
+                    modifier = Modifier
+                        .fillMaxSize(0.8f)
+                )
 
             }
         }

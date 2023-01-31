@@ -17,11 +17,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.checkerframework.common.subtyping.qual.Bottom
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val useCases: HouseUseCases
 ) : ViewModel() {
+
+    //  house id
+    val _houseID = mutableStateOf("")
+    val houseID: State<String> = _houseID
 
     //  houses list
     var housesState by mutableStateOf<List<HouseModel>>(emptyList())
@@ -98,6 +103,29 @@ class HomeViewModel @Inject constructor(
         }
 
         return currentHouse
+    }
+
+    fun generateHouseID(
+        apartmentName: String,
+        houseCategory: String
+    ): String {
+
+        viewModelScope.launch {
+
+            //  get first 2 letters of the apartmentName
+            val apartmentNameTrim = apartmentName.take(2)
+            val categoryTrim = houseCategory.take(2)
+
+            var randomDigits = ""
+
+            (1..5).forEach {
+                randomDigits += (0..9).random().toString()
+            }
+
+            _houseID.value = "$apartmentNameTrim-$categoryTrim-$randomDigits"
+        }
+
+        return _houseID.value
     }
 
     @OptIn(ExperimentalMaterialApi::class)

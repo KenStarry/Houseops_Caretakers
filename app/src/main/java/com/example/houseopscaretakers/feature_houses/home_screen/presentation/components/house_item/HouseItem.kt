@@ -254,6 +254,7 @@ fun HouseItem(
 fun HomeItemPrev() {
     HouseItem(
         house = HouseModel(
+            "",
             "One Bedroom",
             "For Rent",
             emptyList(),

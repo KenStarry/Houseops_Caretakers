@@ -104,6 +104,10 @@ fun AddHouseBottomSheet(
 
 
         val house = HouseModel(
+            houseId = homeVM.generateHouseID(
+                apartmentName = apartmentName,
+                houseCategory = homeVM.pillName.value
+            ),
             houseCategory = homeVM.pillName.value,
             housePurchaseType = "For Rent",
             houseImageUris = emptyList(),

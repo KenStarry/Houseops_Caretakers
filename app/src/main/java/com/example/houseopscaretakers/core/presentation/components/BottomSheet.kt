@@ -15,7 +15,7 @@ fun BottomSheet(
     sheetBackgroundColor: Color,
     sheetContent: @Composable (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
     sheetScope: @Composable (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
-    closeBottomSheet: (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit,
+    closeBottomSheet: (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit
 ) {
 
     //  initial bottom sheet state

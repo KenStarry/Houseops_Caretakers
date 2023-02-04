@@ -198,7 +198,12 @@ fun HomeScreen(
                     }
                 },
                 closeBottomSheet = { state, scope ->
-                    homeviewModel.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(state, scope))
+                    homeviewModel.onBottomSheetEvent(
+                        BottomSheetEvents.CloseBottomSheet(
+                            state,
+                            scope
+                        )
+                    )
                 },
                 sheetScope = { state, scope ->
 
@@ -258,7 +263,10 @@ fun HomeScreen(
                                     .verticalScroll(rememberScrollState())
                             ) {
 
-                                LottieLoader(isPlaying = true)
+                                MyLottie(
+                                    isPlaying = true,
+                                    lottieRaw = R.raw.loading1
+                                )
 
                                 Spacer(modifier = Modifier.height(24.dp))
 

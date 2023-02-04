@@ -104,7 +104,7 @@ fun HouseItem(
                             )
                         ) { append(house.houseUnits) }
 
-                        append(" vacant units")
+                        append(" vacants")
                     },
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -163,7 +163,7 @@ fun HouseItem(
                                 placeholder = com.example.houseopscaretakers.R.drawable.houseops_light_final,
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
-                                    .size(50.dp)
+                                    .size(70.dp)
                                     .border(
                                         width = 2.dp,
                                         color = MaterialTheme.colorScheme.onSecondary,
@@ -261,7 +261,7 @@ fun HomeItemPrev() {
             "7",
             emptyList(),
             "A beautiful house for you and your kin",
-            "","","","",""
+            "", "", "", "", "", emptyList()
         ),
         LocalContext.current
     ) {

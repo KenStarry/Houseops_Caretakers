@@ -119,7 +119,8 @@ fun AddHouseBottomSheet(
             houseApartmentName = apartmentName,
             houseComments = "",
             housePriceCategory = priceCategory,
-            housePrice = price
+            housePrice = price,
+            houseUsersBooked = emptyList()
         )
 
         //  add house button

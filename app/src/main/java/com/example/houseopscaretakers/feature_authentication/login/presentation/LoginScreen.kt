@@ -97,6 +97,7 @@ fun LoginScreen(
                         emailInput,
                         passwordInput,
                         onSuccess = {
+                            Log.d("login", "success")
                             //  navigate and pop
                             direction.navigateAndPopRoute(Constants.HOME_ROUTE, Constants.AUTHENTICATION_ROUTE)
                         },

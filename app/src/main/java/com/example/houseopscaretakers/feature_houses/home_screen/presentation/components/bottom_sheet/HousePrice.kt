@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.utils.NumberCommaTransformation
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.WhiteBackground
@@ -59,13 +60,14 @@ fun HousePrice(
         ) {
 
             FormTextField(
-                inputType = KeyboardType.Text,
+                inputType = KeyboardType.Number,
                 onValueChange = {
                     onPriceEntered(it)
                 },
                 placeholder = "Ksh...",
                 leadingIcon = Icons.Outlined.Payment,
                 imeAction = ImeAction.Default,
+                visualTransformation = NumberCommaTransformation(),
                 modifier = Modifier
                     .weight(1f)
                     .wrapContentHeight()

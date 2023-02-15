@@ -3,8 +3,13 @@ package com.example.houseopscaretakers.navigation.graphs
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.feature_houses.MainScreen
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.HomeScreen
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.HouseViewScreen
+import com.example.houseopscaretakers.feature_settings.SettingsScreen
+import com.example.houseopscaretakers.feature_statistics.StatisticsScreen
+import com.example.houseopscaretakers.feature_tenants.TenantsScreen
+import com.example.houseopscaretakers.navigation.BottomNavScreens
 import com.example.houseopscaretakers.navigation.Screen
 
 fun NavGraphBuilder.homeNavGraph(
@@ -12,12 +17,37 @@ fun NavGraphBuilder.homeNavGraph(
 ) {
 
     navigation(
-        startDestination = Screen.Home.route,
+        startDestination = BottomNavScreens.Home.route,
         route = Constants.HOME_ROUTE
     ) {
 
+        //  main screen
+        composable(route = Screen.Main.route) {
+            MainScreen(navHostController = navHostController)
+        }
+
         composable(route = Screen.Home.route) {
             HomeScreen(navHostController)
+        }
+
+        //  Home screen
+        composable(route = BottomNavScreens.Home.route) {
+            HomeScreen(navHostController)
+        }
+
+        //  Booked screen
+        composable(route = BottomNavScreens.Tenants.route) {
+            TenantsScreen(navHostController)
+        }
+
+        //  Wishlist screen
+        composable(route = BottomNavScreens.Statistics.route) {
+            StatisticsScreen(navHostController = navHostController)
+        }
+
+        //  Settings screen
+        composable(route = BottomNavScreens.Settings.route) {
+            SettingsScreen(navHostController)
         }
 
         //  house view screen

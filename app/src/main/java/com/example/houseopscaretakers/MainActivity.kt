@@ -28,16 +28,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val vm: UtilsViewModel by viewModels()
-        var keepSplashScreenOn = true
-
         //  initialize our Splash screen
-        installSplashScreen().apply {
-//            this.setKeepOnScreenCondition { vm.isShowing.value }
-        }
+        installSplashScreen()
+
         setContent {
             HouseopsCaretakersTheme {
-                SetupNavGraph()
+                MainScreen(rememberNavController())
             }
         }
     }

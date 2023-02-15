@@ -263,11 +263,6 @@ fun HomeScreen(
                                     .verticalScroll(rememberScrollState())
                             ) {
 
-                                MyLottie(
-                                    isPlaying = true,
-                                    lottieRaw = R.raw.loading1
-                                )
-
                                 Spacer(modifier = Modifier.height(24.dp))
 
                                 //  greetings text
@@ -489,6 +484,7 @@ fun HomeScreen(
 
             //  show yellow warning
         }
+
         is ConnectionStatus.Lost -> {
 
             //  show error message

@@ -51,9 +51,7 @@ fun GreetingsText(
         }
 
         PillButton(
-            value = homeViewModel.addApartmentSuffix(
-                caretaker?.caretakerApartment ?: "Apartments"
-            ),
+            value = caretaker?.caretakerApartment ?: "",
             backgroundColor = MaterialTheme.colorScheme.tertiary,
             onClick = {}
         )

@@ -2,7 +2,6 @@ package com.example.houseopscaretakers.core.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.houseopscaretakers.R
 import androidx.compose.runtime.*
 import com.airbnb.lottie.compose.*
 

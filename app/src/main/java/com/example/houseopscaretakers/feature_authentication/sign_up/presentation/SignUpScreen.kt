@@ -31,6 +31,7 @@ import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpSVG
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
+import com.example.houseopscaretakers.navigation.Direction
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,6 +42,7 @@ fun SignUpScreen(
 ) {
 
     var context = LocalContext.current
+    val direction = Direction(navHostController)
 
     var caretakerImageUri by remember {
         mutableStateOf<Uri?>(null)
@@ -254,36 +256,41 @@ fun SignUpScreen(
                                     email = emailInput,
                                     password = newPassInput,
                                     onSuccess = {
-                                    },
-                                    onFailure = {
-                                        Toast.makeText(
-                                            context,
-                                            "Something went wrong",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                )
 
-                                //  create caretaker collection
-                                viewModel.createCaretakerCollection(
-                                    caretaker = caretaker,
-                                    onSuccess = {
-                                        //  store the url in firestore
-                                        viewModel.uploadImageToStorage(
+                                        //  create caretaker collection
+                                        viewModel.createCaretakerCollection(
                                             caretaker = caretaker,
-                                            imageUri = caretakerImageUri,
-                                            context = context,
                                             onSuccess = {
-                                                Toast.makeText(
-                                                    context,
-                                                    "Image stored properly",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
+                                                //  store the url in firestore
+                                                viewModel.uploadImageToStorage(
+                                                    caretaker = caretaker,
+                                                    imageUri = caretakerImageUri,
+                                                    context = context,
+                                                    onSuccess = {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "Image stored properly",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    },
+                                                    onFailure = {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "Image Couldn't be stored to firebase",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                )
+
+                                                //  open caretaker activity
+                                                direction.navigateToRoute(
+                                                    Constants.HOME_ROUTE
+                                                )
                                             },
                                             onFailure = {
                                                 Toast.makeText(
                                                     context,
-                                                    "Image Couldn't be stored to firebase",
+                                                    "Couldn't create collection",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
                                             }
@@ -292,7 +299,7 @@ fun SignUpScreen(
                                     onFailure = {
                                         Toast.makeText(
                                             context,
-                                            "Couldn't create collection",
+                                            "Something went wrong",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }

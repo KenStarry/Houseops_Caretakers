@@ -76,17 +76,4 @@ fun StatsCard(
 
         }
     }
-
-
-}
-
-@Preview
-@Composable
-fun StastsItemPrev() {
-    StatsCard(
-        "Completed Items",
-        Icons.Outlined.Notifications,
-        BlueAccent,
-        "25"
-    ) {}
 }

@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -14,8 +16,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,20 +35,24 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.ConnectionStatus
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
-import com.example.houseopscaretakers.core.presentation.components.*
+import com.example.houseopscaretakers.core.presentation.components.BottomSheet
+import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog
+import com.example.houseopscaretakers.core.presentation.components.MyLottie
+import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_houses.home_screen.domain.model.HouseEvents
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.*
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeFab
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HomeTopAppBar
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.HouseDeleteDialog
+import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.MyHousesTitle
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.ProfileBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet.SortBottomSheet
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.home_content.GreetingsText
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.home_content.StatsCards
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.navigation.Screen
@@ -273,47 +284,22 @@ fun HomeScreen(
 
                                 Spacer(modifier = Modifier.height(24.dp))
 
-                                //  Apartment Statistics cards
-                                StatsCards(statsCardsList = Constants.statsCardList)
-
-                                Spacer(modifier = Modifier.height(24.dp))
-
-                                //  My Houses
-                                MyHousesTitle(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .wrapContentHeight()
-                                        .padding(horizontal = 16.dp),
-                                    onSort = {
-                                        //  open sort bottomsheet
-                                        homeviewModel.onBottomSheetEvent(
-                                            BottomSheetEvents.OpenBottomSheet(
-                                                state = state,
-                                                scope = scope,
-                                                bottomSheetType = HomeConstants.SORT_BOTTOM_SHEET
-                                            )
-                                        )
-                                    }
-                                )
-
-                                Spacer(modifier = Modifier.height(24.dp))
-
                                 //  toggle visibility of the houses accordingly
-                                if (homeviewModel.housesState.isEmpty()) {
+                                if (homeviewModel.housesState.isEmpty()) {0
 
                                     Column(
                                         modifier = Modifier
-                                            .fillMaxSize(0.8f)
-                                            .padding(24.dp)
-                                            .align(Alignment.CenterHorizontally),
+                                            .fillMaxSize()
+                                            .padding(24.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                         verticalArrangement = Arrangement.Center
                                     ) {
-                                        //  show svg
-                                        Image(
-                                            painter = painterResource(id = R.drawable.undraw_new_ideas_re_asn4),
-                                            contentDescription = "No houses",
-                                            contentScale = ContentScale.Fit
+
+                                        MyLottie(
+                                            lottieRaw = R.raw.not_found,
+                                            isPlaying = true,
+                                            modifier = Modifier
+                                                .size(250.dp)
                                         )
 
                                         Spacer(modifier = Modifier.height(24.dp))
@@ -329,6 +315,26 @@ fun HomeScreen(
                                     }
 
                                 } else {
+
+                                    //  My Houses
+                                    MyHousesTitle(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .wrapContentHeight()
+                                            .padding(horizontal = 16.dp),
+                                        onSort = {
+                                            //  open sort bottomsheet
+                                            homeviewModel.onBottomSheetEvent(
+                                                BottomSheetEvents.OpenBottomSheet(
+                                                    state = state,
+                                                    scope = scope,
+                                                    bottomSheetType = HomeConstants.SORT_BOTTOM_SHEET
+                                                )
+                                            )
+                                        }
+                                    )
+
+                                    Spacer(modifier = Modifier.height(24.dp))
 
                                     //  Lazy column to display house categories
                                     LazyColumn(

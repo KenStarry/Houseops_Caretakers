@@ -285,7 +285,7 @@ fun HomeScreen(
                                 Spacer(modifier = Modifier.height(24.dp))
 
                                 //  toggle visibility of the houses accordingly
-                                if (homeviewModel.housesState.isEmpty()) {0
+                                if (homeviewModel.housesState.isEmpty()) {
 
                                     Column(
                                         modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.bottom_sheet
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,9 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
@@ -36,6 +39,8 @@ fun HousePrice(
     var isPriceCategoriesVisible by remember {
         mutableStateOf(false)
     }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -62,7 +67,11 @@ fun HousePrice(
             FormTextField(
                 inputType = KeyboardType.Number,
                 onValueChange = {
-                    onPriceEntered(it)
+
+                    if (it.length <= Long.MAX_VALUE.toString().length && it.isDigitsOnly()) {
+                        onPriceEntered(it)
+                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    }
                 },
                 placeholder = "Ksh...",
                 leadingIcon = Icons.Outlined.Payment,

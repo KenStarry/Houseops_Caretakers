@@ -132,6 +132,7 @@ fun AddHouseBottomSheet(
 
                 if (homeVM.areDetailsValid) {
                     onHouseAdd(house)
+
                 } else {
                     Toast.makeText(context, homeVM.validationMessage.value, Toast.LENGTH_SHORT)
                         .show()

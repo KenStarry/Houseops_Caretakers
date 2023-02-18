@@ -16,12 +16,14 @@ object Constants {
     const val HOME_ROUTE = "home"
     const val ROOT_ROUTE = "root"
     const val ROUTE = "route"
+
     //  screen routes
     const val MAIN_SCREEN_ROUTE = "main_screen"
     const val HOME_SCREEN_ROUTE = "home_screen"
     const val HOUSE_VIEW_SCREEN_ROUTE = "house_view_screen"
     const val LOGIN_SCREEN_ROUTE = "login_screen"
     const val SIGN_UP_SCREEN_ROUTE = "sign_up_screen"
+    const val HOUSE_ADD_SCREEN_ROUTE = "house_add_screen"
 
     //  ------------------  LOGIN SCREEN    ----------------
     const val LOGIN_TITLE = "Login"

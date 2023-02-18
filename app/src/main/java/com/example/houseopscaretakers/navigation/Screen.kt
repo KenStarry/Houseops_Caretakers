@@ -10,6 +10,8 @@ sealed class Screen(
     object Login : Screen(Constants.LOGIN_SCREEN_ROUTE)
     object SignUp : Screen(Constants.SIGN_UP_SCREEN_ROUTE)
 
+    object HouseAdd : Screen(Constants.HOUSE_ADD_SCREEN_ROUTE)
+
     object HouseView : Screen(
         route = "${Constants.HOUSE_VIEW_SCREEN_ROUTE}/{apartment}/{category}"
     ) {

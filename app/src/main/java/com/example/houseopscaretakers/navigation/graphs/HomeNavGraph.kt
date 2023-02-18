@@ -5,6 +5,7 @@ import androidx.navigation.compose.composable
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_main_screen.MainScreen
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.HomeScreen
+import com.example.houseopscaretakers.feature_houses.house_add_screen.presentation.HouseAddScreen
 import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.HouseViewScreen
 import com.example.houseopscaretakers.feature_settings.SettingsScreen
 import com.example.houseopscaretakers.feature_statistics.StatisticsScreen
@@ -44,6 +45,10 @@ fun NavGraphBuilder.homeNavGraph(
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
             SettingsScreen(navHostController)
+        }
+        
+        composable(route = Screen.HouseAdd.route) {
+            HouseAddScreen(navHostController = navHostController)
         }
 
         //  house view screen

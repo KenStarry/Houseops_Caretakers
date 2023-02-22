@@ -2,14 +2,14 @@ package com.example.houseopscaretakers.navigation.graphs
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.feature_main_screen.MainScreen
-import com.example.houseopscaretakers.feature_houses.home_screen.presentation.HomeScreen
-import com.example.houseopscaretakers.feature_houses.house_add_screen.presentation.HouseAddScreen
-import com.example.houseopscaretakers.feature_houses.house_view_screen.presentation.HouseViewScreen
-import com.example.houseopscaretakers.feature_settings.presentation.SettingsScreen
-import com.example.houseopscaretakers.feature_statistics.StatisticsScreen
-import com.example.houseopscaretakers.feature_tenants.TenantsScreen
+import com.example.houseopscaretakers.feature_caretaker.core.Constants
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.HomeScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.house_add_screen.presentation.HouseAddScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.house_view_screen.presentation.HouseViewScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_main_screen.MainScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.SettingsScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_statistics.StatisticsScreen
+import com.example.houseopscaretakers.feature_caretaker.feature_tenants.TenantsScreen
 import com.example.houseopscaretakers.navigation.BottomNavScreens
 import com.example.houseopscaretakers.navigation.Screen
 

@@ -1,11 +1,12 @@
 package com.example.houseopscaretakers.navigation
 
-import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.feature_caretaker.core.Constants
 
 sealed class Screen(
     val route: String
 ) {
 
+    object Path : Screen(Constants.PATH_SCREEN_ROUTE)
     object Main : Screen(Constants.MAIN_SCREEN_ROUTE)
     object Login : Screen(Constants.LOGIN_SCREEN_ROUTE)
     object SignUp : Screen(Constants.SIGN_UP_SCREEN_ROUTE)

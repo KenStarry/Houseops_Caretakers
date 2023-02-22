@@ -2,14 +2,6 @@ package com.example.houseopscaretakers.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
 val GreyBackground = Color(0xFFF5F6FA)
 val WhiteBackground = Color(0xFFffffff)
 val DarkBackground = Color(0xFF292B2C)
@@ -26,14 +18,20 @@ val PinkAccent = Color(0xFFf72585)
 val RedOrange = Color(0xFFFF4309)
 val RedOrangeDull = Color(0xFFFF4309).copy(alpha = 0.1f)
 
-val LimeGreen = Color(0xFF3EFF09)
-val LimeGreenDull = Color(0xFF30741D).copy(alpha = 0.5f)
-
+val LimeGreen = Color(0xFF288B0D)
+val LimeGreenDull = Color(0xFF288B0D).copy(alpha = 0.1f)
 
 val RedPink = Color(0xFFFF0A5B)
+val RedPinkDull = Color(0xFFFF0A5B).copy(alpha = 0.1f)
+
 val BabyBlue = Color(0xFF0BCDE6)
+val BabyBlueDull = Color(0xFF0BCDE6).copy(alpha = 0.1f)
+
 val Violet = Color(0xffcf94da)
-val LightGreen = Color(0xFFDDEE0B)
+val VioletDull = Color(0xffcf94da).copy(alpha = 0.1f)
+
+val LightYellow = Color(0xFFDDEE0B)
+val LightYellowDull = Color(0xFFDDEE0B).copy(alpha = 0.1f)
 
 val col1 = Color(0xFFFF1744)
 val col2 = Color(0xFFFF5252)

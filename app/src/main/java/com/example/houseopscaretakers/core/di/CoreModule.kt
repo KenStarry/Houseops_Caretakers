@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.core.di
 
+import android.content.Context
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
 import com.example.houseopscaretakers.core.domain.repository.ConnectivityObserver
 import com.example.houseopscaretakers.core.domain.repository.CoreRepository
@@ -10,6 +12,7 @@ import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -38,5 +41,12 @@ object CoreModule {
         coreUploadImages = CoreUploadImages(repository),
         getHouse = GetHouse(repository)
     )
+
+    //  provide datastore accent preference
+    @Provides
+    @Singleton
+    fun provideAccentPreference(
+        @ApplicationContext context: Context
+    ) = AccentPreference(context)
 
 }

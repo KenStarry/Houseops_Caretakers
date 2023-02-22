@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.ConnectionStatus
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
@@ -22,8 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoreViewModel @Inject constructor(
-    private val useCase: CoreUseCases
+    private val useCase: CoreUseCases,
+    private val accentPreference: AccentPreference
 ) : ViewModel() {
+
+    val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
+    val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
 
 //    var connectionStatus by mutableStateOf<ConnectionStatus>(ConnectionStatus.Available)
     var connectionStatus by mutableStateOf(useCase.connection())
@@ -92,6 +97,12 @@ class CoreViewModel @Inject constructor(
                             currentHouse = it
                         }
                     )
+                }
+            }
+
+            is CoreEvents.ChangeAccent -> {
+                viewModelScope.launch {
+                    accentPreference.setAccent(event.accentColor)
                 }
             }
         }

@@ -65,6 +65,9 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    //  Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
     // Splash screen Api
     implementation("androidx.core:core-splashscreen:1.0.0")
 

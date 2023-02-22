@@ -28,10 +28,6 @@ fun HouseAddAppBar() {
                 )
             }
         },
-        windowInsets = WindowInsets(
-            left = 16.dp,
-            right = 16.dp
-        ),
          colors = TopAppBarDefaults.largeTopAppBarColors(
              containerColor = MaterialTheme.colorScheme.onPrimary,
              scrolledContainerColor = MaterialTheme.colorScheme.onSecondary,

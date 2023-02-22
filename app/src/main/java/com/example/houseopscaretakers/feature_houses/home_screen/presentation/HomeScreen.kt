@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +37,7 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.domain.model.ConnectionStatus
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
-import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog
+import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog2
 import com.example.houseopscaretakers.core.presentation.components.MyLottie
 import com.example.houseopscaretakers.core.presentation.components.customSwipeAction
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
@@ -55,6 +54,7 @@ import com.example.houseopscaretakers.feature_houses.home_screen.presentation.co
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.home_content.GreetingsText
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseopscaretakers.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
+import com.example.houseopscaretakers.navigation.Direction
 import com.example.houseopscaretakers.navigation.Screen
 import com.example.houseopscaretakers.ui.theme.LimeGreen
 import com.example.houseopscaretakers.ui.theme.LimeGreenDull
@@ -70,6 +70,7 @@ fun HomeScreen(
 
     val coreViewModel: CoreViewModel = hiltViewModel()
     val homeviewModel: HomeViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     val context = LocalContext.current
     val status by coreViewModel.connectionStatus.collectAsState(
@@ -110,6 +111,10 @@ fun HomeScreen(
                         }
 
                         HomeConstants.FAB_BOTTOM_SHEET -> {
+
+                            //  navigate to house add screen
+//                            direction.navigateToRoute(Screen.HouseAdd.route)
+
                             AddHouseBottomSheet(
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -345,7 +350,7 @@ fun HomeScreen(
 
                                                 //  Alert Dialogs
                                                 if (homeviewModel.openDeleteDialog) {
-                                                    CustomAlertDialog(
+                                                    CustomAlertDialog2(
                                                         onDismiss = {
                                                             //  close dialog
                                                             homeviewModel.onHomeScreenEvent(

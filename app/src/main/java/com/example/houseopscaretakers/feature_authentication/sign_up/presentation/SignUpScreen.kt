@@ -72,6 +72,8 @@ fun SignUpScreen(
 
                     val caretaker = Caretaker(
                         caretakerName = signUpVM.formState.username,
+                        caretakerId = "",
+                        caretakerApartment = "",
                         caretakerEmail = signUpVM.formState.email,
                         caretakerImage = userImageUri.toString(),
                         caretakerPassword = signUpVM.formState.password,
@@ -89,7 +91,26 @@ fun SignUpScreen(
                                     if (userType == Constants.routePaths[0].title) {
                                         signUpVM.onEvent(SignUpEvents.CreateLandlordCollection(
                                             landlord = landlord,
-                                            response = {}
+                                            response = { res ->
+                                                when (res) {
+                                                    is Response.Success -> {
+
+                                                        //  go to desired activity
+                                                        direction.navigateAndPopRoute(
+                                                            Constants.LANDLORD_ROUTE,
+                                                            Constants.LANDLORD_ROUTE
+                                                        )
+
+                                                        Toast.makeText(context, "Logged in successfully!", Toast.LENGTH_SHORT)
+                                                            .show()
+                                                    }
+                                                    is Response.Failure -> {
+                                                        Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT)
+                                                            .show()
+                                                    }
+                                                    is Response.Loading -> {}
+                                                }
+                                            }
                                         ))
 
                                         signUpVM.onEvent(SignUpEvents.UploadLandlordImageToStorage(
@@ -98,10 +119,30 @@ fun SignUpScreen(
                                             context = context,
                                             response = {}
                                         ))
+
                                     } else {
                                         signUpVM.onEvent(SignUpEvents.CreateCaretakerCollection(
                                             caretaker = caretaker,
-                                            response = {}
+                                            response = { res ->
+                                                when (res) {
+                                                    is Response.Success -> {
+
+                                                        //  go to desired activity
+                                                        direction.navigateAndPopRoute(
+                                                            Constants.HOME_ROUTE,
+                                                            Constants.HOME_ROUTE
+                                                        )
+
+                                                        Toast.makeText(context, "Logged in successfully!", Toast.LENGTH_SHORT)
+                                                            .show()
+                                                    }
+                                                    is Response.Failure -> {
+                                                        Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT)
+                                                            .show()
+                                                    }
+                                                    is Response.Loading -> {}
+                                                }
+                                            }
                                         ))
 
                                         signUpVM.onEvent(SignUpEvents.UploadCaretakerImageToStorage(

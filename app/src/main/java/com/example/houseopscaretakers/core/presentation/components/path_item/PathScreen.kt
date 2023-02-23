@@ -37,6 +37,7 @@ fun PathScreen(
     val context = LocalContext.current
 
     val calendar = Calendar.getInstance()
+    
     val currentHour by remember {
         mutableStateOf(calendar.get(Calendar.HOUR_OF_DAY))
     }
@@ -72,8 +73,6 @@ fun PathScreen(
             }
         )
     }
-
-    Toast.makeText(context, "current time is : $currentHour", Toast.LENGTH_SHORT).show()
 
     Column(
         modifier = Modifier
@@ -151,6 +150,8 @@ fun PathScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
+            
+            Spacer(modifier = Modifier.width(8.dp))
 
             Button(
                 onClick = { /*TODO*/ },

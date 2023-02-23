@@ -61,7 +61,7 @@ fun PathGreetings(
         }
 
         Text(
-            text = "Choose Path",
+            text = "Choose Login Path",
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)

@@ -161,10 +161,7 @@ fun PathScreen(
                     }
 
                     //  navigate to login activity
-                    direction.navigateAndPopRoute(
-                        Screen.Login.route,
-                        Screen.Login.route
-                    )
+                    direction.navigateToRoute(Screen.Login.route)
 
                 },
                 contentPadding = PaddingValues(

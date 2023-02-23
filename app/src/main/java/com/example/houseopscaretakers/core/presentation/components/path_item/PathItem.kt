@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
@@ -42,7 +43,10 @@ fun PathItem(
             Box(
                 modifier = Modifier
                     .size(60.dp)
-                    .background(MaterialTheme.colorScheme.tertiary),
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiary,
+                        shape = CircleShape
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -51,6 +55,8 @@ fun PathItem(
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = title,

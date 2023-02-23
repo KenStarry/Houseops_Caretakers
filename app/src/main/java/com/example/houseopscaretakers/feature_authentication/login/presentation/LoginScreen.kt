@@ -23,8 +23,9 @@ import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.presentation.components.HomePillBtns
 import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
 import com.example.houseopscaretakers.core.presentation.model.RoutePath
-import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormEvent
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
@@ -33,23 +34,49 @@ import com.example.houseopscaretakers.navigation.Direction
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel(),
+    loginVM: LoginViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
 
     var emailInput by remember { mutableStateOf("") }
     var passwordInput by remember { mutableStateOf("") }
+
     val context = LocalContext.current
     val direction = Direction(navHostController)
 
-    val vm: UtilsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
     val coreVM: CoreViewModel = hiltViewModel()
 
     //  get the current user type
     val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
 
-    LaunchedEffect(key1 = Unit) {
-        vm.isShowing.value = false
+    LaunchedEffect(key1 = context) {
+        loginVM.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+                    //  login user
+                    loginVM.loginUser(
+                        emailInput,
+                        passwordInput,
+                        onSuccess = {
+                            Log.d("login", "success")
+                            //  navigate and pop
+                            direction.navigateAndPopRoute(
+                                com.example.houseopscaretakers.core.Constants.HOME_ROUTE,
+                                com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE
+                            )
+                        },
+                        onFailure = {
+                            Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
+                                .show()
+                        },
+                        onLoading = {
+                            Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
+                is ValidationEvent.Failure -> {}
+            }
+        }
     }
 
     Column(
@@ -114,8 +141,12 @@ fun LoginScreen(
 
         //  Login text fields
         LoginTextFields(
-            onEmailInput = { emailInput = it },
-            onPasswordInput = { passwordInput = it },
+            onEmailInput = {
+                loginVM.onFormEvent(LoginFormEvent.EmailChanged(it))
+            },
+            onPasswordInput = {
+                loginVM.onFormEvent(LoginFormEvent.PasswordChanged(it))
+            },
             onForgotPassword = {},
             modifier = Modifier
                 .fillMaxWidth()
@@ -125,32 +156,7 @@ fun LoginScreen(
         //  Login buttons
         LoginButtons(
             onLoginWithEmail = {
-                //   verify details are valid
-                if (viewModel.areDetailsValid(emailInput, passwordInput)) {
-
-                    //  login user
-                    viewModel.loginUser(
-                        emailInput,
-                        passwordInput,
-                        onSuccess = {
-                            Log.d("login", "success")
-                            //  navigate and pop
-                            direction.navigateAndPopRoute(
-                                com.example.houseopscaretakers.core.Constants.HOME_ROUTE,
-                                com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE
-                            )
-                        },
-                        onFailure = {
-                            Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
-                                .show()
-                        },
-                        onLoading = {
-                            Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
-                        }
-                    )
-                } else {
-                    Toast.makeText(context, "Please fill in all details", Toast.LENGTH_SHORT).show()
-                }
+                loginVM.onFormEvent(LoginFormEvent.Submit)
             },
             onLoginWithGoogle = {
                 //  login with Google

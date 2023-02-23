@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.core.data.datastore.preferences.UserDetailsPreference
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.data.datastore.AccentPreference
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
@@ -23,11 +24,15 @@ import javax.inject.Inject
 @HiltViewModel
 class CoreViewModel @Inject constructor(
     private val useCase: CoreUseCases,
-    private val accentPreference: AccentPreference
+    private val accentPreference: AccentPreference,
+    private val userDetailsPreference: UserDetailsPreference
 ) : ViewModel() {
 
+    //  get primary and tertiary colors
     val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
+
+    val userTypeFlow: Flow<String?> get() = userDetailsPreference.getUserType
 
 //    var connectionStatus by mutableStateOf<ConnectionStatus>(ConnectionStatus.Available)
     var connectionStatus by mutableStateOf(useCase.connection())
@@ -110,6 +115,12 @@ class CoreViewModel @Inject constructor(
 
             is CoreEvents.SelectPath -> {
                 _pathSelected.value = event.path
+            }
+
+            is CoreEvents.DatastoreSaveUserType -> {
+                viewModelScope.launch {
+                    userDetailsPreference.setUserType(event.userType)
+                }
             }
         }
     }

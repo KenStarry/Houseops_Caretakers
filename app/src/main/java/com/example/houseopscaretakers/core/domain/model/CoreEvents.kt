@@ -25,4 +25,8 @@ sealed class CoreEvents {
     data class SelectPath(
         val path: RoutePath
     ) : CoreEvents()
+
+    data class DatastoreSaveUserType(
+        val userType: String
+    ) : CoreEvents()
 }

@@ -24,12 +24,14 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpEvents
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormEvent
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpAppBar
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpForms
@@ -62,6 +64,29 @@ fun SignUpScreen(
         signUpVM.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
+
+                    //  create user in firebase
+                    signUpVM.onEvent(SignUpEvents.CreateUserInFirebase(
+                        email = signUpVM.formState.email,
+                        password = signUpVM.formState.password,
+                        onResponse = {
+                            when (it) {
+                                is Response.Success -> {
+                                    //  create the user in firestore
+
+
+                                }
+                                is Response.Failure -> {
+                                    Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                                }
+
+                                is Response.Loading -> {
+
+                                }
+                            }
+                        }
+                    ))
+
 //                    val verificationResponse = signUpVM.verifyCaretakerDetails(
 //                        userName = usernameInput,
 //                        id = idInput,
@@ -141,7 +166,9 @@ fun SignUpScreen(
 //                            .show()
 //                    }
                 }
-                is ValidationEvent.Failure -> {}
+                is ValidationEvent.Failure -> {
+                    Toast.makeText(context, "Check details", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

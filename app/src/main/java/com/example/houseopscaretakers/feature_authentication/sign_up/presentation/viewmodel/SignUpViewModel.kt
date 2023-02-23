@@ -9,20 +9,33 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.Response
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormState
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationResult
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormEvent
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormState
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository.CreateUserResponse
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.SignUpUseCases
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.validation.SignUpValidateUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val signUpUseCases: SignUpUseCases
+    private val signUpUseCases: SignUpUseCases,
+    private val validateUseCases: SignUpValidateUseCases
 ) : ViewModel() {
 
     //  create user response
     private var createUserResponse by mutableStateOf<CreateUserResponse>(Response.Success(false))
     private var validDetailsResponse by mutableStateOf("")
+
+    var formState by mutableStateOf(SignUpFormState())
+    private val validationEventChannel = Channel<ValidationEvent>()
+    val validationEvents = validationEventChannel.receiveAsFlow()
 
     //  verify user details
     fun verifyCaretakerDetails(
@@ -119,6 +132,69 @@ class SignUpViewModel @Inject constructor(
                 is Response.Success -> onSuccess()
                 else -> onFailure()
             }
+        }
+    }
+
+    fun onFormEvent(event: SignUpFormEvent) {
+        when (event) {
+
+            is SignUpFormEvent.EmailChanged -> {
+                formState = formState.copy(email = event.email)
+            }
+
+            is SignUpFormEvent.PasswordChanged -> {
+                formState = formState.copy(password = event.password)
+            }
+
+            is SignUpFormEvent.RepeatedPasswordChanged -> {
+                formState = formState.copy(repeatedPassword = event.repeatedPassword)
+            }
+
+            is SignUpFormEvent.Submit -> {
+                submitData()
+            }
+
+            is SignUpFormEvent.UserNameChanged -> {
+                formState = formState.copy(username = event.username)
+            }
+        }
+    }
+
+    private fun submitData() {
+
+        val emailResult: ValidationResult =
+            validateUseCases.validateEmail.execute(formState.email)
+
+        val passwordResult: ValidationResult =
+            validateUseCases.validatePassword.execute(formState.password)
+
+        val repeatedPasswordResult: ValidationResult =
+            validateUseCases.validateRepeatedPassword.execute(
+                formState.password, formState.repeatedPassword
+            )
+
+        val userNameResult: ValidationResult =
+            validateUseCases.validateUserName.execute(formState.username)
+
+        val hasError = listOf(
+            emailResult,
+            passwordResult,
+            repeatedPasswordResult,
+            userNameResult
+        ).any { !it.successful }
+
+        if (hasError) {
+            formState = formState.copy(
+                emailError = emailResult.errorMessage,
+                passwordError = passwordResult.errorMessage,
+                repeatedPasswordError = repeatedPasswordResult.errorMessage,
+                usernameError = userNameResult.errorMessage
+            )
+            return
+        }
+
+        viewModelScope.launch {
+            validationEventChannel.send(ValidationEvent.Success)
         }
     }
 }

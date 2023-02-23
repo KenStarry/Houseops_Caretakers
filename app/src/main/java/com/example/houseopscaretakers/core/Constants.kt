@@ -30,6 +30,7 @@ object Constants {
     const val HOME_ROUTE = "home"
     const val ROOT_ROUTE = "root"
     const val ROUTE = "route"
+    const val LANDLORD_ROUTE = "landlord"
 
     //  screen routes
     const val MAIN_SCREEN_ROUTE = "main_screen"

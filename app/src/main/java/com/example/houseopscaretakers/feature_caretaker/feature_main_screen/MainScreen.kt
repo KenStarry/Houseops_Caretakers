@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -19,6 +20,7 @@ fun MainScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
 
     Scaffold(
         bottomBar = {
@@ -33,7 +35,8 @@ fun MainScreen(
         ) {
             RootNavGraph(
                 navHostController = navHostController,
-                isLoggedIn = coreVM.isUserLoggedIn()
+                isLoggedIn = coreVM.isUserLoggedIn(),
+                userType = userType
             )
         }
     }

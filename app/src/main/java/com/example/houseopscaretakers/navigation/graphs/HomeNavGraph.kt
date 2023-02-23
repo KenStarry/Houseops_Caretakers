@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeNavGraph(
 
     navigation(
         startDestination = BottomNavScreens.Home.route,
-        route = com.example.houseopscaretakers.core.Constants.HOME_ROUTE
+        route = Constants.HOME_ROUTE
     ) {
 
         //  main screen

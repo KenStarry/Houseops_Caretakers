@@ -6,6 +6,7 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.CreateCaretakerInFirebase
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.SignUpUseCases
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.UploadCaretakerImage
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.validation.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -39,4 +40,26 @@ object SignUpModule {
         createCaretakerCollection = CreateCaretakerCollection(repo),
         uploadCaretakerImage = UploadCaretakerImage(repo)
     )
+
+    @Provides
+    @Singleton
+    fun provideSignUpValidateUseCases() = SignUpValidateUseCases(
+        validateEmail = ValidateEmail(),
+        validatePassword = ValidatePassword(),
+        validateRepeatedPassword = ValidateRepeatedPassword(),
+        validateUserName = ValidateUserName()
+    )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

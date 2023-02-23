@@ -62,7 +62,7 @@ fun SignUpScreen(
         topBar = {
             BackPressTopBar(
                 startIcon = Icons.Sharp.ArrowBack,
-                title = "",
+                title = "Create Account",
                 onBackPressed = {
                     //  navigate back to login page
                 }
@@ -84,23 +84,6 @@ fun SignUpScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
-                SignUpSVG(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(2f)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "Create Account",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                )
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -114,7 +97,7 @@ fun SignUpScreen(
                         modifier = Modifier
                             .clip(CircleShape)
                             .size(100.dp)
-                            .background(BlueAccentTransparent)
+                            .background(MaterialTheme.colorScheme.tertiary)
                             .align(Alignment.CenterHorizontally)
                             .clickable {
                                 //   grab image uri from gallery

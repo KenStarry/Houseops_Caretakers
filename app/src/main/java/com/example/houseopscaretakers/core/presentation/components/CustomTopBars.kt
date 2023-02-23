@@ -3,6 +3,7 @@ package com.example.houseopscaretakers.core.presentation.components
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -12,9 +13,13 @@ fun BackPressTopBar(
     onBackPressed: () -> Unit
 ) {
 
-    TopAppBar(
+    LargeTopAppBar(
         title = {
-            Text(text = title ?: "")
+            Text(
+                text = title ?: "",
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold
+            )
         },
         navigationIcon = {
             startIcon?.let {

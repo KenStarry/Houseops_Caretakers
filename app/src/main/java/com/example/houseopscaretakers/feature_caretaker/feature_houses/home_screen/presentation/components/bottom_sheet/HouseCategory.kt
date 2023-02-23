@@ -58,7 +58,7 @@ fun ColumnScope.HouseCategory(
 
             Icon(
                 imageVector = Icons.Outlined.Apartment,
-                contentDescription = "Houe category icon",
+                contentDescription = "House category icon",
                 tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
             )
 

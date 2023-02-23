@@ -1,15 +1,18 @@
 package com.example.houseopscaretakers.core.presentation.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.data.datastore.AccentPreference
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.domain.use_cases.CoreUseCases
+import com.example.houseopscaretakers.core.presentation.model.RoutePath
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +38,9 @@ class CoreViewModel @Inject constructor(
     var caretaker by mutableStateOf<Caretaker?>(null)
     var currentHouse by mutableStateOf<HouseModel?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
+
+    private val _pathSelected = mutableStateOf(Constants.routePaths[0])
+    val pathSelected: State<RoutePath> = _pathSelected
 
     //  is user logged in
     fun isUserLoggedIn(): Boolean {
@@ -100,6 +106,10 @@ class CoreViewModel @Inject constructor(
                 viewModelScope.launch {
                     accentPreference.setAccent(event.accentColor)
                 }
+            }
+
+            is CoreEvents.SelectPath -> {
+                _pathSelected.value = event.path
             }
         }
     }

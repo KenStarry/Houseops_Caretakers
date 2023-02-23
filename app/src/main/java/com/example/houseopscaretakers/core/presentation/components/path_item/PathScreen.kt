@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.core.presentation
+package com.example.houseopscaretakers.core.presentation.components.path_item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -57,7 +57,7 @@ fun PathScreen(
                         title = it.title,
                         icon = it.icon,
                         onClick = {
-                            //  open spcific path
+                            //  select path
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.7f)

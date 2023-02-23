@@ -17,13 +17,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun PathGreetings(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     title: String
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 

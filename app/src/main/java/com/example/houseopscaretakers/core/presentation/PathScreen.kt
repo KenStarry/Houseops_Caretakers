@@ -9,13 +9,16 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowRight
+import androidx.compose.material.icons.outlined.ArrowRightAlt
 import androidx.compose.material.icons.outlined.ModeNight
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.presentation.components.PathItem
@@ -39,7 +42,10 @@ fun PathScreen(
         //  greeting section
         PathGreetings(
             icon = Icons.Outlined.ModeNight,
-            title = "Good Evening,"
+            title = "Good Evening,",
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
         )
 
         LazyColumn(
@@ -57,7 +63,7 @@ fun PathScreen(
                             .fillMaxWidth(0.7f)
                             .height(200.dp)
                     )
-                    
+
                     Spacer(modifier = Modifier.height(24.dp))
                 }
             },
@@ -66,18 +72,46 @@ fun PathScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.9f)
+                .weight(6f)
         )
 
         //  next button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .weight(1f),
             horizontalArrangement = Arrangement.End
         ) {
 
+            Button(
+                onClick = { /*TODO*/ },
+                contentPadding = PaddingValues(
+                    horizontal = 16.dp
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White,
+                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+                    disabledContentColor = Color.White.copy(alpha = 0.5f)
+                ),
+                enabled = false
+            ) {
+                Text(
+                    text = "Next",
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                    fontWeight = FontWeight.Bold
+                )
 
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Icon(
+                    imageVector = Icons.Outlined.ArrowRightAlt,
+                    contentDescription = "Arrow right",
+                    tint = Color.White
+                )
+            }
 
         }
 

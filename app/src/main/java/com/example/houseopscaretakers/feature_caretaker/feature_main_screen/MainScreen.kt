@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.navigation.graphs.RootNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class)

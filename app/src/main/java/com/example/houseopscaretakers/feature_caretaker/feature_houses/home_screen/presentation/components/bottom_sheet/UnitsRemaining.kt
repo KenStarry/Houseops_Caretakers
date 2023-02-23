@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.IconBtn
 
 //  Units remaining
 @Composable

@@ -19,9 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.UsersCollection
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.HomePillBtns
+import com.example.houseopscaretakers.core.domain.model.UsersCollection
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.HomePillBtns
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

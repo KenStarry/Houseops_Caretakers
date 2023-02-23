@@ -15,11 +15,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.CoreEvents
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CustomAlertDialog
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.core.domain.model.CoreEvents
+import com.example.houseopscaretakers.core.presentation.components.CustomAlertDialog
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.domain.model.SettingsEvents
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -41,7 +41,7 @@ fun AccentDialog(
             LazyHorizontalGrid(
                 rows = GridCells.Fixed(2),
                 content = {
-                    items(com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors) { accentColor ->
+                    items(com.example.houseopscaretakers.core.Constants.accentColors) { accentColor ->
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)

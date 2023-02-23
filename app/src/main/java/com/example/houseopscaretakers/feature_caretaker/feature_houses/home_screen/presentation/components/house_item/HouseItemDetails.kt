@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
 
 @Composable

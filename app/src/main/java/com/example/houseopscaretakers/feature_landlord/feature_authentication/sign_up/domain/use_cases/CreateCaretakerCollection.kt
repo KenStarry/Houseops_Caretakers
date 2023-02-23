@@ -1,6 +1,6 @@
 package com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.use_cases
 
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.repository.CreateUserResponse
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.repository.SignupRepository
 

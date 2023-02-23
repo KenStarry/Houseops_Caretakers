@@ -23,9 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.IconBtn
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.PinkAccent

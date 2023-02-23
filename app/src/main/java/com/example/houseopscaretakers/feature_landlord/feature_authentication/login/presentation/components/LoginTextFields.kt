@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.FormTextField
+import com.example.houseopscaretakers.core.presentation.components.FormTextField
 
 @Composable
 fun LoginTextFields(

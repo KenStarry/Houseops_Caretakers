@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseFeatures
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
@@ -46,7 +46,7 @@ fun AddHouseBottomSheet(
         mutableStateOf("")
     }
     var priceCategory by remember {
-        mutableStateOf(com.example.houseopscaretakers.feature_caretaker.core.Constants.priceCategories[0])
+        mutableStateOf(com.example.houseopscaretakers.core.Constants.priceCategories[0])
     }
     var houseFeaturesList by remember {
         mutableStateOf<List<HouseFeatures>>(emptyList())

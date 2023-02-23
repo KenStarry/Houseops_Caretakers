@@ -14,8 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
 
 @Composable

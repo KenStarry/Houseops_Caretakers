@@ -2,7 +2,7 @@ package com.example.houseopscaretakers.feature_landlord.feature_authentication.l
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.StateResponse
+import com.example.houseopscaretakers.core.domain.model.StateResponse
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.login.domain.repository.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject

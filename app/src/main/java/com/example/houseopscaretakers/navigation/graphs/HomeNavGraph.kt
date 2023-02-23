@@ -2,7 +2,7 @@ package com.example.houseopscaretakers.navigation.graphs
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.example.houseopscaretakers.feature_caretaker.core.Constants
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.HomeScreen
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.house_add_screen.presentation.HouseAddScreen
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.house_view_screen.presentation.HouseViewScreen
@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeNavGraph(
 
     navigation(
         startDestination = BottomNavScreens.Home.route,
-        route = Constants.HOME_ROUTE
+        route = com.example.houseopscaretakers.core.Constants.HOME_ROUTE
     ) {
 
         //  main screen

@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentLight
@@ -113,7 +113,7 @@ fun ColumnScope.HouseCategory(
                 verticalAlignment = Alignment.CenterVertically,
                 content = {
                     items(
-                        items = com.example.houseopscaretakers.feature_caretaker.core.Constants.houseCategories
+                        items = com.example.houseopscaretakers.core.Constants.houseCategories
                     ) {
 
                         val pillCategory = it.pillText

@@ -2,8 +2,8 @@ package com.example.houseopscaretakers.feature_landlord.feature_authentication.s
 
 import android.content.Context
 import android.net.Uri
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Response
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Response
 
 typealias CreateUserResponse = Response<Boolean>
 

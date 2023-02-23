@@ -12,8 +12,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.CoreEvents
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.core.domain.model.CoreEvents
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.house_view_screen.presentation.components.*
 import com.google.accompanist.pager.ExperimentalPagerApi

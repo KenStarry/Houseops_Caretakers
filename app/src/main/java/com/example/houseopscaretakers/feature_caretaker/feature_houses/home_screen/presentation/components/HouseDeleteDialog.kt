@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.IconBtn
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.ui.theme.RedOrange
 import com.example.houseopscaretakers.ui.theme.RedOrangeDull

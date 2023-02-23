@@ -22,12 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
-import com.example.houseopscaretakers.feature_caretaker.core.Constants.textFieldsList
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.BackPressTopBar
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.FormTextField
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.utils.getSingleImageFromGallery
+import com.example.houseopscaretakers.core.Constants.textFieldsList
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.FormTextField
+import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.presentation.components.SignUpSVG
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseopscaretakers.navigation.Direction
@@ -248,7 +248,7 @@ fun SignUpScreen(
                             )
 
                             //  verify user details and create user
-                            if (verificationResponse == com.example.houseopscaretakers.feature_caretaker.core.Constants.AUTH_SUCCESSFUL) {
+                            if (verificationResponse == com.example.houseopscaretakers.core.Constants.AUTH_SUCCESSFUL) {
 
                                 //  create user account
                                 viewModel.createCaretakerWithEmailAndPassword(
@@ -283,7 +283,7 @@ fun SignUpScreen(
 
                                                 //  open caretaker activity
                                                 direction.navigateToRoute(
-                                                    com.example.houseopscaretakers.feature_caretaker.core.Constants.HOME_ROUTE
+                                                    com.example.houseopscaretakers.core.Constants.HOME_ROUTE
                                                 )
                                             },
                                             onFailure = {

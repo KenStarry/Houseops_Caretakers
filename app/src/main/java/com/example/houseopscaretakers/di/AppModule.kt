@@ -2,8 +2,8 @@ package com.example.houseopscaretakers.di
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.example.houseopscaretakers.feature_caretaker.core.data.repository.ConnectivityObserverImpl
-import com.example.houseopscaretakers.feature_caretaker.core.domain.repository.ConnectivityObserver
+import com.example.houseopscaretakers.core.data.repository.ConnectivityObserverImpl
+import com.example.houseopscaretakers.core.domain.repository.ConnectivityObserver
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

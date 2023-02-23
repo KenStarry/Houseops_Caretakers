@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Response
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.repository.CreateUserResponse
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.use_cases.SignUpUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,22 +37,22 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
 
             validDetailsResponse = if (userName.isBlank()) {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.USERNAME_ERROR
+                com.example.houseopscaretakers.core.Constants.USERNAME_ERROR
 
             } else if (email.isBlank() && !email.contains("@", ignoreCase = true)) {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.EMAIL_ERROR
+                com.example.houseopscaretakers.core.Constants.EMAIL_ERROR
 
             } else if (apartment.isBlank()) {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.APARTMENT_ERROR
+                com.example.houseopscaretakers.core.Constants.APARTMENT_ERROR
 
             } else if (id.length < 8) {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.ID_ERROR
+                com.example.houseopscaretakers.core.Constants.ID_ERROR
 
             } else if (newPassword != confirmPassword) {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.USERNAME_ERROR
+                com.example.houseopscaretakers.core.Constants.USERNAME_ERROR
 
             } else {
-                com.example.houseopscaretakers.feature_caretaker.core.Constants.AUTH_SUCCESSFUL
+                com.example.houseopscaretakers.core.Constants.AUTH_SUCCESSFUL
             }
 
         }

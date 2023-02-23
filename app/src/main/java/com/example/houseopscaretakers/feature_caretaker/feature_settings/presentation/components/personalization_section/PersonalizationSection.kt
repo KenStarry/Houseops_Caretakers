@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_settings.presentation.components.personalization_section
+package com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.personalization_section
 
 import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
@@ -13,13 +13,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationItem
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.SectionTitle
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

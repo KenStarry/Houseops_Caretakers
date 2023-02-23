@@ -20,9 +20,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.FormTextField
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.utils.NumberCommaTransformation
+import com.example.houseopscaretakers.core.presentation.components.FormTextField
+import com.example.houseopscaretakers.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.presentation.utils.NumberCommaTransformation
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.ui.theme.WhiteBackground
@@ -103,7 +103,7 @@ fun HousePrice(
                 content = {
 
                     itemsIndexed(
-                        com.example.houseopscaretakers.feature_caretaker.core.Constants.priceCategories
+                        com.example.houseopscaretakers.core.Constants.priceCategories
                     ) { index, category ->
 
                         val priceCategory = category

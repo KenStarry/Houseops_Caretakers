@@ -1,11 +1,11 @@
-package com.example.houseops_revamped.feature_settings.data.datastore
+package com.example.houseopscaretakers.feature_caretaker.feature_settings.data.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import com.example.houseops_revamped.core.data.datastore.DatastoreConstants
 import com.example.houseops_revamped.core.data.datastore.datastore
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.model.AccentColor
+import com.example.houseopscaretakers.core.presentation.model.AccentColor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -20,12 +20,12 @@ class AccentPreference(
 
     val getPrimaryAccent: Flow<Int?> = context.datastore.data
         .map { preferences ->
-            preferences[PRIMARY_ACCENT_KEY] ?: com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[1].darkColor
+            preferences[PRIMARY_ACCENT_KEY] ?: com.example.houseopscaretakers.core.Constants.accentColors[1].darkColor
         }
 
     val getTertiaryAccent: Flow<Int?> = context.datastore.data
         .map { preferences ->
-            preferences[TERTIARY_ACCENT_KEY] ?: com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[1].lightColor
+            preferences[TERTIARY_ACCENT_KEY] ?: com.example.houseopscaretakers.core.Constants.accentColors[1].lightColor
         }
 
     suspend fun setAccent(accent: AccentColor) {

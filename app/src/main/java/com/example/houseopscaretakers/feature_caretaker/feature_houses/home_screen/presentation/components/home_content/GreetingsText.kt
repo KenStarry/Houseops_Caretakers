@@ -8,8 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 
 @Composable

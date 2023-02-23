@@ -1,6 +1,6 @@
 package com.example.houseopscaretakers.feature_landlord.feature_authentication.login.domain.repository
 
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.StateResponse
+import com.example.houseopscaretakers.core.domain.model.StateResponse
 
 interface LoginRepository {
 

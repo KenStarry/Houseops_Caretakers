@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
     val pillName: State<String> = _pillName
 
     //  price category
-    private val _priceCategory = mutableStateOf(com.example.houseopscaretakers.feature_caretaker.core.Constants.priceCategories[0])
+    private val _priceCategory = mutableStateOf(com.example.houseopscaretakers.core.Constants.priceCategories[0])
     val priceCategory: State<String> = _priceCategory
 
     //  house features list

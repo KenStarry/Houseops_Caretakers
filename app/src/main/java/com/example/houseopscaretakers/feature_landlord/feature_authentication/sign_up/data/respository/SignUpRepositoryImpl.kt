@@ -3,8 +3,8 @@ package com.example.houseopscaretakers.feature_landlord.feature_authentication.s
 import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Caretaker
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.Response
+import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.repository.CreateUserResponse
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.repository.SignupRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -42,7 +42,7 @@ class SignUpRepositoryImpl @Inject constructor(
         var response = Response.Success(false)
 
         return try {
-            db.collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.CARETAKER_COLLECTION).document(caretaker.caretakerEmail!!)
+            db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION).document(caretaker.caretakerEmail!!)
                 .set(caretaker)
                 .addOnSuccessListener {
                     response = Response.Success(true)
@@ -65,7 +65,7 @@ class SignUpRepositoryImpl @Inject constructor(
         context: Context
     ): CreateUserResponse {
 
-        val storageRef = FirebaseStorage.getInstance().getReference(com.example.houseopscaretakers.feature_caretaker.core.Constants.CARETAKER_IMAGES)
+        val storageRef = FirebaseStorage.getInstance().getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
         var response = Response.Success(false)
 
         imageUri?.let {
@@ -81,7 +81,7 @@ class SignUpRepositoryImpl @Inject constructor(
                         try {
                             fileRef.downloadUrl.addOnSuccessListener { url ->
                                 //  add url to the caretaker collection
-                                val caretakerRef = db.collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.CARETAKER_COLLECTION)
+                                val caretakerRef = db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
                                     .document(caretaker.caretakerEmail!!)
 
                                 caretakerRef.update("caretakerImage", url)

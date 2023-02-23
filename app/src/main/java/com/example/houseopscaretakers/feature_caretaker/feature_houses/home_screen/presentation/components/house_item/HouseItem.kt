@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
-import com.example.houseopscaretakers.feature_caretaker.core.domain.model.PillBtnModel
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.IconBtn
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.PillButton
+import com.example.houseopscaretakers.core.domain.model.PillBtnModel
+import com.example.houseopscaretakers.core.presentation.components.CoilImage
+import com.example.houseopscaretakers.core.presentation.components.IconBtn
+import com.example.houseopscaretakers.core.presentation.components.PillButton
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseModel
 import com.example.houseopscaretakers.ui.theme.BlueAccentTransparentAlt
 

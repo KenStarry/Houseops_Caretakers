@@ -17,12 +17,12 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
 import com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
-import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
-import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.themes_section.ThemesSection
-import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.personalization_section.PersonalizationSection
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.domain.model.SettingsEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.alert_dialogs.AccentDialog
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.components.themes_section.ThemesSection
+import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseopscaretakers.navigation.Direction
 
@@ -42,14 +42,14 @@ fun SettingsScreen(
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
-            initial = com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[0].darkColor
-        ).value ?: com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[0].darkColor
+            initial = com.example.houseopscaretakers.core.Constants.accentColors[0].darkColor
+        ).value ?: com.example.houseopscaretakers.core.Constants.accentColors[0].darkColor
     )
 
     val tertiaryColor = Color(
         coreVM.tertiaryAccentFlow.collectAsState(
-            initial = com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[0].lightColor
-        ).value ?: com.example.houseopscaretakers.feature_caretaker.core.Constants.accentColors[0].lightColor
+            initial = com.example.houseopscaretakers.core.Constants.accentColors[0].lightColor
+        ).value ?: com.example.houseopscaretakers.core.Constants.accentColors[0].lightColor
     )
 
     val settingsViewModel: SettingsViewModel = hiltViewModel()
@@ -172,7 +172,7 @@ fun SettingsScreen(
 
                                 //  navigate to login screen
                                 direction.navigateToRoute(
-                                    com.example.houseopscaretakers.feature_caretaker.core.Constants.AUTHENTICATION_ROUTE
+                                    com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE
                                 )
 
                                 Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()

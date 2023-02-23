@@ -16,8 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.components.HyperLinkText
-import com.example.houseopscaretakers.feature_caretaker.core.presentation.utils.UtilsViewModel
+import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
+import com.example.houseopscaretakers.core.presentation.utils.UtilsViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.login.presentation.components.LoginButtons
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.login.presentation.components.LoginSVG
 import com.example.houseopscaretakers.feature_landlord.feature_authentication.login.presentation.components.LoginTextFields
@@ -59,7 +59,7 @@ fun LoginScreen(
 
         //  Sign in text
         Text(
-            text = com.example.houseopscaretakers.feature_caretaker.core.Constants.LOGIN_TITLE,
+            text = com.example.houseopscaretakers.core.Constants.LOGIN_TITLE,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier
@@ -92,7 +92,7 @@ fun LoginScreen(
                         onSuccess = {
                             Log.d("login", "success")
                             //  navigate and pop
-                            direction.navigateAndPopRoute(com.example.houseopscaretakers.feature_caretaker.core.Constants.HOME_ROUTE, com.example.houseopscaretakers.feature_caretaker.core.Constants.AUTHENTICATION_ROUTE)
+                            direction.navigateAndPopRoute(com.example.houseopscaretakers.core.Constants.HOME_ROUTE, com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE)
                         },
                         onFailure = {
                             Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
@@ -119,7 +119,7 @@ fun LoginScreen(
             direction = direction,
             fullText = "Don't have an account? create one",
             linkText = listOf("create one"),
-            hyperlinks = listOf(com.example.houseopscaretakers.feature_caretaker.core.Constants.SIGN_UP_SCREEN_ROUTE),
+            hyperlinks = listOf(com.example.houseopscaretakers.core.Constants.SIGN_UP_SCREEN_ROUTE),
             modifier = Modifier
                 .wrapContentSize()
                 .align(Alignment.CenterHorizontally)

@@ -12,8 +12,8 @@ class HouseRepositoryImpl @Inject constructor(
 
     override suspend fun addHouseToFirestore(apartmentName: String, houseModel: HouseModel) {
 
-        db.collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
-            .collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
+        db.collection(com.example.houseopscaretakers.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(com.example.houseopscaretakers.core.Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
             .set(houseModel)
             .addOnSuccessListener {
 
@@ -27,8 +27,8 @@ class HouseRepositoryImpl @Inject constructor(
         houseList: (List<HouseModel>) -> Unit
     ) {
 
-        db.collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
-            .collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.HOUSES_SUB_COLLECTION)
+        db.collection(com.example.houseopscaretakers.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(com.example.houseopscaretakers.core.Constants.HOUSES_SUB_COLLECTION)
             .addSnapshotListener { querySnapshot, error ->
 
                 if (error != null)
@@ -49,8 +49,8 @@ class HouseRepositoryImpl @Inject constructor(
 
     override suspend fun deleteHouseFromFirestore(apartmentName: String, houseModel: HouseModel) {
 
-        db.collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
-            .collection(com.example.houseopscaretakers.feature_caretaker.core.Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
+        db.collection(com.example.houseopscaretakers.core.Constants.APARTMENTS_COLLECTION).document(apartmentName)
+            .collection(com.example.houseopscaretakers.core.Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
             .delete()
             .addOnSuccessListener {
                 Log.d("DeleteDoc", "${houseModel.houseCategory} deleted successfully!")

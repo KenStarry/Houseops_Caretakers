@@ -39,8 +39,8 @@ class CoreViewModel @Inject constructor(
     var currentHouse by mutableStateOf<HouseModel?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
 
-    private val _pathSelected = mutableStateOf(Constants.routePaths[0])
-    val pathSelected: State<RoutePath> = _pathSelected
+    private val _pathSelected = mutableStateOf<RoutePath?>(null)
+    val pathSelected: State<RoutePath?> = _pathSelected
 
     //  is user logged in
     fun isUserLoggedIn(): Boolean {

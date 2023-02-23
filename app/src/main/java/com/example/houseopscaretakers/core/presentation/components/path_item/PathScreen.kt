@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -78,8 +80,8 @@ fun PathScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
         //  greeting section
@@ -88,7 +90,7 @@ fun PathScreen(
             title = greetingsText,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
+                .wrapContentHeight()
         )
 
         LazyColumn(
@@ -131,15 +133,14 @@ fun PathScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.9f)
-                .weight(6f)
+                .fillMaxHeight(0.8f)
         )
 
         //  next button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .wrapContentHeight(),
             horizontalArrangement = Arrangement.End
         ) {
 

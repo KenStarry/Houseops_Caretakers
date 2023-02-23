@@ -17,31 +17,38 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
+import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
 import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
-import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpSVG
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormEvent
+import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpAppBar
+import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpForms
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseopscaretakers.navigation.Direction
-import com.example.houseopscaretakers.ui.theme.BlueAccentTransparent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
-    viewModel: SignUpViewModel = hiltViewModel(),
+    signUpVM: SignUpViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
 
     val context = LocalContext.current
     val direction = Direction(navHostController)
+    val coreVM: CoreViewModel = hiltViewModel()
+
+    //  get the current user type
+    val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
 
     var caretakerImageUri by remember {
         mutableStateOf<Uri?>(null)
@@ -51,20 +58,103 @@ fun SignUpScreen(
         caretakerImageUri = it
     })
 
-    var usernameInput by remember { mutableStateOf("") }
-    var emailInput by remember { mutableStateOf("") }
-    var apartmentInput by remember { mutableStateOf("") }
-    var idInput by remember { mutableStateOf("") }
-    var newPassInput by remember { mutableStateOf("") }
-    var confirmPassInput by remember { mutableStateOf("") }
+    LaunchedEffect(key1 = context) {
+        signUpVM.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+//                    val verificationResponse = signUpVM.verifyCaretakerDetails(
+//                        userName = usernameInput,
+//                        id = idInput,
+//                        apartment = apartmentInput,
+//                        email = emailInput,
+//                        newPassword = newPassInput,
+//                        confirmPassword = confirmPassInput
+//                    )
+//                    val caretaker = Caretaker(
+//                        caretakerEmail = emailInput,
+//                        caretakerName = usernameInput,
+//                        caretakerImage = caretakerImageUri.toString(),
+//                        caretakerApartment = apartmentInput,
+//                        caretakerId = idInput,
+//                        caretakerPassword = newPassInput
+//                    )
+//
+//                    //  verify user details and create user
+//                    if (verificationResponse == com.example.houseopscaretakers.core.Constants.AUTH_SUCCESSFUL) {
+//
+//                        //  create user account
+//                        signUpVM.createCaretakerWithEmailAndPassword(
+//                            email = emailInput,
+//                            password = newPassInput,
+//                            onSuccess = {
+//
+//                                //  create caretaker collection
+//                                signUpVM.createCaretakerCollection(
+//                                    caretaker = caretaker,
+//                                    onSuccess = {
+//                                        //  store the url in firestore
+//                                        signUpVM.uploadImageToStorage(
+//                                            caretaker = caretaker,
+//                                            imageUri = caretakerImageUri,
+//                                            context = context,
+//                                            onSuccess = {
+//                                                Toast.makeText(
+//                                                    context,
+//                                                    "Image stored properly",
+//                                                    Toast.LENGTH_SHORT
+//                                                ).show()
+//                                            },
+//                                            onFailure = {
+//                                                Toast.makeText(
+//                                                    context,
+//                                                    "Image Couldn't be stored to firebase",
+//                                                    Toast.LENGTH_SHORT
+//                                                ).show()
+//                                            }
+//                                        )
+//
+//                                        //  open caretaker activity
+//                                        direction.navigateToRoute(
+//                                            com.example.houseopscaretakers.core.Constants.HOME_ROUTE
+//                                        )
+//                                    },
+//                                    onFailure = {
+//                                        Toast.makeText(
+//                                            context,
+//                                            "Couldn't create collection",
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//                                    }
+//                                )
+//                            },
+//                            onFailure = {
+//                                Toast.makeText(
+//                                    context,
+//                                    "Something went wrong",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                        )
+//
+//                    } else {
+//                        Toast.makeText(context, verificationResponse, Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+                }
+                is ValidationEvent.Failure -> {}
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
-            BackPressTopBar(
+            SignUpAppBar(
                 startIcon = Icons.Sharp.ArrowBack,
                 title = "Create Account",
+                userType = userType,
                 onBackPressed = {
                     //  navigate back to login page
+                    direction.navigateUp()
                 }
             )
         }
@@ -131,166 +221,25 @@ fun SignUpScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    //  User name
-                    FormTextField(
-                        onValueChange = {
-                            usernameInput = it
+                    SignUpForms(
+                        onUserNameChanged = {
+                            signUpVM.onFormEvent(SignUpFormEvent.UserNameChanged(it))
                         },
-                        placeholder = textFieldsList[0].placeholder,
-                        leadingIcon = textFieldsList[0].icon,
-                        inputType = textFieldsList[0].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-
-                    //  Email Address
-                    FormTextField(
-                        onValueChange = {
-                            emailInput = it
+                        onEmailChanged = {
+                            signUpVM.onFormEvent(SignUpFormEvent.EmailChanged(it))
                         },
-                        placeholder = textFieldsList[1].placeholder,
-                        leadingIcon = textFieldsList[1].icon,
-                        inputType = textFieldsList[1].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-
-                    //  Apartment name
-                    FormTextField(
-                        onValueChange = {
-                            apartmentInput = it
+                        onPasswordChanged = {
+                            signUpVM.onFormEvent(SignUpFormEvent.PasswordChanged(it))
                         },
-                        placeholder = textFieldsList[5].placeholder,
-                        leadingIcon = textFieldsList[5].icon,
-                        inputType = textFieldsList[5].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-
-                    //  ID number
-                    FormTextField(
-                        onValueChange = {
-                            idInput = it
-                        },
-                        placeholder = textFieldsList[2].placeholder,
-                        leadingIcon = textFieldsList[2].icon,
-                        inputType = textFieldsList[2].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-
-                    //  New Password
-                    FormTextField(
-                        onValueChange = {
-                            newPassInput = it
-                        },
-                        placeholder = textFieldsList[3].placeholder,
-                        leadingIcon = textFieldsList[3].icon,
-                        inputType = textFieldsList[3].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                    )
-
-                    //  confirm Pass
-                    FormTextField(
-                        onValueChange = {
-                            confirmPassInput = it
-                        },
-                        placeholder = textFieldsList[4].placeholder,
-                        leadingIcon = textFieldsList[4].icon,
-                        inputType = textFieldsList[4].inputType,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
+                        onRepeatPasswordChanged = {
+                            signUpVM.onFormEvent(SignUpFormEvent.RepeatedPasswordChanged(it))
+                        }
                     )
 
                     //  Signup Button
                     Button(
                         onClick = {
-
-                            val verificationResponse = viewModel.verifyCaretakerDetails(
-                                userName = usernameInput,
-                                id = idInput,
-                                apartment = apartmentInput,
-                                email = emailInput,
-                                newPassword = newPassInput,
-                                confirmPassword = confirmPassInput
-                            )
-                            val caretaker = Caretaker(
-                                caretakerEmail = emailInput,
-                                caretakerName = usernameInput,
-                                caretakerImage = caretakerImageUri.toString(),
-                                caretakerApartment = apartmentInput,
-                                caretakerId = idInput,
-                                caretakerPassword = newPassInput
-                            )
-
-                            //  verify user details and create user
-                            if (verificationResponse == com.example.houseopscaretakers.core.Constants.AUTH_SUCCESSFUL) {
-
-                                //  create user account
-                                viewModel.createCaretakerWithEmailAndPassword(
-                                    email = emailInput,
-                                    password = newPassInput,
-                                    onSuccess = {
-
-                                        //  create caretaker collection
-                                        viewModel.createCaretakerCollection(
-                                            caretaker = caretaker,
-                                            onSuccess = {
-                                                //  store the url in firestore
-                                                viewModel.uploadImageToStorage(
-                                                    caretaker = caretaker,
-                                                    imageUri = caretakerImageUri,
-                                                    context = context,
-                                                    onSuccess = {
-                                                        Toast.makeText(
-                                                            context,
-                                                            "Image stored properly",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                                    },
-                                                    onFailure = {
-                                                        Toast.makeText(
-                                                            context,
-                                                            "Image Couldn't be stored to firebase",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                                    }
-                                                )
-
-                                                //  open caretaker activity
-                                                direction.navigateToRoute(
-                                                    com.example.houseopscaretakers.core.Constants.HOME_ROUTE
-                                                )
-                                            },
-                                            onFailure = {
-                                                Toast.makeText(
-                                                    context,
-                                                    "Couldn't create collection",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
-                                        )
-                                    },
-                                    onFailure = {
-                                        Toast.makeText(
-                                            context,
-                                            "Something went wrong",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                )
-
-                            } else {
-                                Toast.makeText(context, verificationResponse, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                            signUpVM.onFormEvent(SignUpFormEvent.Submit)
                         },
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)

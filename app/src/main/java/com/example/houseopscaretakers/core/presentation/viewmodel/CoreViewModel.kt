@@ -33,6 +33,8 @@ class CoreViewModel @Inject constructor(
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
 
     val userTypeFlow: Flow<String?> get() = userDetailsPreference.getUserType
+    private val _pathSelected = mutableStateOf<RoutePath?>(null)
+    val pathSelected: State<RoutePath?> = _pathSelected
 
 //    var connectionStatus by mutableStateOf<ConnectionStatus>(ConnectionStatus.Available)
     var connectionStatus by mutableStateOf(useCase.connection())
@@ -44,8 +46,6 @@ class CoreViewModel @Inject constructor(
     var currentHouse by mutableStateOf<HouseModel?>(null)
     private var currentUser by mutableStateOf<FirebaseUser?>(null)
 
-    private val _pathSelected = mutableStateOf<RoutePath?>(null)
-    val pathSelected: State<RoutePath?> = _pathSelected
 
     //  is user logged in
     fun isUserLoggedIn(): Boolean {

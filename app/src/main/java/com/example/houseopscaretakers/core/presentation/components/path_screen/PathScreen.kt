@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.core.presentation.components.path_item
+package com.example.houseopscaretakers.core.presentation.components.path_screen
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -6,15 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,7 +21,9 @@ import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.PathItem
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
-import java.text.DateFormat
+import com.example.houseopscaretakers.navigation.Direction
+import com.example.houseopscaretakers.navigation.Screen
+import kotlinx.coroutines.flow.collect
 import java.util.Calendar
 
 @Composable
@@ -37,9 +34,11 @@ fun PathScreen(
     val lazyListState = rememberLazyListState()
     val coreVM: CoreViewModel = hiltViewModel()
     val context = LocalContext.current
+    val direction = Direction(navHostController)
 
     val calendar = Calendar.getInstance()
-    
+    val savedUser = coreVM.userTypeFlow.collectAsState(initial = null).value
+
     val currentHour by remember {
         mutableStateOf(calendar.get(Calendar.HOUR_OF_DAY))
     }
@@ -151,11 +150,23 @@ fun PathScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
+
             Spacer(modifier = Modifier.width(8.dp))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    //  save user type to datastore
+                    coreVM.pathSelected.value?.title?.let { userType ->
+                        coreVM.onEvent(CoreEvents.DatastoreSaveUserType(userType))
+                    }
+
+                    //  navigate to login activity
+                    direction.navigateAndPopRoute(
+                        Screen.Login.route,
+                        Screen.Path.route
+                    )
+
+                },
                 contentPadding = PaddingValues(
                     horizontal = 16.dp
                 ),

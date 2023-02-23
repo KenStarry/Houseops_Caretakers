@@ -1,10 +1,8 @@
-package com.example.houseopscaretakers.core.presentation.components.path_item
+package com.example.houseopscaretakers.core.presentation.components.path_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ModeNight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

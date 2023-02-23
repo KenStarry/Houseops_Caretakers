@@ -3,8 +3,8 @@ package com.example.houseopscaretakers.feature_caretaker.feature_settings.data.d
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
-import com.example.houseops_revamped.core.data.datastore.DatastoreConstants
-import com.example.houseops_revamped.core.data.datastore.datastore
+import com.example.houseopscaretakers.core.data.datastore.DatastoreConstants
+import com.example.houseopscaretakers.core.data.datastore.datastore
 import com.example.houseopscaretakers.core.presentation.model.AccentColor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

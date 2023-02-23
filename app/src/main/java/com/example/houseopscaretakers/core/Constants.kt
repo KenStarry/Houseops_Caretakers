@@ -10,8 +10,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.example.houseopscaretakers.core.domain.model.PillBtnModel
 import com.example.houseopscaretakers.core.presentation.model.AccentColor
 import com.example.houseopscaretakers.core.presentation.model.RoutePath
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.TextFieldContent
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.model.StatsCardModel
-import com.example.houseopscaretakers.feature_landlord.feature_authentication.sign_up.domain.model.TextFieldContent
 import com.example.houseopscaretakers.ui.theme.BabyBlue
 import com.example.houseopscaretakers.ui.theme.BlueAccent
 import com.example.houseopscaretakers.ui.theme.RedOrange

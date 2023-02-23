@@ -55,6 +55,7 @@ object Constants {
 
     //  Firebase storage
     const val CARETAKER_IMAGES = "caretaker_images"
+    const val LANDLORD_IMAGES = "caretaker_images"
     const val HOUSE_IMAGES = "house_images"
 
     //  Sign Up

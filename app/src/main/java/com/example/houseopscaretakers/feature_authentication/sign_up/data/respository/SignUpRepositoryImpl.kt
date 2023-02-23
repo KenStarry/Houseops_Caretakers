@@ -82,14 +82,15 @@ class SignUpRepositoryImpl @Inject constructor(
     override suspend fun uploadCaretakerImageToCloudStorage(
         caretaker: Caretaker,
         imageUri: Uri?,
-        context: Context
-    ): CreateUserResponse {
+        context: Context,
+        response: (response: Response<*>) -> Unit
+    ) {
 
         val storageRef = FirebaseStorage.getInstance()
             .getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
-        var response = Response.Success(false)
 
         imageUri?.let {
+
             val fileRef = storageRef.child(
                 "${System.currentTimeMillis()}.${getFileExtension(imageUri, context)}"
             )
@@ -110,32 +111,31 @@ class SignUpRepositoryImpl @Inject constructor(
                             }
 
                             //  return success
-                            response = Response.Success(true)
+                            response(Response.Success(true))
 
                         } catch (e: Exception) {
                             //  Return Failure
-                            Response.Failure(e)
+                            response(Response.Failure(e))
                         }
                     }
 
-                response = Response.Success(true)
+                response(Response.Success(true))
 
             } catch (e: Exception) {
-                Response.Failure(e)
+                response(Response.Failure(e))
             }
         }
 
-        return response
     }
 
     override suspend fun uploadLandlordImageToCloudStorage(
-        caretaker: Caretaker,
+        landlord: Landlord,
         imageUri: Uri?,
         context: Context,
         response: (response: Response<*>) -> Unit
     ) {
         val storageRef = FirebaseStorage.getInstance()
-            .getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
+            .getReference(com.example.houseopscaretakers.core.Constants.LANDLORD_IMAGES)
 
         imageUri?.let {
 
@@ -152,8 +152,8 @@ class SignUpRepositoryImpl @Inject constructor(
                             fileRef.downloadUrl.addOnSuccessListener { url ->
                                 //  add url to the caretaker collection
                                 val caretakerRef =
-                                    db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
-                                        .document(caretaker.caretakerEmail!!)
+                                    db.collection(com.example.houseopscaretakers.core.Constants.LANDLORD_COLLECTION)
+                                        .document(landlord.landlordEmail!!)
 
                                 caretakerRef.update("caretakerImage", url)
                             }

@@ -36,7 +36,8 @@ object SignUpModule {
         createUserInFirebase = CreateUserInFirebase(repo),
         createCaretakerCollection = CreateCaretakerCollection(repo),
         uploadCaretakerImage = UploadCaretakerImage(repo),
-        createLandlordCollection = CreateLandlordCollection(repo)
+        createLandlordCollection = CreateLandlordCollection(repo),
+        uploadLandlordImage = UploadLandlordImage(repo)
     )
 
     @Provides

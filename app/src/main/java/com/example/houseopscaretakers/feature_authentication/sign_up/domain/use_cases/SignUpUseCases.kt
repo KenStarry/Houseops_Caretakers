@@ -4,5 +4,6 @@ data class SignUpUseCases(
     val createUserInFirebase: CreateUserInFirebase,
     val createCaretakerCollection: CreateCaretakerCollection,
     val uploadCaretakerImage: UploadCaretakerImage,
-    val createLandlordCollection: CreateLandlordCollection
+    val createLandlordCollection: CreateLandlordCollection,
+    val uploadLandlordImage: UploadLandlordImage
 )

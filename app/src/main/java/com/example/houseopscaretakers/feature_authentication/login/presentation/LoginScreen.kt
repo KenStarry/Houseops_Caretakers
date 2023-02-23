@@ -47,7 +47,6 @@ fun LoginScreen(
 
     //  get the current user type
     val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
-    val routePath: RoutePath = Constants.routePaths.filter { it.title == userType }[0]
 
     LaunchedEffect(key1 = Unit) {
         vm.isShowing.value = false
@@ -95,10 +94,13 @@ fun LoginScreen(
             )
 
             //  user type
-            userType?.let {
+            userType?.let { user ->
+
+                val routePath: RoutePath = Constants.routePaths.filter { it.title == user }[0]
+
                 HomePillBtns(
-                    icon = null,
-                    title = it,
+                    icon = routePath.icon,
+                    title = routePath.title,
                     primaryColor = MaterialTheme.colorScheme.primary,
                     tertiaryColor = MaterialTheme.colorScheme.tertiary,
                     onClick = {}

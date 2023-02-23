@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.Response
-import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormState
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationResult
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpEvents
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormEvent
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.model.SignUpFormState
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository.CreateUserResponse
@@ -82,14 +82,17 @@ class SignUpViewModel @Inject constructor(
         onFailure: () -> Unit
     ) {
         viewModelScope.launch {
-
-            createUserResponse = signUpUseCases.createCaretakerInFirebase(email, password)
-
-            when (createUserResponse) {
-                is Response.Success -> onSuccess()
-                is Response.Failure -> onFailure()
-                is Response.Loading -> {}
-            }
+            signUpUseCases.createUserInFirebase(
+                email,
+                password,
+                response = {
+                    when (it) {
+                        is Response.Success -> { onSuccess() }
+                        is Response.Failure -> { onFailure() }
+                        Response.Loading -> {}
+                    }
+                }
+            )
         }
     }
 
@@ -131,6 +134,24 @@ class SignUpViewModel @Inject constructor(
             when (response) {
                 is Response.Success -> onSuccess()
                 else -> onFailure()
+            }
+        }
+    }
+
+    fun onEvent(event: SignUpEvents) {
+        when (event) {
+
+            is SignUpEvents.CreateUserInFirebase -> {
+                viewModelScope.launch {
+
+                    signUpUseCases.createUserInFirebase(
+                        event.email,
+                        event.password,
+                        response = {
+                            event.onResponse(it)
+                        }
+                    )
+                }
             }
         }
     }

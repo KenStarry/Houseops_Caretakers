@@ -21,18 +21,19 @@ class SignUpRepositoryImpl @Inject constructor(
 ) : SignupRepository {
 
     //  create our caretaker
-    override suspend fun createCaretakerWithEmailAndPass(
+    override suspend fun createUserWithEmailAndPass(
         email: String,
-        password: String
-    ): CreateUserResponse {
+        password: String,
+        response: (response: Response<*>) -> Unit
+    ) {
 
-        return try {
+        try {
 
             auth.createUserWithEmailAndPassword(email, password)
-            Response.Success(true)
+            response(Response.Success(true))
 
         } catch (e: Exception) {
-            Response.Failure(e)
+            response(Response.Failure(e))
         }
     }
 

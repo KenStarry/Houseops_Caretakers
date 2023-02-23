@@ -10,7 +10,11 @@ typealias CreateUserResponse = Response<Boolean>
 interface SignupRepository {
 
     //  add user to authentication api in Firebase
-    suspend fun createCaretakerWithEmailAndPass(email: String, password: String): CreateUserResponse
+    suspend fun createUserWithEmailAndPass(
+        email: String,
+        password: String,
+        response: (response: Response<*>) -> Unit
+    )
 
     //  create user collection
     suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse

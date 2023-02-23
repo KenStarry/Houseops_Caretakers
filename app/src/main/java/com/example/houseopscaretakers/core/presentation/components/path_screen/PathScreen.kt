@@ -69,7 +69,7 @@ fun PathScreen(
                     Icons.Outlined.WbCloudy
                 }
                 else -> {
-                    Icons.Outlined.Nightlife
+                    Icons.Outlined.ModeNight
                 }
             }
         )

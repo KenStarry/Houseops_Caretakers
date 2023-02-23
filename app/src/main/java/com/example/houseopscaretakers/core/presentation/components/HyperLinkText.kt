@@ -65,7 +65,8 @@ fun HyperLinkText(
         //  style for the whole text
         addStyle(
             style = SpanStyle(
-                fontSize = fontSize
+                fontSize = fontSize,
+                fontWeight = FontWeight.Bold
             ),
             start = 0,
             end = fullText.length

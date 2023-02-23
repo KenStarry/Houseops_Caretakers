@@ -2,22 +2,19 @@ package com.example.houseopscaretakers.core.presentation.components.path_item
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.ArrowRightAlt
-import androidx.compose.material.icons.outlined.ModeNight
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -26,8 +23,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.domain.model.CoreEvents
 import com.example.houseopscaretakers.core.presentation.components.PathItem
-import com.example.houseopscaretakers.core.presentation.components.path_item.PathGreetings
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import java.text.DateFormat
+import java.util.Calendar
 
 @Composable
 fun PathScreen(
@@ -37,6 +35,45 @@ fun PathScreen(
     val lazyListState = rememberLazyListState()
     val coreVM: CoreViewModel = hiltViewModel()
     val context = LocalContext.current
+
+    val calendar = Calendar.getInstance()
+    val currentHour by remember {
+        mutableStateOf(calendar.get(Calendar.HOUR_OF_DAY))
+    }
+
+    val greetingsText by remember {
+        mutableStateOf(
+            when (currentHour) {
+                in 0..12 -> {
+                    "Good Morning"
+                }
+                in 12..16 -> {
+                    "Good Afternoon"
+                }
+                else -> {
+                    "Good Evening"
+                }
+            }
+        )
+    }
+
+    val greetingsIcon by remember {
+        mutableStateOf(
+            when (currentHour) {
+                in 0..12 -> {
+                    Icons.Outlined.WbSunny
+                }
+                in 12..16 -> {
+                    Icons.Outlined.WbCloudy
+                }
+                else -> {
+                    Icons.Outlined.Nightlife
+                }
+            }
+        )
+    }
+
+    Toast.makeText(context, "current time is : $currentHour", Toast.LENGTH_SHORT).show()
 
     Column(
         modifier = Modifier
@@ -48,8 +85,8 @@ fun PathScreen(
 
         //  greeting section
         PathGreetings(
-            icon = Icons.Outlined.ModeNight,
-            title = "Good Evening,",
+            icon = greetingsIcon,
+            title = greetingsText,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
@@ -80,8 +117,6 @@ fun PathScreen(
                         onClick = {
                             //  select path
                             coreVM.onEvent(CoreEvents.SelectPath(it))
-
-                            Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.7f)
@@ -108,6 +143,14 @@ fun PathScreen(
                 .weight(1f),
             horizontalArrangement = Arrangement.End
         ) {
+
+            TextButton(onClick = { /*TODO*/ }) {
+                Text(
+                    text = "Exit",
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
             Button(
                 onClick = { /*TODO*/ },

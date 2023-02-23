@@ -1,6 +1,7 @@
 package com.example.houseopscaretakers.core.di
 
 import android.content.Context
+import com.example.houseopscaretakers.core.data.datastore.preferences.UserDetailsPreference
 import com.example.houseopscaretakers.feature_caretaker.feature_settings.data.datastore.AccentPreference
 import com.example.houseopscaretakers.core.data.repository.CorerepositoryImpl
 import com.example.houseopscaretakers.core.domain.repository.ConnectivityObserver
@@ -49,4 +50,37 @@ object CoreModule {
         @ApplicationContext context: Context
     ) = AccentPreference(context)
 
+    //  provide datastore userdetails preference
+    @Provides
+    @Singleton
+    fun provideUserDetailsPreference(
+        @ApplicationContext context: Context
+    ) = UserDetailsPreference(context)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

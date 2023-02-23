@@ -103,7 +103,10 @@ fun LoginScreen(
                     title = routePath.title,
                     primaryColor = MaterialTheme.colorScheme.primary,
                     tertiaryColor = MaterialTheme.colorScheme.tertiary,
-                    onClick = {}
+                    onClick = {
+                        //  navigate back to path picking
+                        direction.navigateUp()
+                    }
                 )
             }
 

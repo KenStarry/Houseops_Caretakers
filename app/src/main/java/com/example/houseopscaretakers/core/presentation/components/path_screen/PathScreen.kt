@@ -163,7 +163,7 @@ fun PathScreen(
                     //  navigate to login activity
                     direction.navigateAndPopRoute(
                         Screen.Login.route,
-                        Screen.Path.route
+                        Screen.Login.route
                     )
 
                 },

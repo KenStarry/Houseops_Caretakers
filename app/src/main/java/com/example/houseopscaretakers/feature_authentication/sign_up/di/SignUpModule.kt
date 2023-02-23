@@ -2,10 +2,7 @@ package com.example.houseopscaretakers.feature_authentication.sign_up.di
 
 import com.example.houseopscaretakers.feature_authentication.sign_up.data.respository.SignUpRepositoryImpl
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository.SignupRepository
-import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.CreateCaretakerCollection
-import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.CreateUserInFirebase
-import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.SignUpUseCases
-import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.UploadCaretakerImage
+import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.*
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.use_cases.validation.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,7 +35,8 @@ object SignUpModule {
     ) = SignUpUseCases(
         createUserInFirebase = CreateUserInFirebase(repo),
         createCaretakerCollection = CreateCaretakerCollection(repo),
-        uploadCaretakerImage = UploadCaretakerImage(repo)
+        uploadCaretakerImage = UploadCaretakerImage(repo),
+        createLandlordCollection = CreateLandlordCollection(repo)
     )
 
     @Provides

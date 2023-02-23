@@ -8,7 +8,8 @@ data class Caretaker(
     val caretakerApartment: String?,
     val caretakerId: String?,
     val caretakerEmail: String?,
-    val caretakerPassword: String?
+    val caretakerPassword: String?,
+    val isCaretakerVerified: Boolean
 ) {
-    constructor() : this ("", null, "", "", "", "")
+    constructor() : this ("", null, "", "", "", "", false)
 }

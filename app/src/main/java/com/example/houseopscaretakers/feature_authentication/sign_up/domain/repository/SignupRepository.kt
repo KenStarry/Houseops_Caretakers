@@ -3,6 +3,7 @@ package com.example.houseopscaretakers.feature_authentication.sign_up.domain.rep
 import android.content.Context
 import android.net.Uri
 import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
 
 typealias CreateUserResponse = Response<Boolean>
@@ -18,6 +19,11 @@ interface SignupRepository {
 
     //  create user collection
     suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse
+
+    suspend fun addLandlordToCollection(
+        landlord: Landlord,
+        response: (response: Response<*>) -> Unit
+    )
 
     //  add caretaker image to firebase storage
     suspend fun uploadCaretakerImageToCloudStorage(

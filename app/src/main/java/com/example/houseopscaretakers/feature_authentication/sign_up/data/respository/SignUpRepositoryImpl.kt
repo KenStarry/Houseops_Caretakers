@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
 import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository.CreateUserResponse
 import com.example.houseopscaretakers.feature_authentication.sign_up.domain.repository.SignupRepository
@@ -43,7 +44,8 @@ class SignUpRepositoryImpl @Inject constructor(
         var response = Response.Success(false)
 
         return try {
-            db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION).document(caretaker.caretakerEmail!!)
+            db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
+                .document(caretaker.caretakerEmail!!)
                 .set(caretaker)
                 .addOnSuccessListener {
                     response = Response.Success(true)
@@ -59,6 +61,25 @@ class SignUpRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun addLandlordToCollection(
+        landlord: Landlord,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
+            db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
+                .document(landlord.landlordEmail!!)
+                .set(landlord)
+                .addOnSuccessListener {
+                    response(Response.Success(true))
+                }
+                .addOnFailureListener { e ->
+                    response(Response.Failure(e))
+                }
+        } catch (e: Exception) {
+            Response.Failure(e)
+        }
+    }
+
     //  upload caretaker image to firebase storage
     override suspend fun uploadCaretakerImageToCloudStorage(
         caretaker: Caretaker,
@@ -66,7 +87,8 @@ class SignUpRepositoryImpl @Inject constructor(
         context: Context
     ): CreateUserResponse {
 
-        val storageRef = FirebaseStorage.getInstance().getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
+        val storageRef = FirebaseStorage.getInstance()
+            .getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
         var response = Response.Success(false)
 
         imageUri?.let {
@@ -82,8 +104,9 @@ class SignUpRepositoryImpl @Inject constructor(
                         try {
                             fileRef.downloadUrl.addOnSuccessListener { url ->
                                 //  add url to the caretaker collection
-                                val caretakerRef = db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
-                                    .document(caretaker.caretakerEmail!!)
+                                val caretakerRef =
+                                    db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
+                                        .document(caretaker.caretakerEmail!!)
 
                                 caretakerRef.update("caretakerImage", url)
                             }

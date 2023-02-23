@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.*
@@ -22,13 +21,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
-import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.domain.model.Caretaker
 import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
-import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
-import com.example.houseopscaretakers.core.presentation.components.FormTextField
 import com.example.houseopscaretakers.core.presentation.utils.getSingleImageFromGallery
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
@@ -38,7 +34,6 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.presentatio
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpForms
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseopscaretakers.navigation.Direction
-import kotlin.math.sign
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,12 +49,12 @@ fun SignUpScreen(
     //  get the current user type
     val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
 
-    var caretakerImageUri by remember {
+    var userImageUri by remember {
         mutableStateOf<Uri?>(null)
     }
 
     val launcher = getSingleImageFromGallery(onResult = {
-        caretakerImageUri = it
+        userImageUri = it
     })
 
     LaunchedEffect(key1 = context) {
@@ -70,7 +65,7 @@ fun SignUpScreen(
                     val landlord = Landlord(
                         landlordName = signUpVM.formState.username,
                         landlordEmail = signUpVM.formState.email,
-                        landlordImage = caretakerImageUri.toString(),
+                        landlordImage = userImageUri.toString(),
                         landlordPassword = signUpVM.formState.password,
                         isLandlordVerified = false
                     )
@@ -78,7 +73,7 @@ fun SignUpScreen(
                     val caretaker = Caretaker(
                         caretakerName = signUpVM.formState.username,
                         caretakerEmail = signUpVM.formState.email,
-                        caretakerImage = caretakerImageUri.toString(),
+                        caretakerImage = userImageUri.toString(),
                         caretakerPassword = signUpVM.formState.password,
                         isCaretakerVerified = false
                     )
@@ -96,9 +91,23 @@ fun SignUpScreen(
                                             landlord = landlord,
                                             response = {}
                                         ))
+
+                                        signUpVM.onEvent(SignUpEvents.UploadLandlordImageToStorage(
+                                            landlord = landlord,
+                                            imageUri = userImageUri,
+                                            context = context,
+                                            response = {}
+                                        ))
                                     } else {
                                         signUpVM.onEvent(SignUpEvents.CreateCaretakerCollection(
                                             caretaker = caretaker,
+                                            response = {}
+                                        ))
+
+                                        signUpVM.onEvent(SignUpEvents.UploadCaretakerImageToStorage(
+                                            caretaker = caretaker,
+                                            imageUri = userImageUri,
+                                            context = context,
                                             response = {}
                                         ))
                                     }
@@ -252,7 +261,7 @@ fun SignUpScreen(
                     ) {
 
                         //  check if caretaker image is null or not
-                        if (caretakerImageUri == null) {
+                        if (userImageUri == null) {
 
                             Icon(
                                 imageVector = Icons.Sharp.ImageSearch,
@@ -264,7 +273,7 @@ fun SignUpScreen(
                         } else {
                             CoilImage(
                                 context = LocalContext.current,
-                                imageUri = caretakerImageUri,
+                                imageUri = userImageUri,
                                 placeholder = R.drawable.houseops_dark_final,
                                 modifier = Modifier
                                     .clip(CircleShape)

@@ -100,26 +100,6 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    //  upload caretaker image to firestore
-    fun uploadImageToStorage(
-        caretaker: Caretaker,
-        imageUri: Uri?,
-        context: Context,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-        viewModelScope.launch {
-
-            val response = signUpUseCases.uploadCaretakerImage(
-                caretaker, imageUri, context
-            )
-
-            when (response) {
-                is Response.Success -> onSuccess()
-                else -> onFailure()
-            }
-        }
-    }
 
     fun onEvent(event: SignUpEvents) {
         when (event) {
@@ -152,6 +132,30 @@ class SignUpViewModel @Inject constructor(
 
                     signUpUseCases.createCaretakerCollection(
                         caretaker = event.caretaker,
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
+            is SignUpEvents.UploadCaretakerImageToStorage -> {
+                viewModelScope.launch {
+
+                    signUpUseCases.uploadCaretakerImage(
+                        caretaker = event.caretaker,
+                        imageUri = event.imageUri,
+                        context = event.context,
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
+            is SignUpEvents.UploadLandlordImageToStorage -> {
+                viewModelScope.launch {
+
+                    signUpUseCases.uploadLandlordImage(
+                        landlord = event.landlord,
+                        imageUri = event.imageUri,
+                        context = event.context,
                         response = { event.response(it) }
                     )
                 }

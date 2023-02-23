@@ -39,25 +39,23 @@ class SignUpRepositoryImpl @Inject constructor(
     }
 
     //  add caretaker to collection
-    override suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse {
-
-        var response = Response.Success(false)
-
-        return try {
+    override suspend fun addCaretakerToCollection(
+        caretaker: Caretaker,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
             db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
                 .document(caretaker.caretakerEmail!!)
                 .set(caretaker)
                 .addOnSuccessListener {
-                    response = Response.Success(true)
+                    response(Response.Success(true))
                 }
                 .addOnFailureListener { e ->
-                    response = Response.Success(false)
+                    response(Response.Failure(e))
                 }
 
-            response
-
         } catch (e: Exception) {
-            Response.Failure(e)
+            response(Response.Failure(e))
         }
     }
 

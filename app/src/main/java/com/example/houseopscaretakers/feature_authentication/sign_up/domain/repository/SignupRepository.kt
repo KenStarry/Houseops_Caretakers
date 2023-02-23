@@ -18,7 +18,10 @@ interface SignupRepository {
     )
 
     //  create user collection
-    suspend fun addCaretakerToCollection(caretaker: Caretaker): CreateUserResponse
+    suspend fun addCaretakerToCollection(
+        caretaker: Caretaker,
+        response: (response: Response<*>) -> Unit
+    )
 
     suspend fun addLandlordToCollection(
         landlord: Landlord,

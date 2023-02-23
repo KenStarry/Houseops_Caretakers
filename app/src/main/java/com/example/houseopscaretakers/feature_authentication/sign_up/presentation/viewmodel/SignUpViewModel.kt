@@ -87,33 +87,16 @@ class SignUpViewModel @Inject constructor(
                 password,
                 response = {
                     when (it) {
-                        is Response.Success -> { onSuccess() }
-                        is Response.Failure -> { onFailure() }
+                        is Response.Success -> {
+                            onSuccess()
+                        }
+                        is Response.Failure -> {
+                            onFailure()
+                        }
                         Response.Loading -> {}
                     }
                 }
             )
-        }
-    }
-
-    //  create caretaker collection in firestore
-    fun createCaretakerCollection(
-        caretaker: Caretaker,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-
-        viewModelScope.launch {
-
-            createUserResponse = signUpUseCases.createCaretakerCollection(
-                caretaker = caretaker
-            )
-
-            when (createUserResponse) {
-                is Response.Success -> onSuccess()
-                is Response.Failure -> onFailure()
-                is Response.Loading -> {}
-            }
         }
     }
 
@@ -150,6 +133,26 @@ class SignUpViewModel @Inject constructor(
                         response = {
                             event.onResponse(it)
                         }
+                    )
+                }
+            }
+
+            is SignUpEvents.CreateLandlordCollection -> {
+                viewModelScope.launch {
+
+                    signUpUseCases.createLandlordCollection(
+                        landlord = event.landlord,
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
+            is SignUpEvents.CreateCaretakerCollection -> {
+                viewModelScope.launch {
+
+                    signUpUseCases.createCaretakerCollection(
+                        caretaker = event.caretaker,
+                        response = { event.response(it) }
                     )
                 }
             }

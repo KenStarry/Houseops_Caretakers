@@ -64,7 +64,7 @@ class SignUpRepositoryImpl @Inject constructor(
         response: (response: Response<*>) -> Unit
     ) {
         try {
-            db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
+            db.collection(com.example.houseopscaretakers.core.Constants.LANDLORD_COLLECTION)
                 .document(landlord.landlordEmail!!)
                 .set(landlord)
                 .addOnSuccessListener {

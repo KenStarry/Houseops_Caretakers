@@ -24,6 +24,7 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.Constants.textFieldsList
 import com.example.houseopscaretakers.core.domain.model.Caretaker
+import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.CoilImage
@@ -37,6 +38,7 @@ import com.example.houseopscaretakers.feature_authentication.sign_up.presentatio
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.components.SignUpForms
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseopscaretakers.navigation.Direction
+import kotlin.math.sign
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,6 +67,22 @@ fun SignUpScreen(
             when (event) {
                 is ValidationEvent.Success -> {
 
+                    val landlord = Landlord(
+                        landlordName = signUpVM.formState.username,
+                        landlordEmail = signUpVM.formState.email,
+                        landlordImage = caretakerImageUri.toString(),
+                        landlordPassword = signUpVM.formState.password,
+                        isLandlordVerified = false
+                    )
+
+                    val caretaker = Caretaker(
+                        caretakerName = signUpVM.formState.username,
+                        caretakerEmail = signUpVM.formState.email,
+                        caretakerImage = caretakerImageUri.toString(),
+                        caretakerPassword = signUpVM.formState.password,
+                        isCaretakerVerified = false
+                    )
+
                     //  create user in firebase
                     signUpVM.onEvent(SignUpEvents.CreateUserInFirebase(
                         email = signUpVM.formState.email,
@@ -73,7 +91,17 @@ fun SignUpScreen(
                             when (it) {
                                 is Response.Success -> {
                                     //  create the user in firestore
-
+                                    if (userType == Constants.routePaths[0].title) {
+                                        signUpVM.onEvent(SignUpEvents.CreateLandlordCollection(
+                                            landlord = landlord,
+                                            response = {}
+                                        ))
+                                    } else {
+                                        signUpVM.onEvent(SignUpEvents.CreateCaretakerCollection(
+                                            caretaker = caretaker,
+                                            response = {}
+                                        ))
+                                    }
 
                                 }
                                 is Response.Failure -> {

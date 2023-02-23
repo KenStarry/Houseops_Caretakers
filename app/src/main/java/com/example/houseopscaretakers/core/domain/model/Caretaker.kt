@@ -5,11 +5,9 @@ import android.net.Uri
 data class Caretaker(
     val caretakerName: String?,
     val caretakerImage: String?,
-    val caretakerApartment: String?,
-    val caretakerId: String?,
     val caretakerEmail: String?,
     val caretakerPassword: String?,
     val isCaretakerVerified: Boolean
 ) {
-    constructor() : this ("", null, "", "", "", "", false)
+    constructor() : this ("", null, "", "", false)
 }

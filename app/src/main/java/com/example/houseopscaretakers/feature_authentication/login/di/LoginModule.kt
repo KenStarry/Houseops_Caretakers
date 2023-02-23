@@ -4,6 +4,9 @@ import com.example.houseopscaretakers.feature_authentication.login.data.reposito
 import com.example.houseopscaretakers.feature_authentication.login.domain.repository.LoginRepository
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.LoginUseCases
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.LoginUser
+import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.validation.LoginValidateEmail
+import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.validation.LoginValidatePassword
+import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.validation.LoginValidateUseCases
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -28,5 +31,13 @@ object LoginModule {
         repository: LoginRepository
     ) = LoginUseCases(
         loginUser = LoginUser(repository)
+    )
+
+    //  login validation usecases
+    @Provides
+    @Singleton
+    fun provideLoginValidateUseCases() = LoginValidateUseCases(
+        loginValidateEmail = LoginValidateEmail(),
+        loginValidatePassword = LoginValidatePassword()
     )
 }

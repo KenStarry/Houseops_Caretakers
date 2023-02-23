@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.presentation.components.PathItem
@@ -54,7 +55,7 @@ fun PathScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.7f)
-                            .height(220.dp)
+                            .height(200.dp)
                     )
                     
                     Spacer(modifier = Modifier.height(24.dp))
@@ -67,6 +68,18 @@ fun PathScreen(
             modifier = Modifier
                 .fillMaxSize()
         )
+
+        //  next button
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalArrangement = Arrangement.End
+        ) {
+
+
+
+        }
 
     }
 

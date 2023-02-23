@@ -128,6 +128,52 @@ class SignUpRepositoryImpl @Inject constructor(
         return response
     }
 
+    override suspend fun uploadLandlordImageToCloudStorage(
+        caretaker: Caretaker,
+        imageUri: Uri?,
+        context: Context,
+        response: (response: Response<*>) -> Unit
+    ) {
+        val storageRef = FirebaseStorage.getInstance()
+            .getReference(com.example.houseopscaretakers.core.Constants.CARETAKER_IMAGES)
+
+        imageUri?.let {
+
+            val fileRef = storageRef.child(
+                "${System.currentTimeMillis()}.${getFileExtension(imageUri, context)}"
+            )
+
+            try {
+                fileRef.putFile(imageUri)
+                    .addOnSuccessListener {
+
+                        //  Grab the download url
+                        try {
+                            fileRef.downloadUrl.addOnSuccessListener { url ->
+                                //  add url to the caretaker collection
+                                val caretakerRef =
+                                    db.collection(com.example.houseopscaretakers.core.Constants.CARETAKER_COLLECTION)
+                                        .document(caretaker.caretakerEmail!!)
+
+                                caretakerRef.update("caretakerImage", url)
+                            }
+
+                            //  return success
+                            response(Response.Success(true))
+
+                        } catch (e: Exception) {
+                            //  Return Failure
+                            response(Response.Failure(e))
+                        }
+                    }
+
+            } catch (e: Exception) {
+                response(Response.Failure(e))
+            }
+        }
+
+    }
+
     //  get file extension
     private fun getFileExtension(uri: Uri, context: Context): String? {
 

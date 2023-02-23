@@ -34,4 +34,12 @@ interface SignupRepository {
         imageUri: Uri?,
         context: Context
     ): CreateUserResponse
+
+    //  add landlord image to firebase storage
+    suspend fun uploadLandlordImageToCloudStorage(
+        caretaker: Caretaker,
+        imageUri: Uri?,
+        context: Context,
+        response: (response: Response<*>) -> Unit
+    )
 }

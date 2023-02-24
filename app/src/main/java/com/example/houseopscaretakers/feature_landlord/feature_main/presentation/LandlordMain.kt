@@ -13,8 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.core.presentation.components.ExtendedFab
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNav
+import com.example.houseopscaretakers.navigation.graphs.LandlordGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,6 +26,7 @@ fun LandlordMain(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val navController = rememberNavController()
 
     Scaffold(
         floatingActionButton = {
@@ -30,6 +34,11 @@ fun LandlordMain(
                 icon = Icons.Outlined.Apartment,
                 text = "Add Apartment",
                 onClick = {}
+            )
+        },
+        bottomBar = {
+            MainBottomNav(
+                navHostController = navController
             )
         }
     ) { contentPadding ->
@@ -40,6 +49,8 @@ fun LandlordMain(
                 .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {
+            
+            LandlordGraph(navHostController = navController)
 
         }
 

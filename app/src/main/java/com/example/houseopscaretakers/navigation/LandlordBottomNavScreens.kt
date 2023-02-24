@@ -13,19 +13,19 @@ sealed class LandlordBottomNavScreens(
 ) {
 
     object Home : LandlordBottomNavScreens(
-        route = "landlord_home",
+        route = NavConstants.LANDLORD_HOME_SCREEN_ROUTE,
         title = "Home",
         icon = Icons.Outlined.Home
     )
 
     object Caretakers : LandlordBottomNavScreens(
-        route = "landlord_caretakers",
+        route = NavConstants.LANDLORD_CARETAKERS_SCREEN_ROUTE,
         title = "Caretakers",
         icon = Icons.Outlined.AdminPanelSettings
     )
 
     object Settings : LandlordBottomNavScreens(
-        route = "landlord_settings",
+        route = NavConstants.LANDLORD_SETTINGS_SCREEN_ROUTE,
         title = "Settings",
         icon = Icons.Outlined.Settings
     )

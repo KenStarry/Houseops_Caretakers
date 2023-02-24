@@ -51,7 +51,7 @@ fun GreetingsText(
         }
 
         PillButton(
-            value = caretaker?.caretakerApartment ?: "",
+            value = "Pangani Palace" ?: "",
             backgroundColor = MaterialTheme.colorScheme.tertiary,
             onClick = {}
         )

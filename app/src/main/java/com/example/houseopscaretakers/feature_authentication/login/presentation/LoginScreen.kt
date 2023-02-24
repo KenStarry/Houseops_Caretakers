@@ -31,6 +31,7 @@ import com.example.houseopscaretakers.feature_authentication.login.presentation.
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginTextFields
 import com.example.houseopscaretakers.feature_authentication.login.presentation.viewmodel.LoginViewModel
 import com.example.houseopscaretakers.navigation.Direction
+import com.example.houseopscaretakers.navigation.Screen
 
 @Composable
 fun LoginScreen(
@@ -171,7 +172,7 @@ fun LoginScreen(
             direction = direction,
             fullText = "Don't have an account? create one",
             linkText = listOf("create one"),
-            hyperlinks = listOf(com.example.houseopscaretakers.core.Constants.SIGN_UP_SCREEN_ROUTE),
+            hyperlinks = listOf(Screen.SignUp.passUserType(userType ?: "none")),
             modifier = Modifier
                 .wrapContentSize()
                 .align(Alignment.CenterHorizontally)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -20,23 +21,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val splash = installSplashScreen()
+        installSplashScreen()
         super.onCreate(savedInstanceState)
-
-        val isLoading = mutableStateOf(true)
-
-        //  initialize our Splash screen
-        splash.setKeepOnScreenCondition { isLoading.value }
 
         setContent {
             HouseopsCaretakersTheme {
 //                MainScreen(rememberNavController())
                 val coreVM: CoreViewModel = hiltViewModel()
                 val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
-
-                if (userType != null) {
-                    isLoading.value = false
-                }
 
                 RootNavGraph(
                     navHostController = rememberNavController(),

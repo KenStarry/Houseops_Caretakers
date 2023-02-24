@@ -1,9 +1,8 @@
 package com.example.houseopscaretakers.navigation.graphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import com.example.houseopscaretakers.core.presentation.components.LoadingScreen
 import com.example.houseopscaretakers.core.presentation.components.path_screen.PathScreen
 import com.example.houseopscaretakers.feature_authentication.login.presentation.LoginScreen
 import com.example.houseopscaretakers.feature_authentication.sign_up.presentation.SignUpScreen
@@ -22,8 +21,18 @@ fun NavGraphBuilder.authNavGraph(
             LoginScreen(navHostController = navHostController)
         }
 
-        composable(route = Screen.SignUp.route) {
-            SignUpScreen(navHostController = navHostController)
+        composable(
+            route = Screen.SignUp.route,
+            arguments = listOf(
+                navArgument("user") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            SignUpScreen(
+                navHostController = navHostController,
+                userType = it.arguments?.getString("user") ?: "none"
+            )
         }
 
         composable(route = Screen.Path.route) {

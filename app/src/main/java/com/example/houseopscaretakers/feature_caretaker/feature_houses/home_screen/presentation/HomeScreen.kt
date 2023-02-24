@@ -83,7 +83,7 @@ fun HomeScreen(
     //  getting all houses
     homeviewModel.onHomeScreenEvent(
         HouseEvents.GetHouses(
-            apartmentName = caretaker?.caretakerApartment ?: "none"
+            apartmentName = "Pangani Palace" ?: "Pangani Palace"
         )
     )
 
@@ -125,7 +125,7 @@ fun HomeScreen(
                                     )
                                     .verticalScroll(rememberScrollState()),
                                 homeVM = homeviewModel,
-                                apartmentName = caretaker?.caretakerApartment ?: "none",
+                                apartmentName = "Pangani Palace" ?: "none",
                                 onHouseAdd = { house ->
 
                                     // upload images to firestore
@@ -134,14 +134,14 @@ fun HomeScreen(
                                             imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
                                             context = context,
                                             houseModel = house,
-                                            apartmentName = caretaker?.caretakerApartment ?: "none"
+                                            apartmentName = "Pangani Palace" ?: "none"
                                         )
                                     )
 
                                     //  add house to apartments collection
                                     homeviewModel.onBottomSheetEvent(
                                         BottomSheetEvents.AddHouseToFirestore(
-                                            caretaker?.caretakerApartment ?: "none", house
+                                            "Pangani Palace" ?: "none", house
                                         )
                                     )
 
@@ -180,7 +180,7 @@ fun HomeScreen(
                                     )
                                     .verticalScroll(rememberScrollState()),
                                 homeVM = homeviewModel,
-                                apartmentName = caretaker?.caretakerApartment ?: "none",
+                                apartmentName = "Pangani Palace" ?: "none",
                                 onHouseAdd = { house ->
 
                                     // upload images to firestore
@@ -189,14 +189,14 @@ fun HomeScreen(
                                             imageUriList = homeviewModel.selectedImagesState.listOfSelectedImages,
                                             context = context,
                                             houseModel = house,
-                                            apartmentName = caretaker?.caretakerApartment ?: "none"
+                                            apartmentName = "Pangani Palace" ?: "none"
                                         )
                                     )
 
                                     //  add house to apartments collection
                                     homeviewModel.onBottomSheetEvent(
                                         BottomSheetEvents.AddHouseToFirestore(
-                                            caretaker?.caretakerApartment ?: "none", house
+                                            "Pangani Palace" ?: "none", house
                                         )
                                     )
 
@@ -425,7 +425,7 @@ fun HomeScreen(
                                                             //  navigate to house view activity
                                                             navHostController.navigate(
                                                                 route = Screen.HouseView.passHouseCategoryAndApartment(
-                                                                    apartment = caretaker?.caretakerApartment
+                                                                    apartment = "Pangani Palace"
                                                                         ?: "Apartments",
                                                                     category = house.houseCategory
                                                                 )

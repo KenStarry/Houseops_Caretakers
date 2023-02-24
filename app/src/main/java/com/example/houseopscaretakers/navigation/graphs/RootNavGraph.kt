@@ -18,17 +18,24 @@ fun RootNavGraph(
         startDestination = if (isLoggedIn && userType == Constants.routePaths[0].title) {
             //  landlord
             Constants.LANDLORD_ROUTE
+
         } else if (isLoggedIn && userType == Constants.routePaths[1].title) {
             //  caretaker
             Constants.HOME_ROUTE
-        } else {
+
+        } else if (!isLoggedIn) {
             //  no user logged in
             Constants.AUTHENTICATION_ROUTE
+
+        } else {
+            //   loading screen
+            Constants.LOADING_ROUTE
         },
 
         route = Constants.ROOT_ROUTE
     ) {
 
+        loadingNavGraph(navHostController)
         homeNavGraph(navHostController)
         authNavGraph(navHostController)
         landlordNavGraph(navHostController)

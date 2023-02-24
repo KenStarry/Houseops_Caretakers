@@ -39,7 +39,8 @@ import com.example.houseopscaretakers.navigation.Direction
 @Composable
 fun SignUpScreen(
     signUpVM: SignUpViewModel = hiltViewModel(),
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    userType: String
 ) {
 
     val context = LocalContext.current
@@ -47,7 +48,7 @@ fun SignUpScreen(
     val coreVM: CoreViewModel = hiltViewModel()
 
     //  get the current user type
-    val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
+//    val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
 
     var userImageUri by remember {
         mutableStateOf<Uri?>(null)
@@ -56,6 +57,9 @@ fun SignUpScreen(
     val launcher = getSingleImageFromGallery(onResult = {
         userImageUri = it
     })
+
+    Toast.makeText(context, "$userType!", Toast.LENGTH_SHORT)
+        .show()
 
     LaunchedEffect(key1 = context) {
         signUpVM.validationEvents.collect { event ->
@@ -87,6 +91,10 @@ fun SignUpScreen(
                         onResponse = {
                             when (it) {
                                 is Response.Success -> {
+
+                                    Toast.makeText(context, "User is $userType!", Toast.LENGTH_SHORT)
+                                        .show()
+
                                     //  create the user in firestore
                                     if (userType == Constants.routePaths[0].title) {
                                         signUpVM.onEvent(SignUpEvents.CreateLandlordCollection(
@@ -101,7 +109,7 @@ fun SignUpScreen(
                                                             Constants.LANDLORD_ROUTE
                                                         )
 
-                                                        Toast.makeText(context, "Logged in successfully!", Toast.LENGTH_SHORT)
+                                                        Toast.makeText(context, "Logged in successfully as $userType!", Toast.LENGTH_SHORT)
                                                             .show()
                                                     }
                                                     is Response.Failure -> {
@@ -120,7 +128,8 @@ fun SignUpScreen(
                                             response = {}
                                         ))
 
-                                    } else {
+                                    } else if (userType == Constants.routePaths[1].title) {
+
                                         signUpVM.onEvent(SignUpEvents.CreateCaretakerCollection(
                                             caretaker = caretaker,
                                             response = { res ->
@@ -133,7 +142,7 @@ fun SignUpScreen(
                                                             Constants.HOME_ROUTE
                                                         )
 
-                                                        Toast.makeText(context, "Logged in successfully!", Toast.LENGTH_SHORT)
+                                                        Toast.makeText(context, "Logged in successfully as $userType!", Toast.LENGTH_SHORT)
                                                             .show()
                                                     }
                                                     is Response.Failure -> {
@@ -164,85 +173,6 @@ fun SignUpScreen(
                             }
                         }
                     ))
-
-//                    val verificationResponse = signUpVM.verifyCaretakerDetails(
-//                        userName = usernameInput,
-//                        id = idInput,
-//                        apartment = apartmentInput,
-//                        email = emailInput,
-//                        newPassword = newPassInput,
-//                        confirmPassword = confirmPassInput
-//                    )
-//                    val caretaker = Caretaker(
-//                        caretakerEmail = emailInput,
-//                        caretakerName = usernameInput,
-//                        caretakerImage = caretakerImageUri.toString(),
-//                        caretakerApartment = apartmentInput,
-//                        caretakerId = idInput,
-//                        caretakerPassword = newPassInput
-//                    )
-//
-//                    //  verify user details and create user
-//                    if (verificationResponse == com.example.houseopscaretakers.core.Constants.AUTH_SUCCESSFUL) {
-//
-//                        //  create user account
-//                        signUpVM.createCaretakerWithEmailAndPassword(
-//                            email = emailInput,
-//                            password = newPassInput,
-//                            onSuccess = {
-//
-//                                //  create caretaker collection
-//                                signUpVM.createCaretakerCollection(
-//                                    caretaker = caretaker,
-//                                    onSuccess = {
-//                                        //  store the url in firestore
-//                                        signUpVM.uploadImageToStorage(
-//                                            caretaker = caretaker,
-//                                            imageUri = caretakerImageUri,
-//                                            context = context,
-//                                            onSuccess = {
-//                                                Toast.makeText(
-//                                                    context,
-//                                                    "Image stored properly",
-//                                                    Toast.LENGTH_SHORT
-//                                                ).show()
-//                                            },
-//                                            onFailure = {
-//                                                Toast.makeText(
-//                                                    context,
-//                                                    "Image Couldn't be stored to firebase",
-//                                                    Toast.LENGTH_SHORT
-//                                                ).show()
-//                                            }
-//                                        )
-//
-//                                        //  open caretaker activity
-//                                        direction.navigateToRoute(
-//                                            com.example.houseopscaretakers.core.Constants.HOME_ROUTE
-//                                        )
-//                                    },
-//                                    onFailure = {
-//                                        Toast.makeText(
-//                                            context,
-//                                            "Couldn't create collection",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                    }
-//                                )
-//                            },
-//                            onFailure = {
-//                                Toast.makeText(
-//                                    context,
-//                                    "Something went wrong",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
-//                        )
-//
-//                    } else {
-//                        Toast.makeText(context, verificationResponse, Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
                 }
                 is ValidationEvent.Failure -> {
                     Toast.makeText(context, "Check details", Toast.LENGTH_SHORT).show()

@@ -31,6 +31,7 @@ object Constants {
     const val ROOT_ROUTE = "root"
     const val ROUTE = "route"
     const val LANDLORD_ROUTE = "landlord"
+    const val LOADING_ROUTE = "loading"
 
     //  screen routes
     const val MAIN_SCREEN_ROUTE = "main_screen"
@@ -40,6 +41,7 @@ object Constants {
     const val SIGN_UP_SCREEN_ROUTE = "sign_up_screen"
     const val HOUSE_ADD_SCREEN_ROUTE = "house_add_screen"
     const val PATH_SCREEN_ROUTE = "path_screen"
+    const val LOADING_SCREEN_ROUTE = "loading_screen"
 
     //  ------------------  LOGIN SCREEN    ----------------
     const val LOGIN_TITLE = "Login"

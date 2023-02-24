@@ -4,5 +4,5 @@ sealed class LandlordScreens(
     val route: String
 ) {
 
-    object Home : LandlordScreens("landlord_home")
+    object Main : LandlordScreens("landlord_home")
 }

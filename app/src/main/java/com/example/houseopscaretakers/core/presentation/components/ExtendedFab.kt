@@ -1,25 +1,42 @@
 package com.example.houseopscaretakers.core.presentation.components
 
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ExtendedFab(
     icon: ImageVector,
     text: String,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
 ) {
 
-    ExtendedFloatingActionButton(onClick = { onClick() }) {
+    ExtendedFloatingActionButton(
+        onClick = { onClick() },
+        containerColor = containerColor,
+        contentColor = Color.White,
+        elevation = FloatingActionButtonDefaults.elevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp,
+            focusedElevation = 0.dp,
+            hoveredElevation = 0.dp
+        )
+    ) {
 
         Icon(
             imageVector = icon,
-            contentDescription = "Fab icon"
+            contentDescription = "FAB Icon"
         )
 
-        Text(text = text)
+        Text(
+            text = text,
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
     }
 }

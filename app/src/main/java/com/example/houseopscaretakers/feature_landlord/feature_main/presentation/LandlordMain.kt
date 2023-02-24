@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.houseopscaretakers.core.presentation.components.ExtendedFab
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNav
-import com.example.houseopscaretakers.navigation.graphs.LandlordGraph
+import com.example.houseopscaretakers.navigation.graphs.LandlordBottomNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +50,7 @@ fun LandlordMain(
                 .padding(contentPadding)
         ) {
             
-            LandlordGraph(navHostController = navController)
+            LandlordBottomNavGraph(navHostController = navController)
 
         }
 

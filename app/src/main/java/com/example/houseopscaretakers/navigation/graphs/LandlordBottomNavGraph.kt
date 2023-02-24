@@ -10,7 +10,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_settings.Landlord
 import com.example.houseopscaretakers.navigation.LandlordBottomNavScreens
 
 @Composable
-fun LandlordGraph(
+fun LandlordBottomNavGraph(
     navHostController: NavHostController
 ) {
 

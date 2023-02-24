@@ -25,18 +25,6 @@ fun NavGraphBuilder.landlordNavGraph(
         composable(route = LandlordScreens.Main.route) {
             LandlordMain(navHostController = navHostController)
         }
-
-        composable(route = LandlordBottomNavScreens.Home.route) {
-            LandlordHome(navHostController = navHostController)
-        }
-
-        composable(route = LandlordBottomNavScreens.Caretakers.route) {
-            LandlordCaretakers(navHostController = navHostController)
-        }
-
-        composable(route = LandlordBottomNavScreens.Settings.route) {
-            LandlordSettings(navHostController = navHostController)
-        }
     }
 
 }

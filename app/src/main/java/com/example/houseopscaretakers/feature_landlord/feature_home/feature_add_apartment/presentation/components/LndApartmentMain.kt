@@ -24,7 +24,8 @@ import com.example.houseopscaretakers.navigation.Direction
 fun LndApartmentMain(
     direction: Direction,
     lndAddApartmentVM: LndAddApartmentViewModel,
-    onLocationClicked: () -> Unit
+    onLocationClicked: () -> Unit,
+    onHouseFeaturesClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -61,7 +62,9 @@ fun LndApartmentMain(
                         //  open places api
                         onLocationClicked()
                     },
-                    onHouseCategoriesClicked = {}
+                    onHouseFeaturesClicked = {
+                        onHouseFeaturesClicked()
+                    }
                 )
 
             }

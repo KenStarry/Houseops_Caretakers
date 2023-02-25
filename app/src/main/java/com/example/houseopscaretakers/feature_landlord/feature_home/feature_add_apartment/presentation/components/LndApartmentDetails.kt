@@ -3,8 +3,6 @@ package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -28,7 +26,7 @@ fun LndApartmentDetails(
     modifier: Modifier = Modifier,
     lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit,
-    onHouseCategoriesClicked: () -> Unit
+    onHouseFeaturesClicked: () -> Unit
 ) {
 
     Column(
@@ -172,7 +170,7 @@ fun LndApartmentDetails(
             }
         }
 
-        //  house categories section
+        //  apartment features section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -204,7 +202,7 @@ fun LndApartmentDetails(
                 ) {
 
                     Text(
-                        text = "House Categories",
+                        text = "Apartment Features",
                         fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
@@ -216,9 +214,9 @@ fun LndApartmentDetails(
                         tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     )
 
-                    Button(onClick = { onHouseCategoriesClicked() }) {
+                    Button(onClick = { onHouseFeaturesClicked() }) {
                         Text(
-                            text = "Add Category",
+                            text = "Add Feature",
                             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)

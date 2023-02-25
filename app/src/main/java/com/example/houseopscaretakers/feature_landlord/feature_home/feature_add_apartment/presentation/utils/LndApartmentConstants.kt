@@ -4,4 +4,5 @@ object LndApartmentConstants {
 
     //  bottomsheet types
     const val PLACES_BOTTOM_SHEET = "places bottomsheet"
+    const val FEATURES_BOTTOM_SHEET = "house categories bottomsheet"
 }

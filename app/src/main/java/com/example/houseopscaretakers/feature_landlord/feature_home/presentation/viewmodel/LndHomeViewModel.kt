@@ -1,5 +1,9 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.presentation.viewmodel
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ModeNight
+import androidx.compose.material.icons.outlined.WbCloudy
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -47,13 +51,13 @@ class LndHomeViewModel @Inject constructor(
             is LndHomeEvents.FilterGreetingsText -> {
                 when (event.currentHour) {
                     in 0..12 -> {
-                        event.greetings("Good Morning")
+                        event.greetings("Good Morning", Icons.Outlined.WbSunny)
                     }
                     in 12..16 -> {
-                        event.greetings("Good Afternoon")
+                        event.greetings("Good Afternoon", Icons.Outlined.WbCloudy)
                     }
                     else -> {
-                        event.greetings("Good Evening")
+                        event.greetings("Good Evening", Icons.Outlined.ModeNight)
                     }
                 }
             }

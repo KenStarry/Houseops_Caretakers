@@ -58,8 +58,8 @@ fun LndHomeAppBar(
 
                 Text(
                     text = "Home",
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    fontWeight = FontWeight.Bold
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = FontWeight.ExtraBold
                 )
             }
         },

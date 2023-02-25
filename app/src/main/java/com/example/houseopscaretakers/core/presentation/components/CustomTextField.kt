@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 //  email input textfield
@@ -33,6 +34,8 @@ fun CustomTextField(
     primaryColor: Color,
     tertiaryColor: Color,
     isPassword: Boolean = false,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontSize: TextUnit = MaterialTheme.typography.bodyLarge.fontSize,
     onInput: (input: String) -> Unit
 ) {
 
@@ -78,7 +81,12 @@ fun CustomTextField(
                     onInput(textFieldState)
                 },
                 placeholder = {
-                    Text(text = placeholder)
+                    Text(
+                        text = placeholder,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                    )
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(
@@ -111,8 +119,8 @@ fun CustomTextField(
 
                 textStyle = TextStyle(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    fontWeight = FontWeight.Normal
+                    fontSize = fontSize,
+                    fontWeight = fontWeight
                 ),
 
                 visualTransformation = if (passVisibilityState)
@@ -128,7 +136,11 @@ fun CustomTextField(
                     onInput(textFieldState)
                 },
                 placeholder = {
-                    Text(text = placeholder)
+                    Text(
+                        text = placeholder,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight
+                    )
                 },
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(
@@ -150,8 +162,8 @@ fun CustomTextField(
 
                 textStyle = TextStyle(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    fontWeight = FontWeight.Normal
+                    fontSize = fontSize,
+                    fontWeight = fontWeight
                 )
             )
         }

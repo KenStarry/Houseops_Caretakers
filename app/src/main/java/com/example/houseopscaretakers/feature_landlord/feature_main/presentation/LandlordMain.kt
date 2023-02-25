@@ -26,6 +26,8 @@ fun LandlordMain(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+
+    //  declare another navController for the sake of the nested navgraph
     val navController = rememberNavController()
 
     Scaffold(

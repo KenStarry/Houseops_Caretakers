@@ -1,7 +1,10 @@
 package com.example.houseopscaretakers.core.presentation.components
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +34,8 @@ fun ExtendedFab(
             imageVector = icon,
             contentDescription = "FAB Icon"
         )
+
+        Spacer(modifier = Modifier.width(8.dp))
 
         Text(
             text = text,

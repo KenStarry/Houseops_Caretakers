@@ -155,7 +155,7 @@ class SignUpRepositoryImpl @Inject constructor(
                                     db.collection(com.example.houseopscaretakers.core.Constants.LANDLORD_COLLECTION)
                                         .document(landlord.landlordEmail!!)
 
-                                caretakerRef.update("caretakerImage", url)
+                                caretakerRef.update("landlordImage", url)
                             }
 
                             //  return success

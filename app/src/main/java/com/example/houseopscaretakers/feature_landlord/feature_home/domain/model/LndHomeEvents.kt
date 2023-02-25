@@ -10,7 +10,7 @@ sealed class LndHomeEvents {
     ) : LndHomeEvents()
 
     data class FilterGreetingsText(
-        val time: Int,
+        val currentHour: Int,
         val greetings: (greeting: String) -> Unit
-    )
+    ) : LndHomeEvents()
 }

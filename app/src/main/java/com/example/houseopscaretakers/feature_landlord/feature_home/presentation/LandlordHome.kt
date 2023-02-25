@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -24,6 +21,7 @@ import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_home.domain.model.LndHomeEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.components.LndHomeAppBar
+import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.components.LndHomeGreetings
 import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.viewmodel.LndHomeViewModel
 import java.util.Calendar
 
@@ -36,22 +34,33 @@ fun LandlordHome(
     val coreVM: CoreViewModel = hiltViewModel()
     val lndHomeVM: LndHomeViewModel = hiltViewModel()
 
-    lndHomeVM.onEvent(LndHomeEvents.GetLandlordDetails(
-        email = coreVM.currentUser()?.email ?: "no user"
-    ))
+    lndHomeVM.onEvent(
+        LndHomeEvents.GetLandlordDetails(
+            email = coreVM.currentUser()?.email ?: "no user"
+        )
+    )
+
+    val landlord = lndHomeVM.landlordDetails.value
 
     val context = LocalContext.current
 
     val calendar = Calendar.getInstance()
+
     val currentHour by remember {
         mutableStateOf(calendar.get(Calendar.HOUR_OF_DAY))
     }
+    var greetingsText by remember { mutableStateOf("") }
+
+    lndHomeVM.onEvent(LndHomeEvents.FilterGreetingsText(
+        currentHour = currentHour,
+        greetings = { greetingsText = it }
+    ))
 
     Scaffold(
         topBar = {
             LndHomeAppBar(
                 context = context,
-                imageUri = lndHomeVM.landlordDetails.value?.landlordImage?.toUri()
+                imageUri = landlord?.landlordImage?.toUri()
             )
         }
     ) { contentPadding ->
@@ -66,9 +75,14 @@ fun LandlordHome(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp)
+                    .padding(16.dp)
             ) {
 
+                //  greetings text
+                LndHomeGreetings(
+                    landlordName = landlord?.landlordName ?: "",
+                    greetingsText = greetingsText
+                )
 
 
             }

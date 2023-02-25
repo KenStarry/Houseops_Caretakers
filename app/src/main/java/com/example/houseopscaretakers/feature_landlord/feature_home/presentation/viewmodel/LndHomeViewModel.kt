@@ -43,6 +43,20 @@ class LndHomeViewModel @Inject constructor(
                     )
                 }
             }
+
+            is LndHomeEvents.FilterGreetingsText -> {
+                when (event.currentHour) {
+                    in 0..12 -> {
+                        event.greetings("Good Morning")
+                    }
+                    in 12..16 -> {
+                        event.greetings("Good Afternoon")
+                    }
+                    else -> {
+                        event.greetings("Good Evening")
+                    }
+                }
+            }
         }
     }
 }

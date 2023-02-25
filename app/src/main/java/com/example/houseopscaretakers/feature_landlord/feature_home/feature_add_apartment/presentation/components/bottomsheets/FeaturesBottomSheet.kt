@@ -51,7 +51,7 @@ fun FeaturesBottomSheet(
 
         //  title
         CustomTextField(
-            textFieldValue = featureTitle,
+            textFieldValue = lndAddApartmentVM.featureTitle.value,
             startIcon = Icons.Outlined.Title,
             endIcon = null,
             placeholder = "Feature Title",
@@ -62,13 +62,13 @@ fun FeaturesBottomSheet(
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Bold,
             onInput = {
-                featureTitle = it
+                lndAddApartmentVM.featureTitle.value = it
             }
         )
 
         //  description
         CustomTextField(
-            textFieldValue = featureDescription,
+            textFieldValue = lndAddApartmentVM.featureDescription.value,
             startIcon = Icons.Outlined.Description,
             endIcon = null,
             placeholder = "Feature description",
@@ -79,7 +79,7 @@ fun FeaturesBottomSheet(
             singleLine = false,
             maxLines = Int.MAX_VALUE,
             onInput = {
-                featureDescription = it
+                lndAddApartmentVM.featureDescription.value = it
             }
         )
 

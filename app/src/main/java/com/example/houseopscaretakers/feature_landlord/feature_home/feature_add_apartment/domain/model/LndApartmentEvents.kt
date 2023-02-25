@@ -11,6 +11,11 @@ sealed class LndApartmentEvents {
         val query: String
     ) : LndApartmentEvents()
 
+    //  add feature to viewmodel
+    data class AddFeature(
+        val apartmentFeature: ApartmentFeature
+    ) : LndApartmentEvents()
+
     //  open bottom sheet
     data class OpenBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor
         (

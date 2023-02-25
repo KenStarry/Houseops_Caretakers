@@ -5,12 +5,11 @@ import androidx.compose.animation.core.Ease
 import androidx.compose.animation.core.tween
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
@@ -23,12 +22,16 @@ class LndAddApartmentViewModel : ViewModel() {
     lateinit var placesClient: PlacesClient
 
     val locationAutoFill = mutableStateListOf<PlacesAPIResult>()
+    val pickedLocation = mutableStateOf("No Location")
 
     //  bottomsheet type
     var bottomSheetType by mutableStateOf("none")
         private set
 
-    val pickedLocation = mutableStateOf("No Location")
+    val featureTitle = mutableStateOf("")
+    val featureDescription = mutableStateOf("")
+    private val _apartmentFeatures = mutableStateListOf<ApartmentFeature>()
+    val apartmentFeatures: SnapshotStateList<ApartmentFeature> = _apartmentFeatures
 
     private var job: Job? = null
 
@@ -64,6 +67,10 @@ class LndAddApartmentViewModel : ViewModel() {
 
             }
 
+            is LndApartmentEvents.AddFeature -> {
+                apartmentFeatures += event.apartmentFeature
+            }
+
             is LndApartmentEvents.CloseBottomSheet -> {
                 //  close bottom sheet
                 event.scope.launch {
@@ -72,6 +79,7 @@ class LndAddApartmentViewModel : ViewModel() {
                     )
                 }
             }
+
             is LndApartmentEvents.OpenBottomSheet -> {
                 //  open bottom sheet
                 event.scope.launch {

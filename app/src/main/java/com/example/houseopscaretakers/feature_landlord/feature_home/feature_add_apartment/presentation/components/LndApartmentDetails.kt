@@ -3,6 +3,9 @@ package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -28,6 +31,8 @@ fun LndApartmentDetails(
     onLocationClicked: () -> Unit,
     onHouseFeaturesClicked: () -> Unit
 ) {
+
+    val listState = rememberLazyListState()
 
     Column(
         modifier = modifier,
@@ -171,61 +176,64 @@ fun LndApartmentDetails(
         }
 
         //  apartment features section
+        //  section items
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentHeight()
+                .background(
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(8.dp),
+            horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
-            //  section items
-            Column(
+            //  house categories
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .background(
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(8.dp),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
 
-                //  house categories
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Text(
+                    text = "Apartment Features",
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
 
+                Icon(
+                    imageVector = Icons.Outlined.ArrowRight,
+                    contentDescription = "Right arrow",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+
+                Button(onClick = { onHouseFeaturesClicked() }) {
                     Text(
-                        text = "Apartment Features",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        text = "Add Feature",
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     )
-
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowRight,
-                        contentDescription = "Right arrow",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-
-                    Button(onClick = { onHouseFeaturesClicked() }) {
-                        Text(
-                            text = "Add Feature",
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                        )
-                    }
-
                 }
 
             }
+
+            //  categories added
+            LazyRow(content = {
+                items(
+                    items = lndAddApartmentVM.apartmentFeatures
+                ) {
+
+                    //  feature item
+
+                }
+            })
+
         }
 
 

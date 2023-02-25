@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeaturesBottomSheet
@@ -63,7 +64,22 @@ fun LandlordAddApartment(
                     FeaturesBottomSheet(
                         lndAddApartmentVM = lndAddApartmentVM,
                         onDone = {title, description ->
+
                             //  add the feature to viewmodel
+                            lndAddApartmentVM.onEvent(LndApartmentEvents.AddFeature(
+                                apartmentFeature = ApartmentFeature(
+                                    title = title,
+                                    description = description
+                                )
+                            ))
+
+                            lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
+                                state = modalSheetState,
+                                scope = scope
+                            ))
+
+                            lndAddApartmentVM.featureTitle.value = ""
+                            lndAddApartmentVM.featureDescription.value = ""
                         },
                         onCancel = {
                             lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(

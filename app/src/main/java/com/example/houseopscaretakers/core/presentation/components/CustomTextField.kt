@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomTextField(
     textFieldValue: String = "",
+    containerColor: Color = MaterialTheme.colorScheme.onPrimary,
     startIcon: ImageVector?,
     endIcon: ImageVector?,
     placeholder: String,
@@ -100,7 +101,7 @@ fun CustomTextField(
                 singleLine = true,
 
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = containerColor,
                     cursorColor = primaryColor,
                     unfocusedIndicatorColor = tertiaryColor,
                     focusedIndicatorColor = primaryColor
@@ -154,7 +155,7 @@ fun CustomTextField(
                 singleLine = true,
 
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = containerColor,
                     cursorColor = primaryColor,
                     unfocusedIndicatorColor = tertiaryColor,
                     focusedIndicatorColor = primaryColor

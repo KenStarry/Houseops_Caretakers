@@ -7,9 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,7 +27,8 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 fun LndApartmentDetails(
     modifier: Modifier = Modifier,
     lndAddApartmentVM: LndAddApartmentViewModel,
-    onLocationClicked: () -> Unit
+    onLocationClicked: () -> Unit,
+    onHouseCategoriesClicked: () -> Unit
 ) {
 
     Column(
@@ -53,100 +53,187 @@ fun LndApartmentDetails(
             }
         )
 
-        //  location
-        Row(
+        //  location section
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
-            Text(
-                text = "Pick Location",
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-            )
-
-            Icon(
-                imageVector = Icons.Outlined.ArrowRight,
-                contentDescription = "Right arrow",
-                tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-            )
-
-            Row(
+            //  section items
+            Column(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .background(MaterialTheme.colorScheme.tertiary)
-                    .clickable {
-                        //  open location bottomsheet
-                        onLocationClicked()
-                    }
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .background(
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
-                Text(
-                    text = lndAddApartmentVM.pickedLocation.value,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
+                //  location
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
-                Icon(
-                    imageVector = Icons.Outlined.ExpandMore,
-                    contentDescription = "expand arrow",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    Text(
+                        text = "Location",
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowRight,
+                        contentDescription = "Right arrow",
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .background(MaterialTheme.colorScheme.tertiary)
+                            .clickable {
+                                //  open location bottomsheet
+                                onLocationClicked()
+                            }
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text = lndAddApartmentVM.pickedLocation.value,
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                        Icon(
+                            imageVector = Icons.Outlined.ExpandMore,
+                            contentDescription = "expand arrow",
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                    }
+
+                }
+
+            }
+        }
+
+        //  caretaker id section
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+
+            //  section items
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+
+                //  caretaker id
+                CustomTextField(
+                    startIcon = Icons.Outlined.Numbers,
+                    endIcon = null,
+                    placeholder = "Caretaker ID Number",
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Number,
+                    primaryColor = MaterialTheme.colorScheme.primary,
+                    tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                    containerColor = MaterialTheme.colorScheme.onSecondary,
+                    onInput = {
+                        //  verify the details
+                    }
                 )
 
             }
-
         }
 
-//        //  apartment details section
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .wrapContentHeight(),
-//            verticalArrangement = Arrangement.spacedBy(16.dp)
-//        ) {
-//
-//            //  title
-//            Text(
-//                text = "Apartment Details",
-//                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-//                fontWeight = FontWeight.ExtraBold,
-//                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
-//            )
-//
-//            //  section items
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .wrapContentHeight()
-//                    .background(
-//                        color = MaterialTheme.colorScheme.onSecondary,
-//                        shape = RoundedCornerShape(16.dp)
-//                    )
-//                    .padding(8.dp),
-//                horizontalAlignment = Alignment.Start,
-//                verticalArrangement = Arrangement.spacedBy(16.dp)
-//            ) {
-//
-//
-//
-//                //  house categories
-//
-//
-//                //  apartment features e.g security type, social ammenities... etc (list)
-//                //  apartment terms and conditions (list)
-//
-//            }
-//        }
+        //  house categories section
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+
+            //  section items
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+
+                //  house categories
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Text(
+                        text = "House Categories",
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowRight,
+                        contentDescription = "Right arrow",
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+
+                    Button(onClick = { onHouseCategoriesClicked() }) {
+                        Text(
+                            text = "Add Category",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+                    }
+
+                }
+
+            }
+        }
+
+
+
+        //  apartment features e.g security type, social ammenities... etc (list)
+        //  apartment terms and conditions (list)
 
     }
 }

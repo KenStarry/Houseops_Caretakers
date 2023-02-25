@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.domain.model
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.houseopscaretakers.core.domain.model.Landlord

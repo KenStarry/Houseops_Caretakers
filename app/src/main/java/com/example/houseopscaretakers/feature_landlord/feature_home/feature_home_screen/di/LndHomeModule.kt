@@ -1,9 +1,9 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.di
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.di
 
-import com.example.houseopscaretakers.feature_landlord.feature_home.data.repository.LndHomeRepositoryImpl
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.repository.LndHomeRepository
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.use_cases.GetLandlordDetails
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.use_cases.LndHomeUseCases
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.data.repository.LndHomeRepositoryImpl
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.repository.LndHomeRepository
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.GetLandlordDetails
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.LndHomeUseCases
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides

@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.houseopscaretakers.feature_landlord.feature_caretakers.LandlordCaretakers
-import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.LandlordHome
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.LandlordHome
 import com.example.houseopscaretakers.feature_landlord.feature_settings.LandlordSettings
 import com.example.houseopscaretakers.navigation.LandlordBottomNavScreens
 

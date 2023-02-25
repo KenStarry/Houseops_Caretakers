@@ -1,8 +1,8 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.domain.use_cases
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases
 
 import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.repository.LndHomeRepository
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.repository.LndHomeRepository
 
 class GetLandlordDetails(
     private val repository: LndHomeRepository

@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.presentation.viewmodel
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ModeNight
@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.model.LndHomeEvents
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.use_cases.LndHomeUseCases
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.LndHomeUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

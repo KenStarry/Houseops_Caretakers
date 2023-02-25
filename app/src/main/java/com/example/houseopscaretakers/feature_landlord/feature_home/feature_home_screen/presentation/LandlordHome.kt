@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.presentation
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation
 
 import android.content.Context
 import android.graphics.Paint.Align
@@ -24,10 +24,10 @@ import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.MyLottie
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
-import com.example.houseopscaretakers.feature_landlord.feature_home.domain.model.LndHomeEvents
-import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.components.LndHomeAppBar
-import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.components.LndHomeGreetings
-import com.example.houseopscaretakers.feature_landlord.feature_home.presentation.viewmodel.LndHomeViewModel
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +57,8 @@ fun LandlordHome(
     var greetingsText by remember { mutableStateOf("") }
     var greetingsIcon by remember { mutableStateOf(Icons.Outlined.ModeNight) }
 
-    lndHomeVM.onEvent(LndHomeEvents.FilterGreetingsText(
+    lndHomeVM.onEvent(
+        LndHomeEvents.FilterGreetingsText(
         currentHour = currentHour,
         greetings = { text, icon ->
             greetingsText = text

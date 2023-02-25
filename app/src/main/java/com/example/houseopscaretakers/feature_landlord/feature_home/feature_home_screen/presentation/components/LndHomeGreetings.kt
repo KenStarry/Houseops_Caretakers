@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.presentation.components
+package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

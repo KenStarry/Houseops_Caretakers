@@ -13,6 +13,8 @@ object NavConstants {
 
     //  Landlord screen
     const val LANDLORD_MAIN_SCREEN_ROUTE = "landlord_main"
+    const val LANDLORD_ADD_APARTMENT_SCREEN = "landlord_add_apartment"
+    //  bottom nav screens
     const val LANDLORD_HOME_SCREEN_ROUTE = "landlord_home"
     const val LANDLORD_CARETAKERS_SCREEN_ROUTE = "landlord_caretakers"
     const val LANDLORD_SETTINGS_SCREEN_ROUTE = "landlord_settings"

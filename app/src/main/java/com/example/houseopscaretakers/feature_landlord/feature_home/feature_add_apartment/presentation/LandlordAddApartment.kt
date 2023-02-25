@@ -82,6 +82,10 @@ fun LandlordAddApartment(
                             lndAddApartmentVM.featureDescription.value = ""
                         },
                         onCancel = {
+
+                            lndAddApartmentVM.featureTitle.value = ""
+                            lndAddApartmentVM.featureDescription.value = ""
+
                             lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
                                 state = modalSheetState,
                                 scope = scope

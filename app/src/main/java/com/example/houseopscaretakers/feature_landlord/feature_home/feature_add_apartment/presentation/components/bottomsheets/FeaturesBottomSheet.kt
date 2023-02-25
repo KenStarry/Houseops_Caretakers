@@ -90,10 +90,10 @@ fun FeaturesBottomSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            //  save button
+            //  cancel button
             TextButton(
                 onClick = {
-                    onDone(featureTitle, featureDescription)
+                    onCancel()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary,
@@ -115,9 +115,10 @@ fun FeaturesBottomSheet(
 
             //  save button
             TextButton(onClick = {
-                featureTitle = ""
-                featureDescription = ""
-                onCancel()
+                onDone(
+                    lndAddApartmentVM.featureTitle.value,
+                    lndAddApartmentVM.featureDescription.value
+                )
             }) {
 
                 Icon(

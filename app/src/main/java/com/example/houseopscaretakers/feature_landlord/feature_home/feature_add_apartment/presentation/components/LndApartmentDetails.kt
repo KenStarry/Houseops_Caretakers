@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeatureItem
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @Composable
@@ -33,6 +35,7 @@ fun LndApartmentDetails(
 ) {
 
     val listState = rememberLazyListState()
+    val context = LocalContext.current
 
     Column(
         modifier = modifier,
@@ -224,18 +227,22 @@ fun LndApartmentDetails(
             }
 
             //  categories added
-            LazyRow(content = {
-                items(
-                    items = lndAddApartmentVM.apartmentFeatures
-                ) {
-
-                    //  feature item
-
-                }
-            })
+            LazyRow(
+                content = {
+                    items(
+                        items = lndAddApartmentVM.apartmentFeatures
+                    ) {
+                        //  feature item
+                        FeatureItem(apartmentFeature = it)
+                    }
+                },
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+            )
 
         }
-
 
 
         //  apartment features e.g security type, social ammenities... etc (list)

@@ -14,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.example.houseopscaretakers.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LndApartmentMain(
     direction: Direction,
+    lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit
 ) {
     Scaffold(
@@ -51,6 +53,7 @@ fun LndApartmentMain(
                 LndApartmentDetails(
                     modifier = Modifier
                         .fillMaxSize(),
+                    lndAddApartmentVM = lndAddApartmentVM,
                     onLocationClicked = {
                         //  open places api
                         onLocationClicked()

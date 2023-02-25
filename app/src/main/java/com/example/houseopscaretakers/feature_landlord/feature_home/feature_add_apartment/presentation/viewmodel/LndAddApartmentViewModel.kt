@@ -28,6 +28,8 @@ class LndAddApartmentViewModel : ViewModel() {
     var bottomSheetType by mutableStateOf("none")
         private set
 
+    val pickedLocation = mutableStateOf("No Location")
+
     private var job: Job? = null
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -61,6 +63,7 @@ class LndAddApartmentViewModel : ViewModel() {
                 }
 
             }
+
             is LndApartmentEvents.CloseBottomSheet -> {
                 //  close bottom sheet
                 event.scope.launch {

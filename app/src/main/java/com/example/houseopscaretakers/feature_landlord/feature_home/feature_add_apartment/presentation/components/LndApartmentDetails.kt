@@ -22,10 +22,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @Composable
 fun LndApartmentDetails(
     modifier: Modifier = Modifier,
+    lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit
 ) {
 
@@ -89,7 +91,7 @@ fun LndApartmentDetails(
             ) {
 
                 Text(
-                    text = "No Location",
+                    text = lndAddApartmentVM.pickedLocation.value,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)

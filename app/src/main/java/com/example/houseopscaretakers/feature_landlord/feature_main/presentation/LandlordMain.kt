@@ -31,13 +31,6 @@ fun LandlordMain(
     val navController = rememberNavController()
 
     Scaffold(
-        floatingActionButton = {
-            ExtendedFab(
-                icon = Icons.Outlined.Apartment,
-                text = "Add Apartment",
-                onClick = {}
-            )
-        },
         bottomBar = {
             MainBottomNav(
                 navHostController = navController

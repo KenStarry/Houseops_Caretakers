@@ -22,11 +22,6 @@ fun NavGraphBuilder.landlordNavGraph(
         composable(route = LandlordScreens.Main.route) {
             LandlordMain(navHostController = navHostController)
         }
-
-        //  landlord add apartment screen
-        composable(route = LandlordScreens.AddApartment.route) {
-            LandlordAddApartment(navHostController = navHostController)
-        }
     }
 
 }

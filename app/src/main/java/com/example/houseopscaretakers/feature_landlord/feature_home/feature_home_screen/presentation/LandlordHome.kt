@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ModeNight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,12 +23,15 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.domain.model.Response
+import com.example.houseopscaretakers.core.presentation.components.ExtendedFab
 import com.example.houseopscaretakers.core.presentation.components.MyLottie
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
+import com.example.houseopscaretakers.navigation.Direction
+import com.example.houseopscaretakers.navigation.LandlordScreens
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,6 +42,7 @@ fun LandlordHome(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val lndHomeVM: LndHomeViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     lndHomeVM.onEvent(
         LndHomeEvents.GetLandlordDetails(
@@ -46,9 +51,7 @@ fun LandlordHome(
     )
 
     val landlord = lndHomeVM.landlordDetails.value
-
     val context = LocalContext.current
-
     val calendar = Calendar.getInstance()
 
     val currentHour by remember {
@@ -59,12 +62,12 @@ fun LandlordHome(
 
     lndHomeVM.onEvent(
         LndHomeEvents.FilterGreetingsText(
-        currentHour = currentHour,
-        greetings = { text, icon ->
-            greetingsText = text
-            greetingsIcon = icon
-        }
-    ))
+            currentHour = currentHour,
+            greetings = { text, icon ->
+                greetingsText = text
+                greetingsIcon = icon
+            }
+        ))
 
     Scaffold(
         topBar = {
@@ -72,7 +75,16 @@ fun LandlordHome(
                 context = context,
                 imageUri = landlord?.landlordImage?.toUri()
             )
-        }
+        },
+        floatingActionButton = {
+            ExtendedFab(
+                icon = Icons.Outlined.Apartment,
+                text = "Add Apartment",
+                onClick = {
+                    direction.navigateToRoute(LandlordScreens.AddApartment.route)
+                }
+            )
+        },
     ) { contentPadding ->
 
         Box(

@@ -6,6 +6,6 @@ sealed class LandlordScreens(
 
     object Main : LandlordScreens(NavConstants.LANDLORD_MAIN_SCREEN_ROUTE)
 
-    object AddApartment : LandlordScreens(NavConstants.LANDLORD_ADD_APARTMENT_SCREEN)
+    object AddApartment : LandlordScreens(NavConstants.LANDLORD_ADD_APARTMENT_SCREEN_ROUTE)
 
 }

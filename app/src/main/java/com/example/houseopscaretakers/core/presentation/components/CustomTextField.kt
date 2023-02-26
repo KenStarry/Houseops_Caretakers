@@ -78,7 +78,7 @@ fun CustomTextField(
 
         if (isPassword) {
             TextField(
-                value = textFieldState,
+                value = textFieldValue,
                 onValueChange = {
                     textFieldState = it
                     onInput(textFieldState)
@@ -134,7 +134,7 @@ fun CustomTextField(
             )
         } else {
             TextField(
-                value = textFieldState,
+                value = textFieldValue,
                 onValueChange = {
                     textFieldState = it
                     onInput(textFieldState)

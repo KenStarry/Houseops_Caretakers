@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
+import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
@@ -19,6 +22,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.example.houseopscaretakers.navigation.Direction
 import com.google.android.libraries.places.api.Places
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -28,22 +32,18 @@ fun LandlordAddApartment(
 
     val direction = Direction(navHostController)
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val lndAddApartmentVM = LndAddApartmentViewModel()
 
     //  initialize places client
     Places.initialize(context, BuildConfig.MAPS_API_KEY)
     lndAddApartmentVM.placesClient = Places.createClient(context)
 
-    val modalSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmStateChange = { it != ModalBottomSheetValue.HalfExpanded }
-    )
-
-    ModalBottomSheetLayout(
-        sheetContent = {
+    BottomSheet(
+        sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
+        sheetContent = { state, scope ->
 
             when (lndAddApartmentVM.bottomSheetType) {
+
                 LndApartmentConstants.PLACES_BOTTOM_SHEET -> {
                     //  open places bottomsheet
                     PlacesBottomSheet(
@@ -52,10 +52,12 @@ fun LandlordAddApartment(
 
                             lndAddApartmentVM.pickedLocation.value = it
 
-                            lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
-                                state = modalSheetState,
-                                scope = scope
-                            ))
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.CloseBottomSheet(
+                                    state = state,
+                                    scope = scope
+                                )
+                            )
                         }
                     )
                 }
@@ -63,20 +65,24 @@ fun LandlordAddApartment(
                 LndApartmentConstants.FEATURES_BOTTOM_SHEET -> {
                     FeaturesBottomSheet(
                         lndAddApartmentVM = lndAddApartmentVM,
-                        onDone = {title, description ->
+                        onDone = { title, description ->
 
                             //  add the feature to viewmodel
-                            lndAddApartmentVM.onEvent(LndApartmentEvents.AddFeature(
-                                apartmentFeature = ApartmentFeature(
-                                    title = title,
-                                    description = description
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.AddFeature(
+                                    apartmentFeature = ApartmentFeature(
+                                        title = title,
+                                        description = description
+                                    )
                                 )
-                            ))
+                            )
 
-                            lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
-                                state = modalSheetState,
-                                scope = scope
-                            ))
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.CloseBottomSheet(
+                                    state = state,
+                                    scope = scope
+                                )
+                            )
 
                             lndAddApartmentVM.featureTitle.value = ""
                             lndAddApartmentVM.featureDescription.value = ""
@@ -86,39 +92,31 @@ fun LandlordAddApartment(
                             lndAddApartmentVM.featureTitle.value = ""
                             lndAddApartmentVM.featureDescription.value = ""
 
-                            lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
-                                state = modalSheetState,
-                                scope = scope
-                            ))
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.CloseBottomSheet(
+                                    state = state,
+                                    scope = scope
+                                )
+                            )
                         }
                     )
                 }
 
                 else -> {
-                    PlacesBottomSheet(
-                        lndAddApartmentVM = lndAddApartmentVM,
-                        onInput = {
-
-                        }
-                    )
+                    Column {
+                        Text(text = "")
+                    }
                 }
             }
         },
-        sheetState = modalSheetState,
-        sheetShape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
-        ),
-        sheetBackgroundColor = MaterialTheme.colorScheme.onPrimary,
-        sheetContentColor = MaterialTheme.colorScheme.onPrimary,
-        content = {
+        sheetScope = { state, scope ->
             LndApartmentMain(
                 direction = direction,
                 lndAddApartmentVM = lndAddApartmentVM,
                 onLocationClicked = {
                     lndAddApartmentVM.onEvent(
                         LndApartmentEvents.OpenBottomSheet(
-                            state = modalSheetState,
+                            state = state,
                             scope = scope,
                             bottomSheetType = LndApartmentConstants.PLACES_BOTTOM_SHEET
                         )
@@ -127,15 +125,22 @@ fun LandlordAddApartment(
                 onHouseFeaturesClicked = {
                     lndAddApartmentVM.onEvent(
                         LndApartmentEvents.OpenBottomSheet(
-                            state = modalSheetState,
+                            state = state,
                             scope = scope,
                             bottomSheetType = LndApartmentConstants.FEATURES_BOTTOM_SHEET
                         )
                     )
                 }
             )
+        },
+        closeBottomSheet = { state, scope ->
+            lndAddApartmentVM.onEvent(LndApartmentEvents.CloseBottomSheet(
+                state = state,
+                scope = scope
+            ))
         }
     )
+
 
 
 }

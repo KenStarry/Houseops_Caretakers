@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.ApartmentFeaturesSection
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeatureItem
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
@@ -38,7 +39,6 @@ fun LndApartmentDetails(
     onHouseFeaturesClicked: () -> Unit
 ) {
 
-    val listState = rememberLazyListState()
     val context = LocalContext.current
 
     Column(
@@ -183,76 +183,10 @@ fun LndApartmentDetails(
         }
 
         //  apartment features section
-        //  section items
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .background(
-                    color = MaterialTheme.colorScheme.onSecondary,
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .padding(8.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-
-            //  house categories
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = "Apartment Features",
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
-
-                Icon(
-                    imageVector = Icons.Outlined.ArrowRight,
-                    contentDescription = "Right arrow",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
-
-                Button(onClick = { onHouseFeaturesClicked() }) {
-                    Text(
-                        text = "Add Feature",
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-                }
-
-            }
-
-            //  categories added
-            AnimatedVisibility(visible = lndAddApartmentVM.apartmentFeatures.isNotEmpty()) {
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                LazyRow(
-                    content = {
-                        items(
-                            items = lndAddApartmentVM.apartmentFeatures
-                        ) {
-                            //  feature item
-                            FeatureItem(apartmentFeature = it)
-                        }
-                    },
-                    state = listState,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                )
-            }
-
-        }
+        ApartmentFeaturesSection(
+            lndAddApartmentVM = lndAddApartmentVM,
+            onHouseFeaturesClicked = onHouseFeaturesClicked
+        )
 
 
         //  apartment features e.g security type, social ammenities... etc (list)

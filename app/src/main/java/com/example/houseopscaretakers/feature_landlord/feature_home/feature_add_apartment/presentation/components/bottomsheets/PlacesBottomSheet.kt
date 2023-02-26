@@ -19,13 +19,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PlacesBottomSheet(
     lndAddApartmentVM: LndAddApartmentViewModel,
-    onInput: (input: String) -> Unit
+    onInput: (input: PlacesAPIResult) -> Unit
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -53,6 +54,7 @@ fun PlacesBottomSheet(
             primaryColor = MaterialTheme.colorScheme.primary,
             tertiaryColor = MaterialTheme.colorScheme.tertiary,
             onInput = {
+                textLocation = it
                 lndAddApartmentVM.onEvent(LndApartmentEvents.SearchPlaces(it))
             }
         )
@@ -72,7 +74,7 @@ fun PlacesBottomSheet(
                                 keyboardController?.hide()
                                 textLocation = it.address
                                 lndAddApartmentVM.locationAutoFill.clear()
-                                onInput(textLocation)
+                                onInput(it)
                             }
                     ) {
 

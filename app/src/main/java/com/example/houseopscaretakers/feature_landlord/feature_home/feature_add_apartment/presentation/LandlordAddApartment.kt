@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
@@ -32,7 +33,7 @@ fun LandlordAddApartment(
 
     val direction = Direction(navHostController)
     val context = LocalContext.current
-    val lndAddApartmentVM = LndAddApartmentViewModel()
+    val lndAddApartmentVM: LndAddApartmentViewModel = hiltViewModel()
 
     //  initialize places client
     Places.initialize(context, BuildConfig.MAPS_API_KEY)
@@ -50,7 +51,8 @@ fun LandlordAddApartment(
                         lndAddApartmentVM = lndAddApartmentVM,
                         onInput = {
 
-                            lndAddApartmentVM.pickedLocation.value = it
+                            lndAddApartmentVM.pickedLocation.value = it.address
+                            lndAddApartmentVM.apartmentLocation.value = it
 
                             lndAddApartmentVM.onEvent(
                                 LndApartmentEvents.CloseBottomSheet(

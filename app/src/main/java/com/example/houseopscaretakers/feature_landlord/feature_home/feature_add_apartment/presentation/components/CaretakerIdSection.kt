@@ -13,9 +13,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @Composable
-fun CaretakerIdSection() {
+fun CaretakerIdSection(
+    lndAddApartmentVM: LndAddApartmentViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,6 +42,7 @@ fun CaretakerIdSection() {
 
             //  caretaker id
             CustomTextField(
+                textFieldValue = lndAddApartmentVM.apartmentCaretakerId.value,
                 startIcon = Icons.Outlined.Numbers,
                 endIcon = null,
                 placeholder = "Caretaker ID Number",
@@ -49,6 +53,7 @@ fun CaretakerIdSection() {
                 containerColor = MaterialTheme.colorScheme.onSecondary,
                 onInput = {
                     //  verify the details
+                    lndAddApartmentVM.apartmentCaretakerId.value = it
                 }
             )
 

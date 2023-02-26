@@ -5,7 +5,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 
 data class Apartment(
     val apartmentName: String,
-    val apartmentLocation: PlacesAPIResult,
+    val apartmentLocation: PlacesAPIResult?,
     val apartmentCaretakerId: String,
     val apartmentFeatures: List<ApartmentFeature>
 )

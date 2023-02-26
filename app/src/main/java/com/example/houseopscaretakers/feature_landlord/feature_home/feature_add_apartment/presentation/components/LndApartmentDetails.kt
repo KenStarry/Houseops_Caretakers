@@ -49,6 +49,7 @@ fun LndApartmentDetails(
 
         //  add apartment
         CustomTextField(
+            textFieldValue = lndAddApartmentVM.apartmentName.value,
             startIcon = Icons.Outlined.Apartment,
             endIcon = null,
             placeholder = "Apartment Name",
@@ -60,6 +61,7 @@ fun LndApartmentDetails(
             fontWeight = FontWeight.Bold,
             onInput = {
                 //  verify the details
+                lndAddApartmentVM.apartmentName.value = it
             }
         )
 
@@ -70,7 +72,9 @@ fun LndApartmentDetails(
         )
 
         //  caretaker id section
-        CaretakerIdSection()
+        CaretakerIdSection(
+            lndAddApartmentVM = lndAddApartmentVM
+        )
 
         //  apartment features section
         ApartmentFeaturesSection(

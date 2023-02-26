@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,9 +13,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.BackPressTopBar
 import com.example.houseopscaretakers.core.presentation.components.DoneCancelButtons
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.example.houseopscaretakers.navigation.Direction
 
@@ -26,6 +32,8 @@ fun LndApartmentMain(
     onLocationClicked: () -> Unit,
     onHouseFeaturesClicked: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             BackPressTopBar(
@@ -69,7 +77,37 @@ fun LndApartmentMain(
 
                 //  cancel and done buttons
                 DoneCancelButtons(
-                    onDone = { /*TODO*/ },
+                    onDone = {
+                        lndAddApartmentVM.onEvent(
+                            LndApartmentEvents.AddApartment(
+                                apartment = Apartment(
+                                    apartmentName = lndAddApartmentVM.apartmentName.value,
+                                    apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
+                                    apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,
+                                    apartmentFeatures = lndAddApartmentVM.apartmentFeatures
+                                ),
+                                response = {
+                                    when (it) {
+                                        is Response.Success -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Apartment Added Successfully",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        is Response.Loading -> {}
+                                        is Response.Failure -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Something went wrong.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
+                            )
+                        )
+                    },
                     onCancel = {}
                 )
 

@@ -28,10 +28,11 @@ import com.example.houseopscaretakers.navigation.Direction
 @Composable
 fun LndApartmentMain(
     direction: Direction,
-    landlordEmail: String,
     lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit,
-    onHouseFeaturesClicked: () -> Unit
+    onHouseFeaturesClicked: () -> Unit,
+    onDone: () -> Unit,
+    onCancel: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -78,39 +79,8 @@ fun LndApartmentMain(
 
                 //  cancel and done buttons
                 DoneCancelButtons(
-                    onDone = {
-                        lndAddApartmentVM.onEvent(
-                            LndApartmentEvents.AddApartment(
-                                apartment = Apartment(
-                                    apartmentLandlordEmail = landlordEmail,
-                                    apartmentName = lndAddApartmentVM.apartmentName.value,
-                                    apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
-                                    apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,
-                                    apartmentFeatures = lndAddApartmentVM.apartmentFeatures
-                                ),
-                                response = {
-                                    when (it) {
-                                        is Response.Success -> {
-                                            Toast.makeText(
-                                                context,
-                                                "Apartment Added Successfully",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                        is Response.Loading -> {}
-                                        is Response.Failure -> {
-                                            Toast.makeText(
-                                                context,
-                                                "Something went wrong.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    }
-                                }
-                            )
-                        )
-                    },
-                    onCancel = {}
+                    onDone = { onDone() },
+                    onCancel = { onCancel() }
                 )
 
             }

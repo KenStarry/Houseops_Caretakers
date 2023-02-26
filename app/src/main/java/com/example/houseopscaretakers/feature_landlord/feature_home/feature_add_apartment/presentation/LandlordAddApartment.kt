@@ -14,8 +14,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
@@ -48,7 +50,6 @@ fun LandlordAddApartment(
     )
     val landlord = lndHomeVM.landlordDetails.value
 
-    Toast.makeText(context, "email : ${landlord?.landlordEmail}", Toast.LENGTH_SHORT).show()
 
     //  initialize places client
     Places.initialize(context, BuildConfig.MAPS_API_KEY)
@@ -129,7 +130,6 @@ fun LandlordAddApartment(
         sheetScope = { state, scope ->
             LndApartmentMain(
                 direction = direction,
-                landlordEmail = landlord?.landlordEmail ?: "no email",
                 lndAddApartmentVM = lndAddApartmentVM,
                 onLocationClicked = {
                     lndAddApartmentVM.onEvent(
@@ -148,6 +148,44 @@ fun LandlordAddApartment(
                             bottomSheetType = LndApartmentConstants.FEATURES_BOTTOM_SHEET
                         )
                     )
+                },
+                onDone = {
+                    lndAddApartmentVM.onEvent(
+                        LndApartmentEvents.AddApartment(
+                            apartment = Apartment(
+                                apartmentLandlordEmail = landlord?.landlordEmail ?: "no email",
+                                apartmentName = lndAddApartmentVM.apartmentName.value,
+                                apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
+                                apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,
+                                apartmentFeatures = lndAddApartmentVM.apartmentFeatures
+                            ),
+                            response = {
+                                when (it) {
+                                    is Response.Success -> {
+
+                                        Toast.makeText(
+                                            context,
+                                            "Apartment Added Successfully",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+
+                                        direction.navigateUp()
+                                    }
+                                    is Response.Loading -> {}
+                                    is Response.Failure -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Something went wrong.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+                        )
+                    )
+                },
+                onCancel = {
+                    direction.navigateUp()
                 }
             )
         },

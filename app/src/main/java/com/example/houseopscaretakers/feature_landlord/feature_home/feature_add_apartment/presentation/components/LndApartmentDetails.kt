@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,9 +16,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,6 +29,7 @@ import com.example.houseopscaretakers.core.presentation.components.CustomTextFie
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeatureItem
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LndApartmentDetails(
     modifier: Modifier = Modifier,
@@ -189,8 +193,7 @@ fun LndApartmentDetails(
                     shape = RoundedCornerShape(16.dp)
                 )
                 .padding(8.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalAlignment = Alignment.Start
         ) {
 
             //  house categories
@@ -227,20 +230,27 @@ fun LndApartmentDetails(
             }
 
             //  categories added
-            LazyRow(
-                content = {
-                    items(
-                        items = lndAddApartmentVM.apartmentFeatures
-                    ) {
-                        //  feature item
-                        FeatureItem(apartmentFeature = it)
-                    }
-                },
-                state = listState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-            )
+            AnimatedVisibility(visible = lndAddApartmentVM.apartmentFeatures.isNotEmpty()) {
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                LazyRow(
+                    content = {
+                        items(
+                            items = lndAddApartmentVM.apartmentFeatures
+                        ) {
+                            //  feature item
+                            FeatureItem(apartmentFeature = it)
+                        }
+                    },
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                )
+            }
 
         }
 

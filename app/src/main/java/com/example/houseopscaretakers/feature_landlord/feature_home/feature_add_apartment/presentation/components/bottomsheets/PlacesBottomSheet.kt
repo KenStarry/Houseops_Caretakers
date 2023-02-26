@@ -10,7 +10,9 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -19,11 +21,14 @@ import com.example.houseopscaretakers.core.presentation.components.CustomTextFie
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PlacesBottomSheet(
     lndAddApartmentVM: LndAddApartmentViewModel,
     onInput: (input: String) -> Unit
 ) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     var textLocation by remember {
         mutableStateOf("")
@@ -63,6 +68,8 @@ fun PlacesBottomSheet(
                             .fillMaxWidth()
                             .padding(16.dp)
                             .clickable {
+                                
+                                keyboardController?.hide()
                                 textLocation = it.address
                                 lndAddApartmentVM.locationAutoFill.clear()
                                 onInput(textLocation)

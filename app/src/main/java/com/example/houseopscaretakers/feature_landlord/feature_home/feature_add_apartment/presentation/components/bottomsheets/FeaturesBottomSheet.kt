@@ -10,7 +10,9 @@ import androidx.compose.material.icons.outlined.Title
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FeaturesBottomSheet(
     lndAddApartmentVM: LndAddApartmentViewModel,
@@ -28,9 +31,7 @@ fun FeaturesBottomSheet(
     onCancel: () -> Unit,
 ) {
 
-    var featureTitle by remember { mutableStateOf("") }
-    var featureDescription by remember { mutableStateOf("") }
-
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = Modifier
@@ -93,6 +94,7 @@ fun FeaturesBottomSheet(
             //  cancel button
             TextButton(
                 onClick = {
+                    keyboardController?.hide()
                     onCancel()
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -115,6 +117,7 @@ fun FeaturesBottomSheet(
 
             //  save button
             TextButton(onClick = {
+                keyboardController?.hide()
                 onDone(
                     lndAddApartmentVM.featureTitle.value,
                     lndAddApartmentVM.featureDescription.value

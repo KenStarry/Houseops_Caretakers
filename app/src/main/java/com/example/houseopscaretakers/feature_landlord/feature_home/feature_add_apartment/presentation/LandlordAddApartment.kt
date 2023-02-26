@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
+import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
@@ -21,6 +23,8 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.PlacesBottomSheet
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.utils.LndApartmentConstants
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 import com.example.houseopscaretakers.navigation.Direction
 import com.google.android.libraries.places.api.Places
 import kotlinx.coroutines.launch
@@ -34,6 +38,17 @@ fun LandlordAddApartment(
     val direction = Direction(navHostController)
     val context = LocalContext.current
     val lndAddApartmentVM: LndAddApartmentViewModel = hiltViewModel()
+    val coreVM: CoreViewModel = hiltViewModel()
+    val lndHomeVM: LndHomeViewModel = hiltViewModel()
+
+    lndHomeVM.onEvent(
+        LndHomeEvents.GetLandlordDetails(
+            email = coreVM.currentUser()?.email ?: "no user"
+        )
+    )
+    val landlord = lndHomeVM.landlordDetails.value
+
+    Toast.makeText(context, "email : ${landlord?.landlordEmail}", Toast.LENGTH_SHORT).show()
 
     //  initialize places client
     Places.initialize(context, BuildConfig.MAPS_API_KEY)
@@ -114,6 +129,7 @@ fun LandlordAddApartment(
         sheetScope = { state, scope ->
             LndApartmentMain(
                 direction = direction,
+                landlordEmail = landlord?.landlordEmail ?: "no email",
                 lndAddApartmentVM = lndAddApartmentVM,
                 onLocationClicked = {
                     lndAddApartmentVM.onEvent(

@@ -19,8 +19,6 @@ class LndAddApartmentRepositoryImpl(
 
             val documentRef = db.collection(Constants.APARTMENTS_COLLECTION)
                 .document(apartment.apartmentName)
-                .collection(Constants.HOUSES_SUB_COLLECTION)
-                .document("Details")
 
             documentRef.set(apartment)
                 .addOnSuccessListener { response(Response.Success(true)) }

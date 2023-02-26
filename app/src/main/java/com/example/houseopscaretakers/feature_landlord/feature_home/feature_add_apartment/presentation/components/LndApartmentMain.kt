@@ -28,6 +28,7 @@ import com.example.houseopscaretakers.navigation.Direction
 @Composable
 fun LndApartmentMain(
     direction: Direction,
+    landlordEmail: String,
     lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit,
     onHouseFeaturesClicked: () -> Unit
@@ -81,6 +82,7 @@ fun LndApartmentMain(
                         lndAddApartmentVM.onEvent(
                             LndApartmentEvents.AddApartment(
                                 apartment = Apartment(
+                                    apartmentLandlordEmail = landlordEmail,
                                     apartmentName = lndAddApartmentVM.apartmentName.value,
                                     apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
                                     apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,

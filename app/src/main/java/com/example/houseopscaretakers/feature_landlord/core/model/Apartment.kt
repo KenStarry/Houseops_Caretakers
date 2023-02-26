@@ -4,6 +4,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
 
 data class Apartment(
+    val apartmentLandlordEmail: String,
     val apartmentName: String,
     val apartmentLocation: PlacesAPIResult?,
     val apartmentCaretakerId: String,

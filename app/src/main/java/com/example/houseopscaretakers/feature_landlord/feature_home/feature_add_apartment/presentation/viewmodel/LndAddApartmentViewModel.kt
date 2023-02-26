@@ -12,12 +12,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.use_case.AddApartmentUseCases
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LndAddApartmentViewModel : ViewModel() {
+@HiltViewModel
+class LndAddApartmentViewModel @Inject constructor(
+    private val useCases: AddApartmentUseCases
+) : ViewModel() {
 
     lateinit var placesClient: PlacesClient
 
@@ -39,6 +45,16 @@ class LndAddApartmentViewModel : ViewModel() {
     fun onEvent(event: LndApartmentEvents) {
 
         when (event) {
+
+            is LndApartmentEvents.AddApartment -> {
+                viewModelScope.launch {
+                    useCases.addApartment(
+                        apartment = event.apartment,
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
             is LndApartmentEvents.SearchPlaces -> {
                 job?.cancel()
                 locationAutoFill.clear()

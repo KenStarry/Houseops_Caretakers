@@ -2,10 +2,17 @@ package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
 import kotlinx.coroutines.CoroutineScope
 
 sealed class LndApartmentEvents {
+
+    data class AddApartment(
+        val apartment: Apartment,
+        val response: (response: Response<*>) -> Unit
+    ) : LndApartmentEvents()
 
     data class SearchPlaces(
         val query: String

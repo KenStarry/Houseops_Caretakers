@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.feature_landlord.feature_home.feature_hom
 
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.data.repository.LndHomeRepositoryImpl
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.repository.LndHomeRepository
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.GetLandlordApartments
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.GetLandlordDetails
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.LndHomeUseCases
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,7 +27,8 @@ object LndHomeModule {
     fun provideLndHomeUseCases(
         repo: LndHomeRepository
     ) = LndHomeUseCases(
-        getLandlordDetails = GetLandlordDetails(repo)
+        getLandlordDetails = GetLandlordDetails(repo),
+        getLandlordApartments = GetLandlordApartments(repo)
     )
 
 }

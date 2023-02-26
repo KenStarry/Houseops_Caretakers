@@ -3,11 +3,17 @@ package com.example.houseopscaretakers.feature_landlord.feature_home.feature_hom
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
 
 sealed class LndHomeEvents {
 
     data class GetLandlordDetails(
         val email: String
+    ) : LndHomeEvents()
+
+    data class GetLandlordApartments(
+        val email: String,
+        val response: (response: Response<*>) -> Unit
     ) : LndHomeEvents()
 
     data class FilterGreetingsText(

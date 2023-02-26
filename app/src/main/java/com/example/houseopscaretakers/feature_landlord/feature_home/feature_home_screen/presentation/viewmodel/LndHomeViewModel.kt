@@ -41,7 +41,6 @@ class LndHomeViewModel @Inject constructor(
                                     _landlordDetails.value = it.data as Landlord
                                 }
                                 is Response.Failure -> {}
-                                is Response.Loading -> {}
                             }
                         }
                     )

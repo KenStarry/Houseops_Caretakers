@@ -116,7 +116,6 @@ fun SignUpScreen(
                                                         Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT)
                                                             .show()
                                                     }
-                                                    is Response.Loading -> {}
                                                 }
                                             }
                                         ))
@@ -149,7 +148,6 @@ fun SignUpScreen(
                                                         Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT)
                                                             .show()
                                                     }
-                                                    is Response.Loading -> {}
                                                 }
                                             }
                                         ))
@@ -165,10 +163,6 @@ fun SignUpScreen(
                                 }
                                 is Response.Failure -> {
                                     Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
-                                }
-
-                                is Response.Loading -> {
-
                                 }
                             }
                         }

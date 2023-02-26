@@ -93,7 +93,6 @@ class SignUpViewModel @Inject constructor(
                         is Response.Failure -> {
                             onFailure()
                         }
-                        Response.Loading -> {}
                     }
                 }
             )

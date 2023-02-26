@@ -1,17 +1,15 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel
 
 import android.util.Log
-import androidx.compose.animation.core.Ease
-import androidx.compose.animation.core.tween
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
+import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.PlacesAPIResult
+import com.example.houseopscaretakers.feature_landlord.core.model.PlacesAPIResult
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.use_case.AddApartmentUseCases
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient

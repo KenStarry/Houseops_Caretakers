@@ -1,16 +1,12 @@
 package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation
 
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.BuildConfig
@@ -18,7 +14,7 @@ import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.BottomSheet
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.ApartmentFeature
+import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeaturesBottomSheet
@@ -29,7 +25,6 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 import com.example.houseopscaretakers.navigation.Direction
 import com.google.android.libraries.places.api.Places
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -171,7 +166,6 @@ fun LandlordAddApartment(
 
                                         direction.navigateUp()
                                     }
-                                    is Response.Loading -> {}
                                     is Response.Failure -> {
                                         Toast.makeText(
                                             context,

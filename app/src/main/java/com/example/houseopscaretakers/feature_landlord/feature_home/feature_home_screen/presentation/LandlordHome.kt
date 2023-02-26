@@ -42,6 +42,8 @@ fun LandlordHome(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val lndHomeVM: LndHomeViewModel = hiltViewModel()
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
     val direction = Direction(navHostController)
 
     lndHomeVM.onEvent(
@@ -50,9 +52,13 @@ fun LandlordHome(
         )
     )
 
+    lndHomeVM.onEvent(
+        LndHomeEvents.GetLandlordApartments(
+            email = lndHomeVM.landlordDetails.value?.landlordEmail ?: "no email",
+            response = {}
+        )
+    )
     val landlord = lndHomeVM.landlordDetails.value
-    val context = LocalContext.current
-    val calendar = Calendar.getInstance()
 
     val currentHour by remember {
         mutableStateOf(calendar.get(Calendar.HOUR_OF_DAY))
@@ -105,7 +111,10 @@ fun LandlordHome(
                 LndHomeGreetings(
                     landlordName = landlord?.landlordName ?: "",
                     greetingsText = greetingsText,
-                    greetingsIcon = greetingsIcon
+                    greetingsIcon = greetingsIcon,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
                 )
 
                 //  apartments section

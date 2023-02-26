@@ -28,8 +28,8 @@ class LndHomeViewModel @Inject constructor(
     private val _landlordDetails = mutableStateOf<Landlord?>(null)
     val landlordDetails: State<Landlord?> = _landlordDetails
 
-    private val _landlordApartments = mutableStateListOf<Apartment>()
-    val landlordApartments: SnapshotStateList<Apartment> = _landlordApartments
+    private val _landlordApartments = mutableStateOf<List<Apartment>>(listOf())
+    val landlordApartments: State<List<Apartment>> = _landlordApartments
 
     fun onEvent(event: LndHomeEvents) {
         when (event) {
@@ -58,7 +58,7 @@ class LndHomeViewModel @Inject constructor(
                     useCases.getLandlordApartments(
                         email = event.email,
                         apartments = {
-                            _landlordApartments += it
+                            _landlordApartments.value = it
                         },
                         response = {}
                     )

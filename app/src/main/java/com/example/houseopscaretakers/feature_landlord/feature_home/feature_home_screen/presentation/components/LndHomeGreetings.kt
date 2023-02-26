@@ -21,17 +21,23 @@ fun LndHomeGreetings(
     greetingsIcon: ImageVector,
 ) {
 
-    Column(
+    Row(
         modifier = modifier,
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
+
+        Text(
+            text = landlordName,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+        )
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                .wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -59,13 +65,6 @@ fun LndHomeGreetings(
             )
 
         }
-
-        Text(
-            text = landlordName,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-        )
 
     }
 }

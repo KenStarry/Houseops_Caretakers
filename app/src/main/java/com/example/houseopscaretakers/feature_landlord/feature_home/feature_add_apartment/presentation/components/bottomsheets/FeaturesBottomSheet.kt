@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
+import com.example.houseopscaretakers.core.presentation.components.DoneCancelButtons
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -55,12 +56,12 @@ fun FeaturesBottomSheet(
             textFieldValue = lndAddApartmentVM.featureTitle.value,
             startIcon = Icons.Outlined.Title,
             endIcon = null,
-            placeholder = "Feature Title",
+            placeholder = "e.g Security, Parking etc.",
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Text,
             primaryColor = MaterialTheme.colorScheme.primary,
             tertiaryColor = MaterialTheme.colorScheme.tertiary,
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontSize = MaterialTheme.typography.titleSmall.fontSize,
             fontWeight = FontWeight.Bold,
             onInput = {
                 lndAddApartmentVM.featureTitle.value = it
@@ -84,56 +85,19 @@ fun FeaturesBottomSheet(
             }
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            //  cancel button
-            TextButton(
-                onClick = {
-                    keyboardController?.hide()
-                    onCancel()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
-                    contentColor = MaterialTheme.colorScheme.error
-                )
-            ) {
-
-                Icon(
-                    imageVector = Icons.Outlined.Cancel,
-                    contentDescription = "cancel button"
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(text = "Cancel")
-            }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            //  save button
-            TextButton(onClick = {
+        DoneCancelButtons(
+            onDone = {
                 keyboardController?.hide()
                 onDone(
                     lndAddApartmentVM.featureTitle.value,
                     lndAddApartmentVM.featureDescription.value
                 )
-            }) {
-
-                Icon(
-                    imageVector = Icons.Outlined.Done,
-                    contentDescription = "Save button"
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(text = "Done")
+            },
+            onCancel = {
+                keyboardController?.hide()
+                onCancel()
             }
-        }
+        )
 
     }
 

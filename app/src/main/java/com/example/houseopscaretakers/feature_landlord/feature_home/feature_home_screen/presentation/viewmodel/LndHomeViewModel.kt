@@ -6,11 +6,14 @@ import androidx.compose.material.icons.outlined.WbCloudy
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.core.domain.model.Landlord
 import com.example.houseopscaretakers.core.domain.model.Response
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.LndHomeUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +27,9 @@ class LndHomeViewModel @Inject constructor(
 
     private val _landlordDetails = mutableStateOf<Landlord?>(null)
     val landlordDetails: State<Landlord?> = _landlordDetails
+
+    private val _landlordApartments = mutableStateListOf<Apartment>()
+    val landlordApartments: SnapshotStateList<Apartment> = _landlordApartments
 
     fun onEvent(event: LndHomeEvents) {
         when (event) {
@@ -43,6 +49,18 @@ class LndHomeViewModel @Inject constructor(
                                 is Response.Failure -> {}
                             }
                         }
+                    )
+                }
+            }
+
+            is LndHomeEvents.GetLandlordApartments -> {
+                viewModelScope.launch {
+                    useCases.getLandlordApartments(
+                        email = event.email,
+                        apartments = {
+                            _landlordApartments += it
+                        },
+                        response = {}
                     )
                 }
             }

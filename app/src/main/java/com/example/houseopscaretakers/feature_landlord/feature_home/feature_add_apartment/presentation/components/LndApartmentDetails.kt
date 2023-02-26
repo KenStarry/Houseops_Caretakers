@@ -64,123 +64,13 @@ fun LndApartmentDetails(
         )
 
         //  location section
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-
-            //  section items
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .background(
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(8.dp),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-
-                //  location
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    Text(
-                        text = "Location",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowRight,
-                        contentDescription = "Right arrow",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .background(MaterialTheme.colorScheme.tertiary)
-                            .clickable {
-                                //  open location bottomsheet
-                                onLocationClicked()
-                            }
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-
-                        Text(
-                            text = lndAddApartmentVM.pickedLocation.value,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                        )
-
-                        Icon(
-                            imageVector = Icons.Outlined.ExpandMore,
-                            contentDescription = "expand arrow",
-                            tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                        )
-
-                    }
-
-                }
-
-            }
-        }
+        LocationSection(
+            lndAddApartmentVM = lndAddApartmentVM,
+            onLocationClicked = onLocationClicked
+        )
 
         //  caretaker id section
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-
-            //  section items
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .background(
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(8.dp),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-
-                //  caretaker id
-                CustomTextField(
-                    startIcon = Icons.Outlined.Numbers,
-                    endIcon = null,
-                    placeholder = "Caretaker ID Number",
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Number,
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary,
-                    containerColor = MaterialTheme.colorScheme.onSecondary,
-                    onInput = {
-                        //  verify the details
-                    }
-                )
-
-            }
-        }
+        CaretakerIdSection()
 
         //  apartment features section
         ApartmentFeaturesSection(

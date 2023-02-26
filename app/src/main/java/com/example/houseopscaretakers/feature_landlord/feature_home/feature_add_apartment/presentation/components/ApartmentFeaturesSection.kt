@@ -90,7 +90,7 @@ fun ApartmentFeaturesSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(vertical = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             )
         }

@@ -26,10 +26,7 @@ fun FeatureItem(
 
     Card(
         modifier = Modifier
-            .size(
-                width = 150.dp,
-                height = 180.dp
-            ),
+            .wrapContentSize(),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
@@ -42,11 +39,11 @@ fun FeatureItem(
 
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .wrapContentSize()
                 .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             Box(
@@ -78,9 +75,11 @@ fun FeatureItem(
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
-                maxLines = 2,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .width(100.dp)
             )
 
         }

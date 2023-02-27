@@ -27,6 +27,7 @@ import com.example.houseopscaretakers.core.presentation.components.ExtendedFab
 import com.example.houseopscaretakers.core.presentation.components.MyLottie
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeApartments
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
@@ -125,23 +126,31 @@ fun LandlordHome(
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    MyLottie(
-                        lottieRaw = com.example.houseopscaretakers.R.raw.paperplane,
-                        isPlaying = true,
-                        iterations = Int.MAX_VALUE,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(0.5f)
-                    )
+                    if (lndHomeVM.landlordApartments.value.isEmpty()) {
+                        MyLottie(
+                            lottieRaw = com.example.houseopscaretakers.R.raw.paperplane,
+                            isPlaying = true,
+                            iterations = Int.MAX_VALUE,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.5f)
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(
-                        text = "Add Apartment to see it here.",
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
+                        Text(
+                            text = "Add Apartments to see them here.",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+                    } else {
+
+                        //  apartments section
+                        LndHomeApartments(
+                            lndHomeVM = lndHomeVM
+                        )
+                    }
 
                 }
 

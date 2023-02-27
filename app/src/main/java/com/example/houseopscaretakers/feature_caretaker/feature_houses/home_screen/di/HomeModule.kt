@@ -2,10 +2,7 @@ package com.example.houseopscaretakers.feature_caretaker.feature_houses.home_scr
 
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.data.repository.HouseRepositoryImpl
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.repository.HouseRepository
-import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.AddHouse
-import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.DeleteHouse
-import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.GetHouses
-import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.HouseUseCases
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.*
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -31,6 +28,7 @@ object HomeModule {
     ) = HouseUseCases(
         addHouse = AddHouse(repository),
         getHouses = GetHouses(repository),
-        deleteHouse = DeleteHouse(repository)
+        deleteHouse = DeleteHouse(repository),
+        getApartments = GetApartments(repository)
     )
 }

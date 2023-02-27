@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.*
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.HouseUseCases
+import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -54,8 +55,12 @@ class HomeViewModel @Inject constructor(
     val pillName: State<String> = _pillName
 
     //  price category
-    private val _priceCategory = mutableStateOf(com.example.houseopscaretakers.core.Constants.priceCategories[0])
+    private val _priceCategory =
+        mutableStateOf(com.example.houseopscaretakers.core.Constants.priceCategories[0])
     val priceCategory: State<String> = _priceCategory
+
+    private val _apartmentsList = mutableStateOf<List<Apartment>>(listOf())
+    val apartmentsList: State<List<Apartment>> = _apartmentsList
 
     //  ALERT DIALOGS
     private val _isApartmentsDialogVisible = mutableStateOf(false)
@@ -314,6 +319,17 @@ class HomeViewModel @Inject constructor(
                     useCases.deleteHouse(
                         apartmentName = event.apartmentName,
                         houseModel = event.houseModel
+                    )
+                }
+            }
+
+            is HomeEvents.GetApartments -> {
+                viewModelScope.launch {
+                    useCases.getApartments(
+                        apartments = {
+                            _apartmentsList.value = it
+                        },
+                        response = { event.response(it) }
                     )
                 }
             }

@@ -1,5 +1,7 @@
 package com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model
 
+import com.example.houseopscaretakers.core.domain.model.Response
+
 sealed class HomeEvents {
 
     object OpenDeleteDialog : HomeEvents()
@@ -17,5 +19,9 @@ sealed class HomeEvents {
     data class DeleteHouse(
         val apartmentName: String,
         val houseModel: HouseModel
+    ) : HomeEvents()
+
+    data class GetApartments(
+        val response: (response: Response<*>) -> Unit
     ) : HomeEvents()
 }

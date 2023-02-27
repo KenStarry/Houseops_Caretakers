@@ -3,5 +3,6 @@ package com.example.houseopscaretakers.feature_caretaker.feature_houses.home_scr
 data class HouseUseCases(
     val addHouse: AddHouse,
     val getHouses: GetHouses,
-    val deleteHouse: DeleteHouse
+    val deleteHouse: DeleteHouse,
+    val getApartments: GetApartments
 )

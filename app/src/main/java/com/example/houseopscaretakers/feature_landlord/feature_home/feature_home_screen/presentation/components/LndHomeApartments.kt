@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.utils.LndHomeConstants
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 
 @Composable
@@ -18,31 +19,22 @@ fun LndHomeApartments(
     lndHomeVM: LndHomeViewModel
 ) {
 
-    val listState = rememberLazyListState()
+    val alphabetListState = rememberLazyListState()
 
     LazyColumn(
         content = {
             items(
-                items = lndHomeVM.landlordApartments.value
+                items = LndHomeConstants.alphabets
             ) {
-
-                ApartmentItem(
-                    apartment = it,
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .padding(16.dp)
+                //  alphabet item
+                AlphabetItem(
+                    alphabet = it.toString(),
+                    apartmentList = lndHomeVM.landlordApartments.value.filter { apartment ->
+                        apartment.apartmentName.first() == it
+                    }
                 )
-
             }
         },
-        state = listState,
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier
-            .fillMaxSize()
+        state = alphabetListState
     )
 }

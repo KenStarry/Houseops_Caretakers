@@ -19,6 +19,9 @@ class HomeViewModel @Inject constructor(
     private val useCases: HouseUseCases
 ) : ViewModel() {
 
+    val caretakerId = mutableStateOf("")
+    val apartmentName = mutableStateOf("")
+
     //  house id
     val _houseID = mutableStateOf("")
     val houseID: State<String> = _houseID

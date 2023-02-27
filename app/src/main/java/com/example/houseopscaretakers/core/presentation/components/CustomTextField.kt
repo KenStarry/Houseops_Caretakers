@@ -3,6 +3,7 @@ package com.example.houseopscaretakers.core.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
@@ -38,7 +39,7 @@ fun CustomTextField(
     singleLine: Boolean = true,
     maxLines: Int = 1,
     fontWeight: FontWeight = FontWeight.Normal,
-    fontSize: TextUnit = MaterialTheme.typography.bodyLarge.fontSize,
+    fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
     onInput: (input: String) -> Unit
 ) {
 
@@ -98,6 +99,7 @@ fun CustomTextField(
                     keyboardType = keyboardType
                 ),
                 modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
                     .fillMaxWidth()
                     .wrapContentHeight(),
 
@@ -153,6 +155,7 @@ fun CustomTextField(
                     keyboardType = keyboardType
                 ),
                 modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
                     .fillMaxWidth()
                     .wrapContentHeight(),
 

@@ -27,47 +27,6 @@ class LoginViewModel @Inject constructor(
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
-    //  login user
-    fun loginUser(
-        email: String,
-        password: String,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit,
-        onLoading: () -> Unit
-    ) {
-
-        viewModelScope.launch {
-
-            useCase.loginUser(
-                email,
-                password,
-                onSuccess = {
-                    Log.d("LOGIN_MODEL", it.toString())
-                    onSuccess()
-//                    when (it) {
-//                        is StateResponse.Loading -> {
-//                            onLoading()
-//                        }
-//                        is StateResponse.Success -> {
-//                            onSuccess()
-//                        }
-//                        is StateResponse.Failure -> {
-//                            onFailure()
-//                        }
-//                        else -> {
-//                            onFailure()
-//                        }
-//                    }
-                }
-            )
-
-            //  login user and check the state
-
-            Log.d("LOGIN", useCase.loginUser(email, password, onSuccess = {}).toString())
-        }
-
-    }
-
     //  login events
     fun onEvent(event: LoginEvents) {
         when (event) {

@@ -20,10 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseopscaretakers.core.Constants
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.HomePillBtns
 import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
 import com.example.houseopscaretakers.core.presentation.model.RoutePath
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginEvents
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormEvent
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
 import com.example.houseopscaretakers.feature_authentication.login.presentation.components.LoginButtons
@@ -39,17 +41,8 @@ fun LoginScreen(
     navHostController: NavHostController,
     userType: String
 ) {
-
-    var emailInput by remember { mutableStateOf("") }
-    var passwordInput by remember { mutableStateOf("") }
-
     val context = LocalContext.current
     val direction = Direction(navHostController)
-
-    val coreVM: CoreViewModel = hiltViewModel()
-
-    //  get the current user type
-//    val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
 
     LaunchedEffect(key1 = context) {
         loginVM.validationEvents.collect { event ->
@@ -59,34 +52,40 @@ fun LoginScreen(
                     Log.d("login", "validation success!")
 
                     //  login user
-                    loginVM.loginUser(
-                        emailInput,
-                        passwordInput,
-                        onSuccess = {
-                            Log.d("login", "success")
+                    loginVM.onEvent(LoginEvents.LoginUser(
+                        email = loginVM.formState.email,
+                        password = loginVM.formState.password,
+                        response = {
+                            when (it) {
+                                is Response.Success -> {
 
-                            if (userType == Constants.routePaths[0].title) {
-                                //  navigate and pop to landlord
-                                direction.navigateAndPopRoute(
-                                    Constants.LANDLORD_ROUTE,
-                                    Constants.AUTHENTICATION_ROUTE
-                                )
-                            } else if (userType == Constants.routePaths[1].title) {
-                                //  navigate and pop to caretaker
-                                direction.navigateAndPopRoute(
-                                    Constants.HOME_ROUTE,
-                                    Constants.AUTHENTICATION_ROUTE
-                                )
+                                    Toast.makeText(
+                                        context,
+                                        "Logged in successfully.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    if (userType == Constants.routePaths[0].title) {
+                                        //  navigate and pop to landlord
+                                        direction.navigateAndPopRoute(
+                                            Constants.LANDLORD_ROUTE,
+                                            Constants.AUTHENTICATION_ROUTE
+                                        )
+                                    } else if (userType == Constants.routePaths[1].title) {
+                                        //  navigate and pop to caretaker
+                                        direction.navigateAndPopRoute(
+                                            Constants.HOME_ROUTE,
+                                            Constants.AUTHENTICATION_ROUTE
+                                        )
+                                    }
+                                }
+                                is Response.Failure -> {
+                                    Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                             }
-                        },
-                        onFailure = {
-                            Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
-                                .show()
-                        },
-                        onLoading = {
-                            Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
                         }
-                    )
+                    ))
                 }
                 is ValidationEvent.Failure -> {}
             }
@@ -135,7 +134,7 @@ fun LoginScreen(
             )
 
             //  user type
-            userType?.let { user ->
+            userType.let { user ->
 
                 val routePath: RoutePath = Constants.routePaths.filter { it.title == user }[0]
 

@@ -170,7 +170,7 @@ fun PathScreen(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White,
-                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+                    disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
                     disabledContentColor = Color.White.copy(alpha = 0.5f)
                 ),
                 enabled = coreVM.pathSelected.value != null

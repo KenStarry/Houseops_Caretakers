@@ -25,7 +25,7 @@ fun HyperLinkText(
     fullTextColor: Color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
     linkText: List<String>,
     linkTextColor: Color = MaterialTheme.colorScheme.primary,
-    linkTextFontWeight: FontWeight = FontWeight.Medium,
+    linkTextFontWeight: FontWeight = FontWeight.Bold,
     linkTextDecoration: TextDecoration = TextDecoration.None,
     hyperlinks: List<String>,
     fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize
@@ -35,12 +35,15 @@ fun HyperLinkText(
         //  add the full text
         append(fullText)
 
+        var nonLinkText = 0
+
         //  for every link text item
         linkText.forEachIndexed { index, link ->
 
             //  start & end index
             val startIndex = fullText.indexOf(link)
             val endIndex = startIndex + link.length
+            nonLinkText = startIndex
 
             //  add style to that hyperlink
             addStyle(
@@ -66,10 +69,11 @@ fun HyperLinkText(
         addStyle(
             style = SpanStyle(
                 fontSize = fontSize,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             ),
             start = 0,
-            end = fullText.length
+            end = nonLinkText
         )
     }
 

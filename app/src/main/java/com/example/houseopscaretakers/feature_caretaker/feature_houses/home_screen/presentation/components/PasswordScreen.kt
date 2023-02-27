@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,8 @@ import com.example.houseopscaretakers.R
 import com.example.houseopscaretakers.core.presentation.components.CustomTextField
 import com.example.houseopscaretakers.core.presentation.components.DoneCancelButtons
 import com.example.houseopscaretakers.core.presentation.components.MyLottie
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.data.HomeConstants
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HomeEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.viewmodels.HomeViewModel
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 
@@ -35,6 +38,11 @@ fun PasswordScreen(
     ) -> Unit,
     onCancel: () -> Unit
 ) {
+
+    //  DIALOGS
+    AnimatedVisibility(visible = homeVM.isApartmentsDialogVisible.value) {
+        ApartmentsDialog()
+    }
 
     Column(
         modifier = Modifier
@@ -103,7 +111,11 @@ fun PasswordScreen(
                     .wrapContentHeight()
                     .background(MaterialTheme.colorScheme.onSecondary)
                     .clickable {
-
+                        //  open apartments dialog
+                        homeVM.onHomeScreenEvent(HomeEvents.ToggleAlertDialog(
+                            isVisible = true,
+                            dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                        ))
                     }
                     .padding(
                         horizontal = 16.dp,
@@ -120,7 +132,13 @@ fun PasswordScreen(
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
 
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {
+                    //  open apartments dialog
+                    homeVM.onHomeScreenEvent(HomeEvents.ToggleAlertDialog(
+                        isVisible = true,
+                        dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                    ))
+                }) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowDropDown,
                         contentDescription = "downward arrow",

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.*
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.use_cases.HouseUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,6 +56,10 @@ class HomeViewModel @Inject constructor(
     //  price category
     private val _priceCategory = mutableStateOf(com.example.houseopscaretakers.core.Constants.priceCategories[0])
     val priceCategory: State<String> = _priceCategory
+
+    //  ALERT DIALOGS
+    private val _isApartmentsDialogVisible = mutableStateOf(false)
+    val isApartmentsDialogVisible: State<Boolean> = _isApartmentsDialogVisible
 
     //  house features list
     var houseFeatures by mutableStateOf(
@@ -259,19 +264,27 @@ class HomeViewModel @Inject constructor(
     }
 
     //  events for the home screen
-    fun onHomeScreenEvent(event: HouseEvents) {
+    fun onHomeScreenEvent(event: HomeEvents) {
 
         when (event) {
 
-            is HouseEvents.OpenDeleteDialog -> {
+            is HomeEvents.OpenDeleteDialog -> {
                 openDeleteDialog = true
             }
 
-            is HouseEvents.CloseDeleteDialog -> {
+            is HomeEvents.CloseDeleteDialog -> {
                 openDeleteDialog = false
             }
 
-            is HouseEvents.GetHouses -> {
+            is HomeEvents.ToggleAlertDialog -> {
+                when (event.dialogType) {
+                    HomeConstants.APARTMENTS_ALERT_DIALOG -> {
+                        _isApartmentsDialogVisible.value = true
+                    }
+                }
+            }
+
+            is HomeEvents.GetHouses -> {
                 viewModelScope.launch {
 
                     useCases.getHouses(
@@ -283,7 +296,7 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-            is HouseEvents.GetHouse -> {
+            is HomeEvents.GetHouse -> {
                 viewModelScope.launch {
                     //  loop through all houses
                     housesState.forEach { house ->
@@ -295,7 +308,7 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-            is HouseEvents.DeleteHouse -> {
+            is HomeEvents.DeleteHouse -> {
                 //  delete house from firestore
                 viewModelScope.launch {
                     useCases.deleteHouse(

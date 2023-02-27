@@ -7,6 +7,8 @@ object HomeConstants {
     const val PROFILE_BOTTOM_SHEET = "profile"
     const val SORT_BOTTOM_SHEET = "sort"
 
+    const val APARTMENTS_ALERT_DIALOG = "apartments alert dialog"
+
     //  sort options
     val sortOptions = listOf(
         "Custom", "Alphabetical (Ascending)",

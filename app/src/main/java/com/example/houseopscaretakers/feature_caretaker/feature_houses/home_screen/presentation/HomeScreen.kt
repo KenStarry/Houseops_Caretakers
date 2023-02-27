@@ -44,7 +44,7 @@ import com.example.houseopscaretakers.core.presentation.components.customSwipeAc
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.data.HomeConstants
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.BottomSheetEvents
-import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HouseEvents
+import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.domain.model.HomeEvents
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.components.*
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.components.bottom_sheet.AddHouseBottomSheet
 import com.example.houseopscaretakers.feature_caretaker.feature_houses.home_screen.presentation.components.bottom_sheet.ProfileBottomSheet
@@ -82,7 +82,7 @@ fun HomeScreen(
 
     //  getting all houses
     homeviewModel.onHomeScreenEvent(
-        HouseEvents.GetHouses(
+        HomeEvents.GetHouses(
             apartmentName = "Pangani Palace" ?: "Pangani Palace"
         )
     )
@@ -99,6 +99,8 @@ fun HomeScreen(
                     PasswordScreen(
                         homeVM = homeviewModel,
                         onDone = {apartment, caretakerId ->
+
+                            //  update caretaker details in firestore
 
                         },
                         onCancel = {
@@ -368,7 +370,7 @@ fun HomeScreen(
                                                                 onDismiss = {
                                                                     //  close dialog
                                                                     homeviewModel.onHomeScreenEvent(
-                                                                        HouseEvents.CloseDeleteDialog
+                                                                        HomeEvents.CloseDeleteDialog
                                                                     )
                                                                 },
                                                                 content = {
@@ -377,7 +379,7 @@ fun HomeScreen(
                                                                         onCancel = {
                                                                             //  close dialog
                                                                             homeviewModel.onHomeScreenEvent(
-                                                                                HouseEvents.CloseDeleteDialog
+                                                                                HomeEvents.CloseDeleteDialog
                                                                             )
                                                                         },
                                                                         onConfirm = {
@@ -392,7 +394,7 @@ fun HomeScreen(
                                                                             //  delete house
                                                                             caretaker?.caretakerApartment?.let {
                                                                                 homeviewModel.onHomeScreenEvent(
-                                                                                    HouseEvents.DeleteHouse(
+                                                                                    HomeEvents.DeleteHouse(
                                                                                         apartmentName = it,
                                                                                         houseModel = house
                                                                                     )
@@ -411,7 +413,7 @@ fun HomeScreen(
                                                             background = RedOrangeDull,
                                                             onSwipe = {
                                                                 //  open dialog
-                                                                homeviewModel.onHomeScreenEvent(HouseEvents.OpenDeleteDialog)
+                                                                homeviewModel.onHomeScreenEvent(HomeEvents.OpenDeleteDialog)
                                                             }
                                                         )
 

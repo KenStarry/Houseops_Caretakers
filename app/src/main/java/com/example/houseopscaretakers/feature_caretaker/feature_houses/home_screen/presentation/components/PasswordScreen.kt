@@ -41,7 +41,25 @@ fun PasswordScreen(
 
     //  DIALOGS
     AnimatedVisibility(visible = homeVM.isApartmentsDialogVisible.value) {
-        ApartmentsDialog()
+        ApartmentsDialog(
+            apartments = listOf(),
+            onConfirm = {
+                homeVM.onHomeScreenEvent(
+                    HomeEvents.ToggleAlertDialog(
+                        isVisible = false,
+                        dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                    )
+                )
+            },
+            onDismiss = {
+                homeVM.onHomeScreenEvent(
+                    HomeEvents.ToggleAlertDialog(
+                        isVisible = false,
+                        dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                    )
+                )
+            }
+        )
     }
 
     Column(
@@ -112,10 +130,12 @@ fun PasswordScreen(
                     .background(MaterialTheme.colorScheme.onSecondary)
                     .clickable {
                         //  open apartments dialog
-                        homeVM.onHomeScreenEvent(HomeEvents.ToggleAlertDialog(
-                            isVisible = true,
-                            dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
-                        ))
+                        homeVM.onHomeScreenEvent(
+                            HomeEvents.ToggleAlertDialog(
+                                isVisible = true,
+                                dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                            )
+                        )
                     }
                     .padding(
                         horizontal = 16.dp,
@@ -134,10 +154,12 @@ fun PasswordScreen(
 
                 IconButton(onClick = {
                     //  open apartments dialog
-                    homeVM.onHomeScreenEvent(HomeEvents.ToggleAlertDialog(
-                        isVisible = true,
-                        dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
-                    ))
+                    homeVM.onHomeScreenEvent(
+                        HomeEvents.ToggleAlertDialog(
+                            isVisible = true,
+                            dialogType = HomeConstants.APARTMENTS_ALERT_DIALOG
+                        )
+                    )
                 }) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowDropDown,

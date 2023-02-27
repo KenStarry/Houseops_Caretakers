@@ -43,6 +43,7 @@ fun LoginTextFields(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = loginVM.formState.email,
                 startIcon = Icons.Outlined.AlternateEmail,
                 endIcon = null,
                 placeholder = "Email Address",
@@ -66,6 +67,7 @@ fun LoginTextFields(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = loginVM.formState.password,
                 startIcon = Icons.Outlined.Key,
                 endIcon = null,
                 placeholder = "Password",

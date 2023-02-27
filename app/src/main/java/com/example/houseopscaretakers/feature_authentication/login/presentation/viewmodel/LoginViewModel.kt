@@ -6,10 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormEvent
-import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginFormState
-import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationEvent
-import com.example.houseopscaretakers.feature_authentication.login.domain.model.ValidationResult
+import com.example.houseopscaretakers.feature_authentication.login.domain.model.*
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.LoginUseCases
 import com.example.houseopscaretakers.feature_authentication.login.domain.use_cases.validation.LoginValidateUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val useCase: LoginUseCases,
-    val validateUseCases: LoginValidateUseCases
+    private val useCase: LoginUseCases,
+    private val validateUseCases: LoginValidateUseCases
 ) : ViewModel() {
 
     private var response by mutableStateOf(false)
@@ -29,27 +26,6 @@ class LoginViewModel @Inject constructor(
     var formState by mutableStateOf(LoginFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
-
-    //  verify login details of user
-    fun areDetailsValid(
-        email: String,
-        password: String
-    ): Boolean {
-
-        viewModelScope.launch {
-
-            response = if (email.isBlank() || !email.endsWith("com") || !email.contains(
-                    "@",
-                    ignoreCase = true
-                )
-            ) {
-                false
-            } else password.isNotBlank()
-        }
-
-        return response
-
-    }
 
     //  login user
     fun loginUser(
@@ -90,6 +66,22 @@ class LoginViewModel @Inject constructor(
             Log.d("LOGIN", useCase.loginUser(email, password, onSuccess = {}).toString())
         }
 
+    }
+
+    //  login events
+    fun onEvent(event: LoginEvents) {
+        when (event) {
+
+            is LoginEvents.LoginUser -> {
+                viewModelScope.launch {
+                    useCase.loginUser(
+                        email = event.email,
+                        password = event.password,
+                        response = { event.response(it) }
+                    )
+                }
+            }
+        }
     }
 
     //  login form event

@@ -36,7 +36,8 @@ import com.example.houseopscaretakers.navigation.Screen
 @Composable
 fun LoginScreen(
     loginVM: LoginViewModel = hiltViewModel(),
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    userType: String
 ) {
 
     var emailInput by remember { mutableStateOf("") }
@@ -48,23 +49,35 @@ fun LoginScreen(
     val coreVM: CoreViewModel = hiltViewModel()
 
     //  get the current user type
-    val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
+//    val userType = coreVM.userTypeFlow.collectAsState(initial = Constants.routePaths[0].title).value
 
     LaunchedEffect(key1 = context) {
         loginVM.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
+
+                    Log.d("login", "validation success!")
+
                     //  login user
                     loginVM.loginUser(
                         emailInput,
                         passwordInput,
                         onSuccess = {
                             Log.d("login", "success")
-                            //  navigate and pop
-                            direction.navigateAndPopRoute(
-                                com.example.houseopscaretakers.core.Constants.HOME_ROUTE,
-                                com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE
-                            )
+
+                            if (userType == Constants.routePaths[0].title) {
+                                //  navigate and pop to landlord
+                                direction.navigateAndPopRoute(
+                                    Constants.LANDLORD_ROUTE,
+                                    Constants.AUTHENTICATION_ROUTE
+                                )
+                            } else if (userType == Constants.routePaths[1].title) {
+                                //  navigate and pop to caretaker
+                                direction.navigateAndPopRoute(
+                                    Constants.HOME_ROUTE,
+                                    Constants.AUTHENTICATION_ROUTE
+                                )
+                            }
                         },
                         onFailure = {
                             Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
@@ -158,6 +171,7 @@ fun LoginScreen(
         LoginButtons(
             onLoginWithEmail = {
                 loginVM.onFormEvent(LoginFormEvent.Submit)
+                Log.d("login", "login clicked")
             },
             onLoginWithGoogle = {
                 //  login with Google

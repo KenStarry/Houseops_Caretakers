@@ -158,10 +158,10 @@ fun PathScreen(
                     //  save user type to datastore
                     coreVM.pathSelected.value?.title?.let { userType ->
                         coreVM.onEvent(CoreEvents.DatastoreSaveUserType(userType))
-                    }
 
-                    //  navigate to login activity
-                    direction.navigateToRoute(Screen.Login.route)
+                        //  navigate to login activity
+                        direction.navigateToRoute(Screen.Login.passUserType(user = userType))
+                    }
 
                 },
                 contentPadding = PaddingValues(

@@ -11,7 +11,9 @@ sealed class Screen(
     object Loading : Screen(Constants.LOADING_SCREEN_ROUTE)
 
     object Main : Screen(Constants.MAIN_SCREEN_ROUTE)
-    object Login : Screen(Constants.LOGIN_SCREEN_ROUTE)
+    object Login : Screen("${Constants.LOGIN_SCREEN_ROUTE}/{user}") {
+        fun passUserType(user: String) = "${Constants.LOGIN_SCREEN_ROUTE}/$user"
+    }
     object SignUp : Screen("${Constants.SIGN_UP_SCREEN_ROUTE}/{user}"){
         fun passUserType(user: String) = "${Constants.SIGN_UP_SCREEN_ROUTE}/$user"
     }

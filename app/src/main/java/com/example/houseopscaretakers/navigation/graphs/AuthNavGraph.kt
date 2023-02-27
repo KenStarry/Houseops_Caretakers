@@ -17,8 +17,18 @@ fun NavGraphBuilder.authNavGraph(
         route = com.example.houseopscaretakers.core.Constants.AUTHENTICATION_ROUTE
     ) {
 
-        composable(route = Screen.Login.route) {
-            LoginScreen(navHostController = navHostController)
+        composable(
+            route = Screen.Login.route,
+            arguments = listOf(
+                navArgument("user") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            LoginScreen(
+                navHostController = navHostController,
+                userType = it.arguments?.getString("user") ?: "none"
+            )
         }
 
         composable(

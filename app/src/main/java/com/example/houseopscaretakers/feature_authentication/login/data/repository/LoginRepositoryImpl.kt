@@ -2,6 +2,7 @@ package com.example.houseopscaretakers.feature_authentication.login.data.reposit
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.domain.model.StateResponse
 import com.example.houseopscaretakers.feature_authentication.login.domain.repository.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -14,25 +15,20 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun loginUser(
         email: String,
         password: String,
-        onSuccess: (res: StateResponse?) -> Unit
+        response: (res: Response<*>) -> Unit
     ) {
-
-        var response = mutableStateOf<StateResponse?>(null)
-
         try {
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    response.value = StateResponse.Success
-                    onSuccess(response.value)
+                    response(Response.Success(true))
                 }
                 .addOnFailureListener {
-                    response.value = StateResponse.Failure
-                    Log.d("LOGIN", "Login Failed : ${response.value}")
+                    response(Response.Failure(it))
                 }
 
         } catch (e: Exception) {
-            response.value = StateResponse.Failure
+            response(Response.Failure(e))
         }
     }
 }

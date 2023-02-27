@@ -1,5 +1,6 @@
 package com.example.houseopscaretakers.feature_authentication.login.domain.repository
 
+import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.domain.model.StateResponse
 
 interface LoginRepository {
@@ -8,6 +9,6 @@ interface LoginRepository {
     suspend fun loginUser(
         email: String,
         password: String,
-        onSuccess: (res: StateResponse?) -> Unit
+        response: (res: Response<*>) -> Unit
     )
 }

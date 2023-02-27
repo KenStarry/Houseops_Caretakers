@@ -26,15 +26,24 @@ fun LndHomeApartments(
             items(
                 items = LndHomeConstants.alphabets
             ) {
-                //  alphabet item
-                AlphabetItem(
-                    alphabet = it.toString(),
-                    apartmentList = lndHomeVM.landlordApartments.value.filter { apartment ->
-                        apartment.apartmentName.first() == it
-                    }
-                )
+
+                val apartmentsFiltered = lndHomeVM.landlordApartments.value.filter { apartment ->
+                    apartment.apartmentName.first() == it
+                }.sortedBy { apartment ->
+                    apartment.apartmentName
+                }
+
+                if (apartmentsFiltered.isNotEmpty()) {
+                    //  alphabet item
+                    AlphabetItem(
+                        alphabet = it.toString(),
+                        apartmentList = apartmentsFiltered
+                    )
+                }
             }
         },
-        state = alphabetListState
+        state = alphabetListState,
+        modifier = Modifier
+            .fillMaxSize()
     )
 }

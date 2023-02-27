@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -27,16 +28,25 @@ fun AlphabetItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
+            .wrapContentHeight(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         //  title
-        Text(
-            text = alphabet,
-            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-        )
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(50.dp)
+                .background(MaterialTheme.colorScheme.tertiary),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = alphabet,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
+        }
 
         LazyColumn(
             content = {
@@ -51,7 +61,7 @@ fun AlphabetItem(
                         modifier = Modifier
                             .clip(RoundedCornerShape(16.dp))
                             .fillMaxWidth()
-                            .wrapContentHeight()
+                            .height(100.dp)
                             .background(MaterialTheme.colorScheme.onSecondary)
                             .padding(16.dp)
                     )
@@ -59,10 +69,10 @@ fun AlphabetItem(
                 }
             },
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
-                .fillMaxSize()
-                .height(200.dp)
+                .fillMaxWidth()
+                .height((100.dp + 32.dp) * apartmentList.size)
         )
 
     }

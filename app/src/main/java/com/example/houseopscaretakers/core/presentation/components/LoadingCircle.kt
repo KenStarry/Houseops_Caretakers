@@ -61,7 +61,9 @@ fun LoadingCircle(
     val lastCircle = circleValues.size - 1
 
     Row(
-        modifier = modifier
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         circleValues.forEachIndexed { index, value ->
             Box(

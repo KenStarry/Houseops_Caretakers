@@ -79,7 +79,9 @@ class LoginViewModel @Inject constructor(
                 emailError = emailResult.errorMessage,
                 passwordError = passwordResult.errorMessage
             )
-            return
+            viewModelScope.launch {
+                validationEventChannel.send(ValidationEvent.Failure)
+            }
         }
 
         viewModelScope.launch {

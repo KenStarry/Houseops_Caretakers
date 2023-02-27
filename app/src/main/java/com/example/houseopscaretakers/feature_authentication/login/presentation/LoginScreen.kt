@@ -23,6 +23,7 @@ import com.example.houseopscaretakers.core.Constants
 import com.example.houseopscaretakers.core.domain.model.Response
 import com.example.houseopscaretakers.core.presentation.components.HomePillBtns
 import com.example.houseopscaretakers.core.presentation.components.HyperLinkText
+import com.example.houseopscaretakers.core.presentation.components.LoadingCircle
 import com.example.houseopscaretakers.core.presentation.model.RoutePath
 import com.example.houseopscaretakers.core.presentation.viewmodel.CoreViewModel
 import com.example.houseopscaretakers.feature_authentication.login.domain.model.LoginEvents
@@ -43,6 +44,8 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
     val direction = Direction(navHostController)
+
+    var isLoading by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = context) {
         loginVM.validationEvents.collect { event ->
@@ -65,6 +68,8 @@ fun LoginScreen(
                                         Toast.LENGTH_SHORT
                                     ).show()
 
+                                    isLoading = false
+
                                     if (userType == Constants.routePaths[0].title) {
                                         //  navigate and pop to landlord
                                         direction.navigateAndPopRoute(
@@ -80,14 +85,21 @@ fun LoginScreen(
                                     }
                                 }
                                 is Response.Failure -> {
-                                    Toast.makeText(context, "Oops, couldn't log you in", Toast.LENGTH_SHORT)
+                                    Toast.makeText(
+                                        context,
+                                        "Oops, couldn't log you in",
+                                        Toast.LENGTH_SHORT
+                                    )
                                         .show()
+                                    isLoading = false
                                 }
                             }
                         }
                     ))
                 }
-                is ValidationEvent.Failure -> {}
+                is ValidationEvent.Failure -> {
+                    isLoading = false
+                }
             }
         }
     }
@@ -166,19 +178,32 @@ fun LoginScreen(
                 .wrapContentHeight()
         )
 
-        //  Login buttons
-        LoginButtons(
-            onLoginWithEmail = {
-                loginVM.onFormEvent(LoginFormEvent.Submit)
-                Log.d("login", "login clicked")
-            },
-            onLoginWithGoogle = {
-                //  login with Google
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        )
+        if (isLoading) {
+
+            LoadingCircle(
+                primaryColor = MaterialTheme.colorScheme.primary,
+                tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            )
+
+        } else {
+            //  Login buttons
+            LoginButtons(
+                onLoginWithEmail = {
+                    //  start animation
+                    isLoading = true
+                    loginVM.onFormEvent(LoginFormEvent.Submit)
+                },
+                onLoginWithGoogle = {
+                    //  login with Google
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            )
+        }
 
         //  Our hyperlink text
         HyperLinkText(

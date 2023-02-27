@@ -42,7 +42,7 @@ fun PasswordScreen(
     //  DIALOGS
     AnimatedVisibility(visible = homeVM.isApartmentsDialogVisible.value) {
         ApartmentsDialog(
-            apartments = listOf(),
+            homeVM = homeVM,
             onConfirm = {
                 homeVM.onHomeScreenEvent(
                     HomeEvents.ToggleAlertDialog(

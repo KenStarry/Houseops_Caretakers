@@ -160,7 +160,7 @@ fun PathScreen(
                         coreVM.onEvent(CoreEvents.DatastoreSaveUserType(userType))
 
                         //  navigate to login activity
-                        direction.navigateToRoute(Screen.Login.passUserType(user = userType))
+                        direction.navigateToRoute(Screen.Login.route)
                     }
 
                 },

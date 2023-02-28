@@ -39,13 +39,13 @@ import com.example.houseopscaretakers.navigation.Screen
 @Composable
 fun LoginScreen(
     loginVM: LoginViewModel = hiltViewModel(),
-    navHostController: NavHostController,
-    userType: String
+    navHostController: NavHostController
 ) {
     val context = LocalContext.current
     val direction = Direction(navHostController)
 
     var isLoading by remember { mutableStateOf(false) }
+    val userType = "Landlord"
 
     LaunchedEffect(key1 = context) {
         loginVM.validationEvents.collect { event ->

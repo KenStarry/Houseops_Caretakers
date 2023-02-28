@@ -41,6 +41,7 @@ fun SignUpForms(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = signUpVM.formState.username,
                 startIcon = Constants.textFieldsList[0].icon,
                 endIcon = null,
                 placeholder = Constants.textFieldsList[0].placeholder,
@@ -65,6 +66,7 @@ fun SignUpForms(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = signUpVM.formState.email,
                 startIcon = Constants.textFieldsList[1].icon,
                 endIcon = null,
                 placeholder = Constants.textFieldsList[1].placeholder,
@@ -88,6 +90,7 @@ fun SignUpForms(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = signUpVM.formState.password,
                 startIcon = Constants.textFieldsList[3].icon,
                 endIcon = null,
                 placeholder = Constants.textFieldsList[3].placeholder,
@@ -113,6 +116,7 @@ fun SignUpForms(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CustomTextField(
+                textFieldValue = signUpVM.formState.repeatedPassword,
                 startIcon = Constants.textFieldsList[4].icon,
                 endIcon = null,
                 placeholder = Constants.textFieldsList[4].placeholder,
